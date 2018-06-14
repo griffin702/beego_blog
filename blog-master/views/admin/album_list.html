@@ -1,0 +1,45 @@
+<fieldset>
+	<legend>相册列表</legend>
+
+	<table class="table table-hover">
+		<thead>
+		<tr>
+			<th>ID</th>
+			<th>相册名</th>
+			<th>创建时间</th>
+			<th>排序值</th>
+			<th>封面</th>
+			<th>操作</th>
+		</tr>
+		</thead>
+		<tbody>
+		{{range $k, $v := .list}}
+			<tr>
+				<td>{{$v.Id}}</td>
+				<td>{{$v.Name}}</td>
+				<td>{{date $v.Posttime "Y-m-d H:i:s"}}</td>
+				<td>{{$v.Rank}}</td>
+				<td>
+					<a href="/admin/photo/list?albumid={{$v.Id}}">
+						<img src="{{$v.Cover}}" width = "170" height="80" />
+					</a>
+				</td>
+				<td>
+				{{if $v.Ishide}}
+					<a href="/admin/album/delete?albumid={{$v.Id}}&ishide=0" >显示</a>
+				{{else}}
+					<a href="/admin/album/delete?albumid={{$v.Id}}&ishide=1" >隐藏</a>
+				{{end}}
+				|
+				<a href="/admin/album/edit?albumid={{$v.Id}}" >修改</a>
+				</td>
+			</tr>
+		{{end}}
+		</tbody>
+		<tfoot>
+			<tr>
+				<td colspan="20">{{str2html .pagebar}}</td>
+			</tr>
+		</tfoot>
+	</table>
+</fieldset>

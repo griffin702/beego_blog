@@ -1,0 +1,34 @@
+<h1 class="t_nav">
+	<span class="glyphicon glyphicon-map-marker"> 像“草根”一样，紧贴着地面，低调的存在，冬去春来，枯荣无恙。</span>
+	<a href="/" class="n1">网站首页</a>
+	<a href="/life.html" class="n2">{{.smalltitle}}</a>
+</h1>
+
+<div class="index_about">
+    <h2 class="c_titile">{{str2html .post.ColorTitle}}</h2>
+    <p class="box_c">
+    	<span class="d_time">发布时间：{{date .post.Posttime "Y-m-j"}}</span>
+    	<span>编辑：{{.post.Author}}</span>
+        <span>阅读：{{.post.Views}}</span>
+    </p>
+    <ul class="infos">
+     	{{str2html .post.Content}}
+    </ul>
+    <div class="keybq">
+    <p><span>关键字词</span>[{{str2html .post.TagsLink}}]</p>
+    
+    </div>
+    <div class="ad"> </div>
+    <div class="nextinfo">
+            {{if .pre}}
+                <p>上一篇：<a href="{{.pre.Link}}">{{str2html .pre.ColorTitle}}</a></p>
+            {{end}}
+            {{if .next}}
+                <p>下一篇：<a href="{{.next.Link}}">{{str2html .next.ColorTitle}}</a></p>
+            {{end}}
+    </div>
+    <div class="duoshuo">
+        <div class="ds-thread"></div>
+    </div>
+</div>
+<link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />

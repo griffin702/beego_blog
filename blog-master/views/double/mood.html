@@ -1,0 +1,19 @@
+<div class="moodlist">
+  <h1 class="t_nav">
+    <span class="glyphicon glyphicon-map-marker"> 删删写写，回回忆忆，虽无法行云流水，却也可碎言碎语。</span>
+    <a href="/" class="n1">网站首页</a>
+    <a href="/mood.html" class="n2">碎言碎语</a>
+  </h1>
+  <div class="mooddiv">
+    {{range $k, $v := .list}}
+      <ul class="arrow_box">
+        <div class="sy">
+          <img src="{{$v.Cover}}">
+          <p>{{str2html $v.Content}}</p>
+        </div>
+        <span class="dateview">{{date $v.Posttime "Y-m-j"}}</span>
+      </ul>
+    {{end}}
+  </div>
+  {{str2html .pagebar}}
+</div>

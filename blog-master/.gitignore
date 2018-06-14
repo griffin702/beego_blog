@@ -1,0 +1,3 @@
+*.exe
+static/upload/bigpic/*/*.*
+static/upload/smallpic/*/*.*

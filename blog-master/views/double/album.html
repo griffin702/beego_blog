@@ -1,0 +1,30 @@
+<link href="{{.root}}css/photo.css" rel="stylesheet">
+<script>
+  $(document).ready(function() {
+    $("#auto-loop").lightGallery({
+    });
+</script>
+
+<h1 class="t_nav">
+  <span class="glyphicon glyphicon-map-marker"> 每一个瞬间的摄影，都是无法复摹独一无二的</span>
+  <a href="/" class="n1">网站首页</a>
+  <a href="/album.html" class="n2">光影瞬间</a>
+</h1>
+<div class="photolist">
+    <ul id="auto-loop" class="gallery list-unstyled">
+        {{range $k, $v := .list}}
+            <li> 
+              <a href="/photo{{$v.Id}}.html">
+                <div class="box1" style="background:url({{$v.Cover}});">
+                    <div class="box2"><font size=6 face="Times" color="white">{{$v.Photonum}}</font></div>
+                </div>
+                <span>{{$v.Name}}</span>
+              </a> 
+            </li>
+       {{end}}
+    </ul>
+</div>
+{{str2html .pagebar}}
+<div class="comments">
+    <div class="ds-thread"></div>
+</div>

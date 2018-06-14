@@ -1,0 +1,33 @@
+<fieldset>
+	<legend>说说列表</legend>
+
+	<table class="table table-hover">
+		<thead>
+		<tr>
+			<th>ID</th>
+			<th>时间</th>
+			<th>内容</th>
+			<th>图片</th>
+		</tr>
+		</thead>
+		<tbody>
+		{{range $k, $v := .list}}
+			<tr>
+				<td>{{$v.Id}}</td>
+				<td>{{date $v.Posttime "Y-m-d H:i:s"}}</td>
+				<td>{{str2html $v.Content}}</td>
+				<td><img src="{{$v.Cover}}" width = "170" height="80" /></td>
+				<td>
+				<a href="/admin/mood/delete?id={{$v.Id}}" onclick="return del_confirm()">删除</a>
+				</td>
+			</tr>
+		{{end}}
+		</tbody>
+		<tfoot>
+			<tr>
+				<td colspan="20">{{str2html .pagebar}}</td>
+			</tr>
+		</tfoot>
+	</table>
+
+</fieldset>

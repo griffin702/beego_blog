@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="zh-cn">
+    <head>
+        <title>{{.title}}</title>
+        <meta charset="UTF-8">
+        <meta name="renderer" content="webkit|ie-comp|ie-stand">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <meta name="keywords" content="{{.keywords}}">
+        <meta name="description" content="{{.description}}">
+        <link href="{{.root}}css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
+        <script src="/static/js/jquery.min.js"></script>
+        <script src="{{.root}}js/base.js"></script>
+        <script src="/static/bootstrap/js/bootstrap.min.js"></script>
+        {{str2html .hidejs}}
+    </head>
+    <body>
+        <div class="container-fluid" style="padding: 70px 0 0 0;">
+            {{.head}}
+            {{.banner}}
+            <div class="col-lg-2 col-md-2 hidden-sm hidden-xs column"></div>
+            <article class="col-lg-8 col-md-8 col-sm-12 col-xs-12 column">
+                {{.LayoutContent}}
+                {{.right}}
+            </article>
+            <div class="col-lg-2 col-md-2 hidden-sm hidden-xs column"></div>
+            {{.foot}}
+        </div>
+    </body>
+</html>

@@ -1,0 +1,62 @@
+@CHARSET "UTF-8";
+
+body {background:#fff;padding: 0;}
+a {color:#2277AA;}
+a:hover {color:#DC6C31; text-decoration:none;}
+p {margin: 0!important;}
+ul {list-style:none;}
+select {font-size: 12px; margin: 0;}
+
+.header {
+	background:#464646 url('../img/top-bg.png') repeat-x;
+	color:#fff;
+	height:41px; 
+	margin-bottom:10px
+}
+.header h1 {margin:5px 0;font-size:24px;text-shadow:1px 1px 0 #000;}
+.header h1 span {color:#f0f0f0; font-size:12px; font-weight: normal;margin-left: 50px;line-height: 41px}
+.header a {color:#f0f0f0;}
+.header a:hover {color: yellow;}
+.header i {color: #666}
+.main {background:#fff}
+footer { text-align: center; line-height: 40px; border-top: #E8E8E8 1px solid ; width:1000px; margin:auto}
+
+.adminnav .panel-heading {text-align: center;}
+.adminnav .panel-body {padding: 0!important;}
+.adminnav .panel-body a {text-align: center;}
+.adminnav .nav-pills>li.active>a, .adminnav .nav-pills>li.active>a:focus, .adminnav .nav-pills>li.active>a:hover {
+	background:#464646 url('../img/top-bg.png') repeat-x;
+}
+
+.page-content *, label {font-size:12px !important;margin: 0;}
+.page-content {
+	margin-left: 150px; 
+	margin-top: 0px;
+	padding: 0px;
+	background-color: #fff; 
+	min-height:600px;
+}
+.table-form th {
+	vertical-align:middle!important;
+	font-size:12px;
+	line-height:26px!important;
+	text-align:right;
+	color:#333;
+	border-top:none!important;
+}
+.table-form tfoot, .table-form tfoot {background:#f9f9f9}
+.table-form td {border:none;border-top:none!important;}
+.table-form input {margin: 0;}
+.table-form textarea {margin: 0;}
+.table-form select {margin: 0;}
+.table-form img {margin: 0!important;}
+.pagination {margin:0;}
+
+.search-form {border:1px solid #FBEED5; background:#FCF8E3; padding:5px; margin:5px 0}
+.search-form form {margin:0}
+
+.toolbar {margin-bottom:10px;font-size:12px}
+.toolbar a {line-height:35px;}
+.toolbar a:hover {text-decoration:none;}
+.toolbar .active {background:#498CD0; color:#fff; padding:3px 10px; -moz-border-radius: 2px;-webkit-border-radius: 2px;-khtml-border-radius: 2px;border-radius: 2px; }
+.toolbar .divider {color:#ccc; margin:0 5px}

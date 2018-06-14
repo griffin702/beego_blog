@@ -1,0 +1,34 @@
+<div class="col-lg-3 col-md-3 hidden-sm hidden-xs column">
+    <div class="weather">
+    <iframe width="260" scrolling="no" height="100" frameborder="0" allowtransparency="true" src="http://i.tianqi.com/index.php?c=code&id=19&color=%23&bgc=%23&bdc=%23&icon=1&temp=0&num=2"></iframe>
+    </div>
+    <div class="news">
+        <h3><p>最新<span>文章</span></p></h3>
+        <ul class="rank">
+        {{range $k,$v := .latestblog}}
+            <li><a href="{{$v.Link}}" title="{{$v.Title}}">{{str2html $v.ColorTitle}}</a></li>
+        {{end}}
+        </ul>
+        <h3 class="ph"><p>点击<span>排行</span></p></h3>
+        <ul class="paih">
+        {{range $k,$v := .hotblog}}
+            <li><a href="{{$v.Link}}" title="{{$v.Title}}">{{str2html $v.ColorTitle}}</a></li>
+        {{end}}
+        </ul>
+
+        <h3 class="links">
+            <p>友情<span>链接</span></p>
+        </h3>
+        <div class="link-friends">
+        {{range $k,$v := .links}}
+            <span>
+                <a rel="link" href="{{$v.Url}}" title="{{$v.Sitename}}" target="_blank">
+                <img alt='' src='{{$v.Siteavator}}' class='wyavater' height='36' width='36' title="{{$v.Sitedesc}}" />
+                <span class="sitename">{{$v.Sitename}}</span>
+                </a>
+		    </span>
+        {{end}}
+        </div>
+        <a class="weixin"></a>
+    </div>
+</div>
