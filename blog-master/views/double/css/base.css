@@ -3,7 +3,7 @@ img { border: 0; }
 ul { list-style: none; }
 p { margin: 0!important; }
 a:link, a:visited, a:hover, a:focus { text-decoration: none!important; }
-span { font-size: 12px; }
+a span { font-size: 10px; }
 .left { float: left; }
 .right { float: right; }
 .blank { height: 5px; overflow: hidden; width: 100%; margin: auto; clear: both }
