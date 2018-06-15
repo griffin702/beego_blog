@@ -1,8 +1,9 @@
 /*base*/
 img { border: 0; }
 ul { list-style: none; }
-p {margin: 0!important;}
-a:link, a:visited, a:hover, a:focus {text-decoration: none!important;}
+p { margin: 0!important; }
+a:link, a:visited, a:hover, a:focus { text-decoration: none!important; }
+span { font-size: 12px; }
 .left { float: left; }
 .right { float: right; }
 .blank { height: 5px; overflow: hidden; width: 100%; margin: auto; clear: both }
@@ -130,13 +131,13 @@ h2.title_tj span { color: #FE5187 }
 h2.title_tj p { background: #fff; width: 90px }
 
 .avatar { float: right; margin: 40px 20px 0px 0px; width: 130px; height: 130px; border-radius: 100%; overflow: hidden; border: #FFF 4px solid }
-.avatar a { display: block; padding-top: 97px; width: 160px; background: url(../images/avatar.png) no-repeat; background-size: 130px 130px }
-.avatar a span { display: block; margin-top: 63px; padding-top: 8px; width: 130px; height: 55px; text-align: center; line-height: 20px; color: #fff; background: rgba(0, 0, 0, .5); -webkit-transition: margin-top .2s ease-in-out; -moz-transition: margin-top .2s ease-in-out; -o-transition: margin-top .2s ease-in-out; transition: margin-top .2s ease-in-out; }
+.avatar a { display: block; padding-top: 85px; width: 122px; background: url(../images/avatar.png) no-repeat; background-size: 130px 130px }
+.avatar a span { display: block; margin-top: 63px; padding-top: 6px; width: 122px; height: 55px; text-align: center; line-height: 20px; color: #fff; background: rgba(0, 0, 0, .5); -webkit-transition: margin-top .2s ease-in-out; -moz-transition: margin-top .2s ease-in-out; -o-transition: margin-top .2s ease-in-out; transition: margin-top .2s ease-in-out; }
 .avatar a:hover span { display: block; margin-top: 0; }
 
 .avatarher { float: right; margin: 40px 10px 0px 0px; width: 130px; height: 130px; border-radius: 100%; overflow: hidden; border: #FFF 4px solid }
-.avatarher a { display: block; padding-top: 97px; width: 160px; background: url(../images/avatarher.jpg) no-repeat; background-size: 130px 130px }
-.avatarher a span { display: block; margin-top: 63px; padding-top: 8px; width: 130px; height: 55px; text-align: center; line-height: 20px; color: #fff; background: rgba(0, 0, 0, .5); -webkit-transition: margin-top .2s ease-in-out; -moz-transition: margin-top .2s ease-in-out; -o-transition: margin-top .2s ease-in-out; transition: margin-top .2s ease-in-out; }
+.avatarher a { display: block; padding-top: 85px; width: 122px; background: url(../images/avatarher.jpg) no-repeat; background-size: 130px 130px }
+.avatarher a span { display: block; margin-top: 63px; padding-top: 6px; width: 122px; height: 55px; text-align: center; line-height: 20px; color: #fff; background: rgba(0, 0, 0, .5); -webkit-transition: margin-top .2s ease-in-out; -moz-transition: margin-top .2s ease-in-out; -o-transition: margin-top .2s ease-in-out; transition: margin-top .2s ease-in-out; }
 .avatarher a:hover span { display: block; margin-top: 0; }
 
 .lock { float: right; margin: 80px 10px 0px 0px; width: 46px; height: 55px; border-radius: 100%; overflow: hidden; background: url(../images/lock.png) no-repeat}
