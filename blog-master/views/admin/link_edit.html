@@ -15,7 +15,7 @@
         <tr>
             <th>网站logo</th>
             <td>
-                <input class="span4 form-control" name="siteavator" id="siteavator" type="text" />
+                <input class="span4 form-control" name="siteavator" id="siteavator" type="text" value="{{.link.Siteavator}}" />
                 <a class="btn btn-default btn-primary" style="margin-left: 10px;" href="javascript:void(0);"
                    onclick="upImage();">上传图片</a>
             </td>
@@ -23,7 +23,7 @@
         <tr>
             <th>网站描述</th>
             <td>
-                <input class="span4 form-control" name="sitedesc" type="text" />
+                <input class="span4 form-control" name="sitedesc" type="text" value="{{.link.Sitedesc}}" />
                 <script type="text/javascript" charset="utf-8">
                     window.UEDITOR_HOME_URL = "/static/ueditor/";
                 </script>
