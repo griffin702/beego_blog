@@ -145,7 +145,7 @@ h2.title_tj p { background: #fff; width: 90px }
 
 
 /*life*/
-.bloglist { width: 740px; overflow: hidden; background: url(../images/r_line.jpg) repeat-y right; }
+.bloglist { min-height: 740px; overflow: hidden; background: url(../images/r_line.jpg) repeat-y right; }
 .bloglist h3 {margin: 5px 0 10px 0; color: #333 }
 .bloglist figure { float: left; width: 183px; }
 .bloglist figure img { padding: 4px; border: #f4f2f2 1px solid; width: 175px; }
