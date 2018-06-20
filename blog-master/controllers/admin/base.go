@@ -23,6 +23,7 @@ type baseController struct {
 	moduleName     string
 	controllerName string
 	actionName     string
+	permissionlist map[string]int
 }
 
 func (this *baseController) Prepare() {
@@ -36,22 +37,57 @@ func (this *baseController) Prepare() {
 
 //登录状态验证
 func (this *baseController) auth() {
-	if this.controllerName == "account" && (this.actionName == "login" || this.actionName == "logout") {
-
-	} else {
-		arr := strings.Split(this.Ctx.GetCookie("auth"), "|")
+	this.permissionlist = map[string]int{"account": 0}
+	arr := strings.Split(this.Ctx.GetCookie("auth"), "|")
+	if this.actionName == "login" {
 		if len(arr) == 2 {
 			idstr, password := arr[0], arr[1]
 			userid, _ := strconv.ParseInt(idstr, 10, 0)
 			if userid > 0 {
 				var user models.User
+				var permission models.Permission
 				user.Id = userid
 				if user.Read() == nil && password == models.Md5([]byte(this.getClientIp()+"|"+user.Password)) {
 					this.userid = user.Id
 					this.username = user.Username
+					for _, id := range strings.Split(user.Permission,"|") {
+						permission.Id, _ = strconv.Atoi(id)
+						err := permission.Query().Filter("id",permission.Id).One(&permission)
+						if err == nil {
+							this.permissionlist[permission.Name] = permission.Id
+						}
+					}
+					this.permissionlist["index"] = 0
+					if this.actionName == "login" {
+						this.Redirect("/admin", 302)
+					}
 				}
 			}
 		}
+	} else {
+		//已登录
+		if len(arr) == 2 {
+			idstr, password := arr[0], arr[1]
+			userid, _ := strconv.ParseInt(idstr, 10, 0)
+			if userid > 0 {
+				var user models.User
+				var permission models.Permission
+				user.Id = userid
+				if user.Read() == nil && password == models.Md5([]byte(this.getClientIp()+"|"+user.Password)) {
+					this.userid = user.Id
+					this.username = user.Username
+					for _, id := range strings.Split(user.Permission,"|") {
+						permission.Id, _ = strconv.Atoi(id)
+						err := permission.Query().Filter("id",permission.Id).One(&permission)
+						if err == nil {
+							this.permissionlist[permission.Name] = permission.Id
+						}
+					}
+					this.permissionlist["index"] = 0
+				}
+			}
+		}
+		//未登录
 		if this.userid == 0 {
 			this.Redirect("/admin/login", 302)
 		}
@@ -104,8 +140,10 @@ func (this *baseController) getClientIp() string {
 
 //权限验证
 func (this *baseController) checkPermission() {
-	if this.userid != 1 && this.controllerName == "user" {
-		this.showmsg("抱歉，只有超级管理员才能进行该操作！")
+	if this.userid != 1 {
+		if _, ok := this.permissionlist[this.controllerName]; !ok {
+			this.showmsg("抱歉，只有超级管理员才能进行该操作！")
+		}
 	}
 }
 

@@ -111,6 +111,8 @@ func (m *Post) TagsLink() string {
 func (m *Post) Excerpt() string {
 	if i := strings.Index(m.Content, "_ueditor_page_break_tag_"); i != -1 {
 		return m.Content[:i]
+	}else if i == -1 {
+		return m.Content[:100]+"..."
 	}
 	return m.Content
 }

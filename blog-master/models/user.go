@@ -13,9 +13,10 @@ type User struct {
 	Email      string    `orm:"size(50)"`
 	Lastlogin  time.Time `orm:"auto_now_add;type(datetime)"`
 	Logincount int64
-	Lastip     string `orm:"size(32)"`
-	Authkey    string `orm:"size(10)"`
+	Lastip     string    `orm:"size(32)"`
+	Authkey    string    `orm:"size(10)"`
 	Active     int8
+	Permission string    `orm:"size(100)"`
 }
 
 func (m *User) TableName() string {
