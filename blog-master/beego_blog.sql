@@ -81,6 +81,24 @@ CREATE TABLE `tb_option` (
 ) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 
 #
+# Structure for table "tb_permission"
+#
+
+DROP TABLE IF EXISTS `tb_permission`;
+CREATE TABLE `tb_permission` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(20) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+
+#
+# Data for table "tb_permission"
+#
+
+INSERT INTO `tb_permission` VALUES (1,'user'),(2,'article'),(3,'album'),(4,'link'),(5,'mood'),(6,'tag'),(7,'system');
+
+#
 # Data for table "tb_option"
 #
 
@@ -197,6 +215,7 @@ CREATE TABLE `tb_user` (
   `lastlogin` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '最后登录时间',
   `authkey` char(10) NOT NULL DEFAULT '' COMMENT '登录key',
   `active` tinyint(3) NOT NULL DEFAULT '0' COMMENT '是否激活',
+  `permission` varchar(100) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
@@ -205,4 +224,4 @@ CREATE TABLE `tb_user` (
 # Data for table "tb_user"
 #
 
-INSERT INTO `tb_user` VALUES (1,'admin','e10adc3949ba59abbe56e057f20f883e','admin@admin.com',25,'127.0.0.1','2018-06-14 14:56:29','',1);
+INSERT INTO `tb_user` VALUES (1,'admin','e10adc3949ba59abbe56e057f20f883e','admin@admin.com',25,'127.0.0.1','2018-06-14 14:56:29','',1,'1|2|3|4|5|6|7');
