@@ -5,6 +5,8 @@ import (
 	_ "blog-master/models"
 	_ "blog-master/routers"
 	"github.com/astaxie/beego/logs"
+	"strings"
+	"strconv"
 )
 
 func initLogger() {
@@ -20,7 +22,28 @@ func initLogger() {
 	logs.Async(1e3)
 }
 
+//添加自定义模板函数
+func hasPermission(permissionlist map[string]int, value int) (out bool) {
+	for _, id := range permissionlist {
+		if value == id {
+			return true
+		}
+	}
+	return false
+}
+
+func hasPermissionstr(permissionlist string, value int) (out bool) {
+	for _, id := range strings.Split(permissionlist, "|") {
+		if id == strconv.Itoa(value) {
+			return true
+		}
+	}
+	return false
+}
+
 func main() {
 	initLogger()
+	beego.AddFuncMap("haspermission", hasPermission)
+	beego.AddFuncMap("haspermissionstr", hasPermissionstr)
 	beego.Run()
 }

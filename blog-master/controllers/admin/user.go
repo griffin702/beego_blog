@@ -41,11 +41,20 @@ func (this *UserController) Add() {
 		password := strings.TrimSpace(this.GetString("password"))
 		password2 := strings.TrimSpace(this.GetString("password2"))
 		email := strings.TrimSpace(this.GetString("email"))
+		permissionlist := strings.TrimSpace(
+			this.GetString("permission1") + "|" +
+			this.GetString("permission2") + "|" +
+			this.GetString("permission3") + "|" +
+			this.GetString("permission4") + "|" +
+			this.GetString("permission5") + "|" +
+			this.GetString("permission6") + "|" +
+			this.GetString("permission7"))
 		active, _ := this.GetInt64("active")
 
 		input["username"] = username
 		input["password"] = password
 		input["password2"] = password2
+		input["permissionlist"] = permissionlist
 		input["email"] = email
 
 		valid := validation.Validation{}
@@ -82,6 +91,7 @@ func (this *UserController) Add() {
 			var user models.User
 			user.Username = username
 			user.Password = models.Md5([]byte(password))
+			user.Permission = permissionlist
 			user.Email = email
 			user.Active = int8(active)
 			if err := user.Insert(); err != nil {
@@ -111,6 +121,14 @@ func (this *UserController) Edit() {
 		password := strings.TrimSpace(this.GetString("password"))
 		password2 := strings.TrimSpace(this.GetString("password2"))
 		email := strings.TrimSpace(this.GetString("email"))
+		permissionlist := strings.TrimSpace(
+			this.GetString("permission1") + "|" +
+				this.GetString("permission2") + "|" +
+				this.GetString("permission3") + "|" +
+				this.GetString("permission4") + "|" +
+				this.GetString("permission5") + "|" +
+				this.GetString("permission6") + "|" +
+				this.GetString("permission7"))
 		active, _ := this.GetInt64("active")
 		valid := validation.Validation{}
 
@@ -138,6 +156,9 @@ func (this *UserController) Edit() {
 		}
 
 		if len(errmsg) == 0 {
+			if user.Id != 1 {
+				user.Permission = permissionlist
+			}
 			user.Update()
 			this.Redirect("/admin/user/list", 302)
 		}

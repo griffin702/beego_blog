@@ -14,7 +14,7 @@ const (
 	FILE_PATH      = "./static/upload/attachment/"
 )
 
-var pathArr []string = []string{"", BIG_PIC_PATH, SMALL_PIC_PATH, FILE_PATH}
+var pathArr = []string{"", BIG_PIC_PATH, SMALL_PIC_PATH, FILE_PATH}
 
 type baseController struct {
 	beego.Controller
@@ -37,60 +37,36 @@ func (this *baseController) Prepare() {
 
 //登录状态验证
 func (this *baseController) auth() {
+	//允许任何人默认拥有访问account控制器的权限
 	this.permissionlist = map[string]int{"account": 0}
+	//提取当前cookie
 	arr := strings.Split(this.Ctx.GetCookie("auth"), "|")
-	if this.actionName == "login" {
-		if len(arr) == 2 {
-			idstr, password := arr[0], arr[1]
-			userid, _ := strconv.ParseInt(idstr, 10, 0)
-			if userid > 0 {
-				var user models.User
-				var permission models.Permission
-				user.Id = userid
-				if user.Read() == nil && password == models.Md5([]byte(this.getClientIp()+"|"+user.Password)) {
-					this.userid = user.Id
-					this.username = user.Username
-					for _, id := range strings.Split(user.Permission,"|") {
-						permission.Id, _ = strconv.Atoi(id)
-						err := permission.Query().Filter("id",permission.Id).One(&permission)
-						if err == nil {
-							this.permissionlist[permission.Name] = permission.Id
-						}
+	//cookie判断是否已经正常登录
+	if len(arr) == 2 {
+		idstr, password := arr[0], arr[1]
+		userid, _ := strconv.ParseInt(idstr, 10, 0)
+		if userid > 0 {
+			var user models.User
+			var permission models.Permission
+			user.Id = userid
+			if user.Read() == nil && password == models.Md5([]byte(this.getClientIp()+"|"+user.Password)) {
+				this.userid = user.Id
+				this.username = user.Username
+				for _, id := range strings.Split(user.Permission, "|") {
+					err := permission.Query().Filter("id", id).One(&permission)
+					if err == nil {
+						this.permissionlist[permission.Name] = permission.Id
 					}
-					this.permissionlist["index"] = 0
-					if this.actionName == "login" {
-						this.Redirect("/admin", 302)
-					}
+				}
+				this.permissionlist["index"] = 0
+				if this.actionName == "login" {
+					this.Redirect("/admin", 302)
 				}
 			}
 		}
-	} else {
-		//已登录
-		if len(arr) == 2 {
-			idstr, password := arr[0], arr[1]
-			userid, _ := strconv.ParseInt(idstr, 10, 0)
-			if userid > 0 {
-				var user models.User
-				var permission models.Permission
-				user.Id = userid
-				if user.Read() == nil && password == models.Md5([]byte(this.getClientIp()+"|"+user.Password)) {
-					this.userid = user.Id
-					this.username = user.Username
-					for _, id := range strings.Split(user.Permission,"|") {
-						permission.Id, _ = strconv.Atoi(id)
-						err := permission.Query().Filter("id",permission.Id).One(&permission)
-						if err == nil {
-							this.permissionlist[permission.Name] = permission.Id
-						}
-					}
-					this.permissionlist["index"] = 0
-				}
-			}
-		}
-		//未登录
-		if this.userid == 0 {
-			this.Redirect("/admin/login", 302)
-		}
+	}
+	if this.userid == 0 && this.actionName != "login" {
+		this.Redirect("/admin/login", 302)
 	}
 }
 
@@ -105,6 +81,7 @@ func (this *baseController) display(tpl ...string) {
 	this.Data["version"] = beego.AppConfig.String("AppVer")
 	this.Data["adminid"] = this.userid
 	this.Data["adminname"] = this.username
+	this.Data["userpermission"] = this.permissionlist
 	this.Layout = this.moduleName + "/layout.html"
 	this.TplName = tplname
 }

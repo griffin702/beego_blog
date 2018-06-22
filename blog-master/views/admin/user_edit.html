@@ -32,14 +32,26 @@
 				<span class="text-error">{{.errmsg.email}}</span>
 			</td>
 		</tr>
-		</tr>
+		{{if ne .user.Id 1}}<tr>
+            <th>权限分配：</th>
+            <td>
+                <label><input name="permission1" class="checkbox" value="1" type="checkbox" {{if haspermissionstr .user.Permission 1}}checked{{end}} />用户管理</label>
+                <label><input name="permission2" class="checkbox" value="2" type="checkbox" {{if haspermissionstr .user.Permission 2}}checked{{end}} />文章管理</label>
+                <label><input name="permission3" class="checkbox" value="3" type="checkbox" {{if haspermissionstr .user.Permission 3}}checked{{end}} />相册管理</label>
+                <label><input name="permission4" class="checkbox" value="4" type="checkbox" {{if haspermissionstr .user.Permission 4}}checked{{end}} />友链管理</label>
+                <label><input name="permission5" class="checkbox" value="5" type="checkbox" {{if haspermissionstr .user.Permission 5}}checked{{end}} />心情管理</label>
+                <label><input name="permission6" class="checkbox" value="6" type="checkbox" {{if haspermissionstr .user.Permission 6}}checked{{end}} />标签管理</label>
+                <label><input name="permission7" class="checkbox" value="7" type="checkbox" {{if haspermissionstr .user.Permission 7}}checked{{end}} />站点设置</label>
+			</td>
+        </tr>{{end}}
 		<tr>
 			<th>激活状态：</th>
 			<td>
-			<input type="radio" name="active" value="0" id="data_active_0" {{if eq .user.Active 0}}checked{{end}} />
-			<label for="data_active_0" class="help-inline">未激活</label>&nbsp;&nbsp;
-			<input type="radio" name="active" value="1" id="data_active_1" {{if eq .user.Active 1}}checked{{end}} />
-			<label for="data_active_1" class="help-inline">已激活</label>&nbsp;&nbsp;</td>
+				<input type="radio" name="active" value="0" id="data_active_0" {{if eq .user.Active 0}}checked{{end}} />
+				<label for="data_active_0" class="help-inline">未激活</label>
+				<input type="radio" name="active" value="1" id="data_active_1" {{if eq .user.Active 1}}checked{{end}} />
+				<label for="data_active_1" class="help-inline">已激活</label>
+			</td>
 		</tr>
 		</tbody>
 		<tfoot>
