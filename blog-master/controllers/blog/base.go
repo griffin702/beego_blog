@@ -16,6 +16,7 @@ type baseController struct {
 }
 
 func (this *baseController) Prepare() {
+	this.Data["IsLogin"] = this.IsLogin()
 	this.options = models.GetOptions()
 	this.right = "right.html"
 	this.Data["options"] = this.options
@@ -95,4 +96,29 @@ func (this *baseController) setHeadMetas(params ...string) {
 	} else {
 		this.Data["description"] = this.getOption("description")
 	}
+}
+
+func (this *baseController) IsLogin() bool {
+	arr := strings.Split(this.Ctx.GetCookie("auth"), "|")
+	if len(arr) == 2 {
+		idstr, password := arr[0], arr[1]
+		userid, _ := strconv.ParseInt(idstr, 10, 0)
+		if userid > 0 {
+			var user models.User
+			user.Id = userid
+			if user.Read() == nil && password == models.Md5([]byte(this.getClientIp()+"|"+user.Password)) {
+				return true
+			}
+		}
+	}
+	return false
+}
+
+//获取用户IP地址
+func (this *baseController) getClientIp() string {
+	s := this.Ctx.Request.Header.Get("X-Real-IP")
+	if s == "" {
+		s = strings.Split(this.Ctx.Request.RemoteAddr, ":")[0]
+	}
+	return s
 }

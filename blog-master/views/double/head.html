@@ -17,9 +17,15 @@
                 <li><a href="/mood.html"><span class="glyphicon glyphicon-heart"></span> 碎言碎语</a></li>
                 <li><a href="/album.html"><span class="glyphicon glyphicon-camera"></span> 光影瞬间</a></li>
             </ul>
+        {{if .IsLogin}}
+            <ul class="nav navbar-nav navbar-right" style="padding-right: 30px;">
+                <li><a href="/admin"><span class="glyphicon glyphicon-hand-right"></span> 后台管理</a></li>
+            </ul>
+        {{else}}
             <ul class="nav navbar-nav navbar-right" style="padding-right: 30px;">
                 <li><a href="/admin"><span class="glyphicon glyphicon-log-in"></span> 登录</a></li>
             </ul>
+        {{end}}
         </div>
   	</nav>
 </div>
