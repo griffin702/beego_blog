@@ -3,11 +3,11 @@ img { border: 0; }
 ul { list-style: none; }
 p { margin: 0!important; }
 a:link, a:visited, a:hover, a:focus { text-decoration: none!important; }
+.navbar-nav .active a { color: #f04a40 !important; }
 a span { font-size: 10px; }
 .left { float: left; }
 .right { float: right; }
 .blank { height: 5px; overflow: hidden; width: 100%; margin: auto; clear: both }
-header { width: 1000px; margin: auto; height: 80px; position: relative; overflow: hidden }
 #logo a { float: left; width: 150px; height: 45px; margin: 5px 30px 0 50px; background: url(../images/logo.gif) no-repeat; display: block }
 #topnav_current { color: #e15782; }
 .en { color: #999; font-size: 12px; z-index: 1; display: block; }/* ie */
@@ -181,15 +181,15 @@ a.readmore { background: #fd8a61; color: #fff; padding: 5px 10px; float: right; 
 
 
 /*new*/
-.index_about { float: left; width: 740px; overflow: hidden; background: url(../images/r_line.jpg) repeat-y right; margin: 10px 0 }
+.index_about { background: url(../images/r_line.jpg) repeat-y right; }
 .c_titile { font-size: 22px; margin: 20px 0; text-align: center }
 .box_c { border: #ccc 1px dashed; text-align: center; padding: 5px 0; margin-right: 30px;color: #999;}
 .box_c span { margin: 0 10px; }
 .box_c span a{color: #099;}
-ul.infos { overflow: hidden; margin: 20px 30px 20px 0; line-height: 28px; font-size: 14px; text-indent: 2em; }
+ul.infos { line-height: 28px; text-indent: 2em; padding-top: 15px; }
 ul.infos p { margin-bottom: 20px }
 ul.infos p img { display: block;margin: auto; max-width:100%;}
-.keybq { background: url(../images/6264.png) no-repeat 10px center #F8F8F8; line-height: 30px; height: 30px; padding-left: 40px; border: 1px solid #F0F0F0; margin-right: 20px; }
+.keybq { line-height: 30px; height: 30px; padding-left: 40px; border: 1px solid #F0F0F0; background-color: #f0f0f0; }
 .keybq span { color: #099 }
 .nextinfo { line-height: 24px; }
 .otherlink h2 { border-bottom: #099 2px solid; line-height: 40px; font-size: 12px; font-weight: normal; margin-right: 20px; background:url(../images/5794.png) 10px center no-repeat; padding-left:40px}

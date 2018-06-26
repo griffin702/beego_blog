@@ -4,19 +4,18 @@
 	<a href="/life.html" class="n2">{{.smalltitle}}</a>
 </h1>
 
-<div class="index_about">
-    <h2 class="c_titile">{{str2html .post.ColorTitle}}</h2>
-    <p class="box_c">
+<div class="index_about col-lg-9 col-md-9 col-sm-12 col-xs-12 column">
+    <h2 class="c_titile col-lg-12 col-md-12 col-sm-12 col-xs-12 column">{{str2html .post.ColorTitle}}</h2>
+    <p class="box_c col-lg-12 col-md-12 col-sm-12 col-xs-12 column">
     	<span class="d_time">发布时间：{{date .post.Posttime "Y-m-j"}}</span>
     	<span>编辑：{{.post.Author}}</span>
         <span>阅读：{{.post.Views}}</span>
     </p>
-    <ul class="infos">
+    <ul class="infos col-lg-12 col-md-12 col-sm-12 col-xs-12 column">
      	{{str2html .post.Content}}
     </ul>
-    <div class="keybq">
-    <p><span>关键字词</span>[{{str2html .post.TagsLink}}]</p>
-    
+    <div class="keybq col-lg-12 col-md-12 col-sm-12 col-xs-12 column">
+    <p><span class="glyphicon glyphicon-tag"></span><span>关键字词</span>[{{str2html .post.TagsLink}}]</p>
     </div>
     <div class="ad"> </div>
     <div class="nextinfo">
