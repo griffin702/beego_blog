@@ -1,7 +1,6 @@
 /*base*/
 img { border: 0; }
 ul { list-style: none; }
-p { margin: 0!important; }
 a:link, a:visited, a:hover, a:focus { text-decoration: none!important; }
 .navbar-nav .active a { color: #f04a40 !important; }
 a span { font-size: 10px; }
@@ -172,11 +171,10 @@ a.readmore { background: #fd8a61; color: #fff; padding: 5px 10px; float: right; 
     float: left;
     margin: 15px 15px;
     max-height: 150px;
-    max-width: 220px;
+    max-width: 210px;
 }
 .sy .bg p {
-    float: left;
-    margin: 15px 15px;
+    margin-top: 15px;
 }
 
 @media (min-width: 768px) {
