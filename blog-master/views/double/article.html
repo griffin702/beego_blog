@@ -1,7 +1,7 @@
 <h1 class="t_nav">
-	<span class="glyphicon glyphicon-map-marker"> 像“草根”一样，紧贴着地面，低调的存在，冬去春来，枯荣无恙。</span>
 	<a href="/" class="n1">网站首页</a>
 	<a href="/life.html" class="n2">{{.smalltitle}}</a>
+    <span class="glyphicon glyphicon-map-marker"> 像“草根”一样，紧贴着地面，低调的存在，冬去春来，枯荣无恙。</span>
 </h1>
 
 <div class="index_about col-lg-9 col-md-9 col-sm-12 col-xs-12 column">
@@ -19,12 +19,12 @@
     </div>
     <div class="ad"> </div>
     <div class="nextinfo">
-            {{if .pre}}
-                <p>上一篇：<a href="{{.pre.Link}}">{{str2html .pre.ColorTitle}}</a></p>
-            {{end}}
-            {{if .next}}
-                <p>下一篇：<a href="{{.next.Link}}">{{str2html .next.ColorTitle}}</a></p>
-            {{end}}
+    {{if .pre}}
+        <p>上一篇：<a href="{{.pre.Link}}">{{str2html .pre.ColorTitle}}</a></p>
+    {{end}}
+    {{if .next}}
+        <p>下一篇：<a href="{{.next.Link}}">{{str2html .next.ColorTitle}}</a></p>
+    {{end}}
     </div>
     <div class="duoshuo">
         <div class="ds-thread"></div>

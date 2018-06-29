@@ -2,28 +2,28 @@
 <script src="/static/js/lightGallery.min.js"></script>
 <link href="{{.root}}css/photo.css" rel="stylesheet">
 <script>
-  $(document).ready(function() {
-    $("#auto-loop").lightGallery({
-        desc:true,
-        counter:true,
-        loop:true
-      });
+    $(document).ready(function() {
+        $("#auto-loop").lightGallery({
+            desc:true,
+            counter:true,
+            loop:true
+        });
     });
 </script>
 
 <h1 class="t_nav">
-  <span class="glyphicon glyphicon-map-marker"> 每一个瞬间的摄影，都是无法复摹独一无二的</span>
-  <a href="/" class="n1">网站首页</a>
-  <a href="/album.html" class="n2">相册列表</a>
+    <a href="/" class="n1">网站首页</a>
+    <a href="/album.html" class="n2">相册列表</a>
+    <span class="glyphicon glyphicon-map-marker"> 每一个瞬间的摄影，都是无法复摹独一无二的</span>
 </h1>
 <div class="photolist">
     <ul id="auto-loop" class="gallery list-unstyled">
         {{range $k, $v := .list}}
             <li data-desc="{{$v.Des}}" data-src="{{$v.Url}}"> 
-              <a href="#">
-                <img src="{{$v.Small}}" />
-                <span>{{$v.Des}}</span>
-              </a> 
+                <a href="#">
+                    <img src="{{$v.Small}}" />
+                    <span>{{$v.Des}}</span>
+                </a>
             </li>
        {{end}}
     </ul>

@@ -1,19 +1,19 @@
 <div class="moodlist">
-  <h1 class="t_nav">
-    <span class="glyphicon glyphicon-map-marker"> 删删写写，回回忆忆，虽无法行云流水，却也可碎言碎语。</span>
-    <a href="/" class="n1">网站首页</a>
-    <a href="/mood.html" class="n2">碎言碎语</a>
-  </h1>
-  <div class="mooddiv">
+    <h1 class="t_nav">
+        <a href="/" class="n1">网站首页</a>
+        <a href="/mood.html" class="n2">碎言碎语</a>
+        <span class="glyphicon glyphicon-map-marker"> 删删写写，回回忆忆，虽无法行云流水，却也可碎言碎语。</span>
+    </h1>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 column">
     {{range $k, $v := .list}}
-      <ul class="arrow_box">
-        <div class="sy">
-          <img src="{{$v.Cover}}">
-          <p>{{str2html $v.Content}}</p>
+        <div class="sy col-lg-8 col-md-8 col-sm-10 col-xs-10 column">
+            <div class="bg col-lg-11 col-md-11 col-sm-11 col-xs-11 column">
+              <img src="{{$v.Cover}}">
+              <p>{{str2html $v.Content}}</p>
+            </div>
         </div>
-        <span class="dateview">{{date $v.Posttime "Y-m-j"}}</span>
-      </ul>
+        <span class="dateview col-lg-2 col-md-2 col-sm-2 col-xs-2 column">{{date $v.Posttime "Y-m-j"}}</span>
     {{end}}
-  </div>
-  {{str2html .pagebar}}
+    </div>
+    {{str2html .pagebar}}
 </div>
