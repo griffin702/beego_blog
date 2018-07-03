@@ -102,7 +102,7 @@ INSERT INTO `tb_permission` VALUES (1,'user'),(2,'article'),(3,'album'),(4,'link
 # Data for table "tb_option"
 #
 
-INSERT INTO `tb_option` VALUES (1,'sitename','inana用心交织的生活'),(2,'siteurl','https://inana.top/'),(3,'subtitle','带着她和她去旅行'),(4,'pagesize','2'),(5,'keywords','Python,MySQL,Golang,Windows,Linux'),(6,'description','来一场说走就走的旅行'),(8,'theme','double'),(9,'timezone','8'),(10,'stat','<script language=\"javascript\" type=\"text/javascript\" src=\"http://js.users.51.la/17253002.js\"></script>\r\n<noscript><a href=\"http://www.51.la/?17253002\" target=\"_blank\"><img alt=\"&#x6211;&#x8981;&#x5566;&#x514D;&#x8D39;&#x7EDF;&#x8BA1;\" src=\"http://img.users.51.la/17253002.asp\" style=\"border:none\" /></a></noscript>'),(11,'weibo','https://weibo.com/p/1005051484763434'),(12,'github','https://github.com/griffin702'),(16,'duoshuo','inana'),(17,'albumsize','9'),(18,'nickname','云丶先生');
+INSERT INTO `tb_option` VALUES (1,'sitename','inana用心交织的生活'),(2,'siteurl','https://inana.top/'),(3,'subtitle','带着她和她去旅行'),(4,'pagesize','15'),(5,'keywords','Python,MySQL,Golang,Windows,Linux'),(6,'description','来一场说走就走的旅行'),(8,'theme','double'),(9,'timezone','8'),(10,'stat','<script language=\"javascript\" type=\"text/javascript\" src=\"http://js.users.51.la/17253002.js\"></script>\r\n<noscript><a href=\"http://www.51.la/?17253002\" target=\"_blank\"><img alt=\"&#x6211;&#x8981;&#x5566;&#x514D;&#x8D39;&#x7EDF;&#x8BA1;\" src=\"http://img.users.51.la/17253002.asp\" style=\"border:none\" /></a></noscript>'),(11,'weibo','https://weibo.com/p/1005051484763434'),(12,'github','https://github.com/griffin702'),(16,'duoshuo','inana'),(17,'albumsize','9'),(18,'nickname','云丶先生');
 
 #
 # Structure for table "tb_photo"
