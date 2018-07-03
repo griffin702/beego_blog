@@ -144,11 +144,12 @@ h2.title_tj p { background: #fff; width: 90px }
 
 /*life*/
 .bloglist { overflow: hidden; background: url(../images/r_line.jpg) repeat-y right; }
-.bloglist h3 { margin: 8px 0 0 0; color: #333 }
+.bloglist h3 { margin: 12px 0 0 0; color: #333 }
 .bloglist figure { float: left; width: 183px; }
 .bloglist figure img { padding: 4px; border: #f4f2f2 1px solid; width: 175px; }
 .bloglist ul { float: left; margin: 0;}
-.bloglist div a.articleimg { padding: 10px 15px 15px 15px;}
+.bloglist div a.articleimg { padding: 15px 15px 15px 15px;}
+.bloglist .blog:hover { background-color: #f5f5f5; border-radius: 8px; -moz-border-radius:8px; -webkit-border-radius:8px; }
 .lifedateview { color: #838383; margin: 0; }
 .lifedateview span { margin: 0 5px; font-size: 10px;}
 .lifedateview span a { color: #099B43; }
