@@ -117,6 +117,14 @@ func (m *Post) Excerpt() string {
 	return m.Content
 }
 
+func (m *Post) Del_Excerpt() string {
+	if i := strings.Index(m.Content, "_ueditor_page_break_tag_"); i != -1 {
+		x := len("_ueditor_page_break_tag_")
+		return m.Content[i+x:]
+	}
+	return m.Content
+}
+
 func (post *Post) GetPreAndNext() (pre, next *Post) {
 	pre = new(Post)
 	next = new(Post)
