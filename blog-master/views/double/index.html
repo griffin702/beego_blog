@@ -8,7 +8,7 @@
         <h3 class="col-lg-9 col-md-7 col-sm-12 col-xs-12 column">
             <a href="{{$v.Link}}" target="_blank">{{str2html $v.ColorTitle}}</a>
             <p class="lifedateview">
-                <span><span class="glyphicon glyphicon-time"></span>{{date $v.Posttime "Y-m-j"}}</span>
+                <span><span class="glyphicon glyphicon-time"></span>{{date $v.Posttime "Y-m-j H:i"}}</span>
                 <span><span class="glyphicon glyphicon-user"></span>{{$v.Author}}</span>
                 <span><span class="glyphicon glyphicon-tags"></span> [{{str2html $v.TagsLink}}]</span>
             </p>
