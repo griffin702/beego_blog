@@ -230,7 +230,7 @@ ul.infos p { margin-bottom: 20px }
 ul.infos p img { display: block;margin: auto; max-width:100%;}
 .keybq { line-height: 30px; height: 30px; padding-left: 40px; border: 1px solid #F0F0F0; background-color: #f0f0f0; }
 .keybq span { color: #099 }
-.nextinfo { line-height: 24px; }
+.nextinfo { line-height: 24px; padding-top: 30px;}
 .otherlink h2 { border-bottom: #099 2px solid; line-height: 40px; font-size: 12px; font-weight: normal; margin-right: 20px; background:url(../images/5794.png) 10px center no-repeat; padding-left:40px}
 .otherlink ul { margin: 10px 0 }
 .otherlink li { line-height: 24px; height: 24px; display: block; width: 290px; float: left; overflow: hidden; margin-right: 30px; }
