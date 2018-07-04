@@ -11,7 +11,7 @@ a span { font-size: 10px; }
 #topnav_current { color: #e15782; }
 .en { color: #999; font-size: 12px; z-index: 1; display: block; }/* ie */
 article { width: 1000px; margin: 20px auto; overflow: hidden }
-footer { text-align: center; line-height: 40px; border-top: #E8E8E8 1px solid ; width:1000px; margin:auto}
+footer { text-align: center; line-height: 20px; border-top: #E8E8E8 1px solid ; width:1000px; padding:10px 15px; }
 h1.t_nav span { float: right; color: #999; padding:15px 0;}
 h1.t_nav { border-bottom: #F1F1F1 1px solid; font-size: 12px; font-weight: normal; line-height: 40px; height: 40px; }
 a.n1, a.n2 { width: 100px; display: block; text-align: center; color: #fff; float: left }
