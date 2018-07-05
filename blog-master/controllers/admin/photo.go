@@ -35,7 +35,7 @@ func (this *PhotoController) Insert(albumid int64, desc, url string) {
 	var photo models.Photo
 	photo.Albumid = albumid
 	photo.Des = desc
-	photo.Posttime = time.Now()
+	photo.Posttime, _ = time.Parse("2006-01-02 15:04:05", time.Now().Format("2006-01-02 15:04:05"))
 	photo.Url = url
 	if err := photo.Insert(); err != nil {
 		this.showmsg(err.Error())

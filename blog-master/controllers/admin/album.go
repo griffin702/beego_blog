@@ -42,7 +42,7 @@ func (this *AlbumController) Add() {
 		album.Name = strings.TrimSpace(this.GetString("albumname"))
 		album.Cover = strings.TrimSpace(this.GetString("cover"))
 		album.Rank = int8(rank)
-		album.Posttime = time.Now()
+		album.Posttime, _ = time.Parse("2006-01-02 15:04:05", time.Now().Format("2006-01-02 15:04:05"))
 		if err := album.Insert(); err != nil {
 			this.showmsg(err.Error())
 		}
