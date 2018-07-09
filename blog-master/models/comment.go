@@ -8,15 +8,15 @@ import (
 //评论模型
 type Comments struct {
 	Id                int64
-	Obj_pk            int64
-	Reply_pk          int64
-	Reply_fk          int64
-	User              *User     `orm:"rel(fk)"`
+	Obj_pk            int64     `orm:"index"`
+	Reply_pk          int64     `orm:"index"`
+	Reply_fk          int64     `orm:"index"`
+	User              *User     `orm:"rel(fk);index"`
 	Comment           string    `orm:"type(text)"`
-	Submittime        time.Time `orm:"auto_now_add;type(datetime)"`
+	Submittime        time.Time `orm:"auto_now_add;type(datetime);index"`
 	Ipaddress         string    `orm:"null"`
-	Is_public         int8      //0-发布，1-不发布
-	Is_removed        int8      //0-正常，1-删除
+	Is_public         int8      `orm:"index"`     //0-发布，1-不发布
+	Is_removed        int8      `orm:"index"`     //0-正常，1-删除
 }
 
 func (m *Comments) TableName() string {
@@ -33,9 +33,6 @@ func (m *Comments) Insert() error {
 
 func (m *Comments) Read(fields ...string) error {
 	if err := orm.NewOrm().Read(m, fields...); err != nil {
-		return err
-	}
-	if err := m.Query().Filter("User", m.User).RelatedSel().One(m); err != nil {
 		return err
 	}
 	return nil
@@ -63,25 +60,27 @@ func (m *Comments) Query() orm.QuerySeter {
 	return orm.NewOrm().QueryTable(m)
 }
 
-func (m *Comments) Is_LastReply(list []*Comments, key int) bool {
-	i := len(list) - 1
-	if i == key {
-		return true
-	}
-	return false
-}
+//func (m *Comments) Is_LastReply(list []*Comments, key int) bool {
+//	i := len(list) - 1
+//	if i == key {
+//		return true
+//	}
+//	return false
+//}
 
 func (m *Comments) Return_PkName(key int64) (string, error) {
-	reply_pk := Comments{Id: key}
-	if err := reply_pk.Read(); err != nil {
+	var reply_pk Comments
+	err := reply_pk.Query().Filter("Id", key).RelatedSel().Limit(1).One(&reply_pk)
+	if err != nil {
 		return "",err
 	}
 	return reply_pk.User.Username, nil
 }
 
 func (m *Comments) Return_PkContent(key int64) (string, error) {
-	reply_pk := Comments{Id: key}
-	if err := reply_pk.Read(); err != nil {
+	var reply_pk Comments
+	err := reply_pk.Query().Filter("Id", key).RelatedSel().Limit(1).One(&reply_pk)
+	if err != nil {
 		return "",err
 	}
 	return reply_pk.Comment, nil

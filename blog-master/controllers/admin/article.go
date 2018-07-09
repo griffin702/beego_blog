@@ -140,7 +140,6 @@ func (this *ArticleController) Save() {
 
 	if id < 1 {
 		post.User = &models.User{Id:this.userid}
-		fmt.Println(post.User)
 		post.Posttime = this.getTime()
 		post.Updated = this.getTime()
 		post.Insert()

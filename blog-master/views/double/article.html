@@ -57,12 +57,10 @@
                     </a>
                     <div class="media-body" id="comment-{{ $item.Commentlist0.Id }}">
                         <h4 class="media-heading">{{ $item.Commentlist0.User.Username }}
-                            <small>
-                            {{date $item.Commentlist0.Submittime "Y-m-j H:i:s"}}
-                                {{/*{{if not $item.Commentlist}}*/}}
-                                | <a href="#" data-comment-id="{{ $item.Commentlist0.Id }}"
+                            <small>{{date $item.Commentlist0.Submittime "Y-m-j H:i:s"}}</small>
+                            <small class="reply_btn">
+                                <a href="#" data-comment-id="{{ $item.Commentlist0.Id }}"
                                      data-parent-id="{{ $item.Commentlist0.Id }}" class="comment_reply_link">回复</a>
-                                {{/*{{end}}*/}}
                             </small>
                         </h4>
                         <p>{{ $item.Commentlist0.Comment }}</p>
@@ -74,16 +72,14 @@
                         <img class="media-object" src="{{ $v.User.Avator }}" height="30" width="30" alt="">
                     </a>
                     <div class="media-body" id="comment-{{ $v.Id }}">
-                        <h4 class="media-heading">{{ $v.User.Username }} <small>回复</small> {{ $v.Return_PkName $v.Reply_pk }}
-                            <small>
-                            {{date $v.Submittime "Y-m-j H:i:s"}}
-                                {{/*{{if $v.Is_LastReply $item.Commentlist $k }}*/}}
-                                | <a href="#" data-comment-id="{{ $v.Id }}"
+                        <h4 class="media-heading">{{ $v.User.Username }}
+                            <small>{{date $v.Submittime "Y-m-j H:i:s"}}</small>
+                            <small class="reply_btn">
+                                <a href="#" data-comment-id="{{ $v.Id }}"
                                      data-parent-id="{{ $item.Commentlist0.Id }}" class="comment_reply_link">回复</a>
-                                {{/*{{end}}*/}}
                             </small>
                         </h4>
-                        <p>引用：{{ $v.Return_PkContent $v.Reply_pk }}</p>
+                        <small class="comment-quote">引用 网友 {{ $v.Return_PkName $v.Reply_pk }}：{{ $v.Return_PkContent $v.Reply_pk }}</small>
                         <p>{{ $v.Comment }}</p>
                     </div>
                 </div>

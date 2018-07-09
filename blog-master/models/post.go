@@ -40,9 +40,6 @@ func (m *Post) Read(fields ...string) error {
 	if err := orm.NewOrm().Read(m, fields...); err != nil {
 		return err
 	}
-	if err := m.Query().Filter("User", m.User).RelatedSel().One(m); err!= nil {
-		return err
-	}
 	return nil
 }
 

@@ -4,8 +4,6 @@ function show_reply_form(event) {
     var $this = $(this);
     var comment_id = $this.data('comment-id');
     var parent_id = $this.data('parent-id');
-    alert(comment_id);
-    alert(parent_id);
     $('#id_reply_pk').val(comment_id);
     $('#id_reply_fk').val(parent_id);
     $('#form-comment').appendTo($this.closest('.media-body'));
@@ -34,7 +32,7 @@ function comment_submit(event){
 	if (comment_content !== ''){
 		$("#comment_content").val('').focus();
         var timestamp = (new Date).getTime()+parseInt(10*Math.random(),10);
-        var security_hash = hex_md5(toString(comment_content)+timestamp+"@YO!r52w!D2*I%Ov");
+        var security_hash = hex_md5(reply_pk + timestamp + "@YO!r52w!D2*I%Ov");
         // alert((new Date).getTime());
 		$.ajax({
 			type:'POST',
@@ -44,7 +42,7 @@ function comment_submit(event){
                 'reply_fk': reply_fk,
                 'comment_content': comment_content,
 				'security_hash':security_hash,
-                'timestamp': timestamp
+                'timestamp': timestamp,
 				},
 			url:url,
 			cache:true,

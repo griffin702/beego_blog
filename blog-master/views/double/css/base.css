@@ -235,6 +235,7 @@ ul.infos p img { display: block;margin: auto; max-width:100%;}
 .keybq span, .keybq a { color: #099; padding: 0 5px; }
 .nextinfo { line-height: 24px; padding-top: 30px;}
 .article_all { padding:0!important; }
+
 #wrap-form-comment, #wrap-comments-list, .comments_length { padding:0!important; }
 .comment_content { min-height: 150px; max-width: 100%; margin-bottom: 20px; }
 .comments_one { padding: 8px 10px!important; border-bottom: 1px solid #DEDEDE; }
@@ -243,6 +244,8 @@ ul.infos p img { display: block;margin: auto; max-width:100%;}
 .comment_child { padding:10px 0!important; float: right!important; }
 .media-object { border-radius:100%; }
 .pull-left { padding: 0 15px 0 5px; }
+.reply_btn { border-left: 2px solid #777; padding-left: 5px; }
+.comment-quote { border-left: 3px solid #9ce8f8; padding-left: 10px; color: #afafaf; }
 
 .otherlink h2 { border-bottom: #099 2px solid; line-height: 40px; font-size: 12px; font-weight: normal; margin-right: 20px; background:url(../images/5794.png) 10px center no-repeat; padding-left:40px}
 .otherlink ul { margin: 10px 0 }
