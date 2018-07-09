@@ -239,7 +239,7 @@ CREATE TABLE `tb_user` (
   `authkey` varchar(10) NOT NULL DEFAULT '',
   `active` tinyint(4) NOT NULL DEFAULT '0',
   `permission` varchar(100) NOT NULL DEFAULT '',
-  `avator` varchar(150) NOT NULL DEFAULT '',
+  `avator` varchar(150) NOT NULL DEFAULT '/static/upload/default/user-default-60x60.png',
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
