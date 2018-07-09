@@ -10,20 +10,19 @@ import (
 
 type Post struct {
 	Id       int64
-	Userid   int64  `orm:"index"`
-	Author   string `orm:"size(15)"`
-	Title    string `orm:"size(100)"`
-	Color    string `orm:"size(7)"`
-	Urlname  string `orm:"size(100);index"`
+	User     *User       `orm:"rel(fk)"`
+	Title    string      `orm:"size(100)"`
+	Color    string      `orm:"size(7)"`
+	Urlname  string      `orm:"size(100);index"`
 	Urltype  int8
-	Content  string    `orm:"type(text)"`
-	Tags     string    `orm:"size(100)"`
-	Posttime time.Time `orm:"type(datetime);index"`
+	Content  string      `orm:"type(text)"`
+	Tags     string      `orm:"size(100)"`
+	Posttime time.Time   `orm:"type(datetime);index"`
 	Views    int64
 	Status   int8
-	Updated  time.Time `orm:"type(datetime)"`
+	Updated  time.Time   `orm:"type(datetime)"`
 	Istop    int8
-	Cover    string `orm:"size(70)"`
+	Cover    string      `orm:"size(70)"`
 }
 
 func (m *Post) TableName() string {
@@ -39,6 +38,9 @@ func (m *Post) Insert() error {
 
 func (m *Post) Read(fields ...string) error {
 	if err := orm.NewOrm().Read(m, fields...); err != nil {
+		return err
+	}
+	if err := m.Query().Filter("User", m.User).RelatedSel().One(m); err!= nil {
 		return err
 	}
 	return nil

@@ -41,7 +41,7 @@ aside .rnav ul li a:hover { background: rgba(255,255,255,0.2); -webkit-transform
 /*@links*/
 .link-friends{overflow: hidden;}
 .link-friends span{float:left;text-align: center;width: 100px;font-size:12px;margin:0 0 20px 0;}
-.link-friends span img{border-radius:100%;margin-bottom:5px;transition:0.5s;-webkit-transtion:0.5s}
+.link-friends span img{border-radius:100%;margin-bottom:5px;transition:0.5s;--webkit-transtion:0.5s;}
 .link-friends span span{display:block}
 .link-friends span:hover img{transform:rotate(360deg);-webkit-transform:rotate(360deg);}
 
@@ -228,12 +228,22 @@ a.readmore { background: #fd8a61; color: #fff; padding: 5px 10px; float: right; 
 .box_c { border: #ccc 1px dashed; text-align: center; padding: 5px 0; margin-right: 30px;color: #999;}
 .box_c span { margin: 0 10px; }
 .box_c span a{color: #099;}
-ul.infos { line-height: 28px; text-indent: 2em; padding-top: 15px; }
+ul.infos { line-height: 28px; text-indent: 2em; padding: 0 15px 0 15px; }
 ul.infos p { margin-bottom: 20px }
 ul.infos p img { display: block;margin: auto; max-width:100%;}
-.keybq { line-height: 30px; height: 30px; padding-left: 40px; border: 1px solid #F0F0F0; background-color: #f0f0f0; }
-.keybq span,a { color: #099; padding: 0 3px; }
+.keybq { line-height: 30px; height: 30px; padding-left: 15px; border: 1px solid #F0F0F0; background-color: #f0f0f0; }
+.keybq span, .keybq a { color: #099; padding: 0 5px; }
 .nextinfo { line-height: 24px; padding-top: 30px;}
+.article_all { padding:0!important; }
+#wrap-form-comment, #wrap-comments-list, .comments_length { padding:0!important; }
+.comment_content { min-height: 150px; max-width: 100%; margin-bottom: 20px; }
+.comments_one { padding: 8px 10px!important; border-bottom: 1px solid #DEDEDE; }
+.comments_one:first-child { border-top: 1px solid #DEDEDE; padding-top: 15px; }
+.comment_parent { padding:10px 0!important; }
+.comment_child { padding:10px 0!important; float: right!important; }
+.media-object { border-radius:100%; }
+.pull-left { padding: 0 15px 0 5px; }
+
 .otherlink h2 { border-bottom: #099 2px solid; line-height: 40px; font-size: 12px; font-weight: normal; margin-right: 20px; background:url(../images/5794.png) 10px center no-repeat; padding-left:40px}
 .otherlink ul { margin: 10px 0 }
 .otherlink li { line-height: 24px; height: 24px; display: block; width: 290px; float: left; overflow: hidden; margin-right: 30px; }

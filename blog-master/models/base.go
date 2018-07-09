@@ -19,9 +19,9 @@ func init() {
 	if dbport == "" {
 		dbport = "3306"
 	}
-	dburl := dbuser + ":" + dbpassword + "@tcp(" + dbhost + ":" + dbport + ")/" + dbname + "?charset=utf8"
+	dburl := dbuser + ":" + dbpassword + "@tcp(" + dbhost + ":" + dbport + ")/" + dbname + "?charset=utf8&loc=Asia%2FShanghai"
 	orm.RegisterDataBase("default", "mysql", dburl)
-	orm.RegisterModel(new(User), new(Post), new(Tag), new(Option), new(TagPost), new(Mood), new(Photo), new(Album), new(Link), new(Permission))
+	orm.RegisterModel(new(User), new(Post), new(Tag), new(Option), new(TagPost), new(Mood), new(Photo), new(Album), new(Link), new(Permission), new(Comments))
 	if beego.AppConfig.String("runmode") == "dev" {
 		orm.Debug = true
 	}
@@ -82,7 +82,6 @@ func GetLinks() []*Link {
 		var result []*Link
 		new(Link).Query().OrderBy("-rank").All(&result)
 		Cache.Put("links", result)
-		fmt.Println(result)
 	}
 	v := Cache.Get("links")
 	return v.([]*Link)

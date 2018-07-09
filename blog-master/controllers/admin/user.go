@@ -41,6 +41,7 @@ func (this *UserController) Add() {
 		password := strings.TrimSpace(this.GetString("password"))
 		password2 := strings.TrimSpace(this.GetString("password2"))
 		email := strings.TrimSpace(this.GetString("email"))
+		avator := strings.TrimSpace(this.GetString("avator"))
 		permissionlist := strings.TrimSpace(
 			this.GetString("permission1") + "|" +
 			this.GetString("permission2") + "|" +
@@ -56,6 +57,7 @@ func (this *UserController) Add() {
 		input["password2"] = password2
 		input["permissionlist"] = permissionlist
 		input["email"] = email
+		input["avator"] = avator
 
 		valid := validation.Validation{}
 
@@ -93,6 +95,7 @@ func (this *UserController) Add() {
 			user.Password = models.Md5([]byte(password))
 			user.Permission = permissionlist
 			user.Email = email
+			user.Avator = avator
 			user.Active = int8(active)
 			if err := user.Insert(); err != nil {
 				this.showmsg(err.Error())
@@ -121,6 +124,7 @@ func (this *UserController) Edit() {
 		password := strings.TrimSpace(this.GetString("password"))
 		password2 := strings.TrimSpace(this.GetString("password2"))
 		email := strings.TrimSpace(this.GetString("email"))
+		avator := strings.TrimSpace(this.GetString("avator"))
 		permissionlist := strings.TrimSpace(
 			this.GetString("permission1") + "|" +
 				this.GetString("permission2") + "|" +
@@ -159,6 +163,7 @@ func (this *UserController) Edit() {
 			if user.Id != 1 {
 				user.Permission = permissionlist
 			}
+			user.Avator = avator
 			user.Update()
 			this.Redirect("/admin/user/list", 302)
 		}

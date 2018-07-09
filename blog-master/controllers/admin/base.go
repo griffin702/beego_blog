@@ -38,7 +38,7 @@ func (this *baseController) Prepare() {
 //登录状态验证
 func (this *baseController) auth() {
 	//允许任何人默认拥有访问account控制器的权限
-	this.permissionlist = map[string]int{"account": 0}
+	this.permissionlist = map[string]int{"account": 0,"comments":0}
 	//提取当前cookie
 	arr := strings.Split(this.Ctx.GetCookie("auth"), "|")
 	//cookie判断是否已经正常登录

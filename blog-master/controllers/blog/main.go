@@ -16,7 +16,7 @@ func (this *MainController) Index() {
 	query := new(models.Post).Query().Filter("status", 0).Filter("urltype", 0)
 	count, _ := query.Count()
 	if count > 0 {
-		query.OrderBy("-istop", "-views").Limit(this.pagesize, (this.page-1)*this.pagesize).All(&list)
+		query.OrderBy("-istop", "-views").Limit(this.pagesize, (this.page-1)*this.pagesize).RelatedSel().All(&list)
 	}
 	this.Data["list"] = list
 	this.Data["pagebar"] = models.NewPager(int64(this.page), int64(count), int64(this.pagesize), "/index%d.html").ToString()
@@ -30,7 +30,7 @@ func (this *MainController) BlogList() {
 	query := new(models.Post).Query().Filter("status", 0).Filter("urltype", 0)
 	count, _ := query.Count()
 	if count > 0 {
-		query.OrderBy("-istop", "-posttime").Limit(this.pagesize, (this.page-1)*this.pagesize).All(&list)
+		query.OrderBy("-istop", "-posttime").Limit(this.pagesize, (this.page-1)*this.pagesize).RelatedSel().All(&list)
 	}
 	this.Data["list"] = list
 	this.Data["pagebar"] = models.NewPager(int64(this.page), int64(count), int64(this.pagesize), "/life%d.html").ToString()
@@ -107,7 +107,7 @@ func (this *MainController) Album() {
 //文章显示
 func (this *MainController) Show() {
 	var (
-		post *models.Post = new(models.Post)
+		post = new(models.Post)
 		err  error
 	)
 	urlname := this.Ctx.Input.Param(":urlname")
@@ -134,7 +134,30 @@ func (this *MainController) Show() {
 	if urlname == "about.html" {
 		this.Data["smalltitle"] = "关于我"
 	}
-
+	var comment models.Comments
+	var commentlist0 []*models.Comments
+	var commentlist []*models.Comments
+	var commentlength int64
+	var commentuser int64
+	type CommentlistMap struct {
+		Commentlist0    *models.Comments
+		Commentlist     []*models.Comments
+	}
+	var commentlistmap []CommentlistMap
+	comment.Query().Filter("reply_pk", 0).OrderBy("-submittime").RelatedSel().All(&commentlist0)
+	for _, v := range commentlist0 {
+		comment.Query().Filter("reply_fk", v.Id).OrderBy("submittime").RelatedSel().All(&commentlist)
+		var item = CommentlistMap{}
+		item.Commentlist0 = v
+		item.Commentlist = commentlist
+		commentlistmap = append(commentlistmap, item)
+		commentlist = []*models.Comments{}
+	}
+	commentlength, _ = comment.Query().Count()
+	commentuser, _ = comment.Query().GroupBy("User").Count()
+	this.Data["commentlistmap"] = commentlistmap
+	this.Data["commentlength"] = commentlength
+	this.Data["commentuser"] = commentuser
 	this.setHeadMetas(post.Title, strings.Trim(post.Tags, ","), post.Title)
 	this.display("article")
 }

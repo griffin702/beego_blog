@@ -42,22 +42,21 @@ func (this *ArticleController) List() {
 		page = 1
 	}
 	offset = (page - 1) * pagesize
-
-	query := post.Query().Filter("status", status)
+	query := post.Query().Filter("status", status).RelatedSel()
 
 	if keyword != "" {
 		switch searchtype {
 		case "title":
 			query = query.Filter("title__icontains", keyword)
 		case "author":
-			query = query.Filter("author__icontains", keyword)
+			query = query.Filter("user__username__icontains", keyword)
 		case "tag":
 			query = query.Filter("tags__icontains", keyword)
 		}
 	}
 	count, _ := query.Count()
 	if count > 0 {
-		query.OrderBy("-istop", "-posttime").Limit(pagesize, offset).All(&list)
+		query.OrderBy("-istop", "-posttime").Limit(pagesize, offset).RelatedSel().All(&list)
 	}
 
 	this.Data["searchtype"] = searchtype
@@ -140,8 +139,8 @@ func (this *ArticleController) Save() {
 	}
 
 	if id < 1 {
-		post.Userid = this.userid
-		post.Author = this.username
+		post.User = &models.User{Id:this.userid}
+		fmt.Println(post.User)
 		post.Posttime = this.getTime()
 		post.Updated = this.getTime()
 		post.Insert()

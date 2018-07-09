@@ -4,80 +4,146 @@
     <span class="glyphicon glyphicon-map-marker"> 像“草根”一样，紧贴着地面，低调的存在，冬去春来，枯荣无恙。</span>
 </h1>
 
-<div class="index_about col-lg-9 col-md-9 col-sm-12 col-xs-12 column">
-    <h2 class="c_titile col-lg-12 col-md-12 col-sm-12 col-xs-12 column">{{str2html .post.ColorTitle}}</h2>
-    <p class="box_c col-lg-12 col-md-12 col-sm-12 col-xs-12 column">
-    	<span class="d_time">发布时间：{{date .post.Posttime "Y-m-j H:i"}}</span>
-    	<span>编辑：{{.post.Author}}</span>
-        <span>阅读：{{.post.Views}}</span>
-    </p>
-    <ul class="infos col-lg-12 col-md-12 col-sm-12 col-xs-12 column">
-     	{{str2html .post.Content}}
-    </ul>
-    <div class="keybq col-lg-12 col-md-12 col-sm-12 col-xs-12 column">
-    <p><span class="glyphicon glyphicon-tag"></span><span>关键字词</span>[{{str2html .post.TagsLink}}]</p>
+<div class="index_about col-lg-9 col-md-9 col-sm-12 col-xs-12 column" id="wy-delegate-all">
+    <div class="article_all col-lg-12 col-md-12 col-sm-12 col-xs-12 column">
+        <h2 class="c_titile">{{str2html .post.ColorTitle}}</h2>
+        <p class="box_c">
+            <span class="d_time">发布时间：{{date .post.Posttime "Y-m-j H:i:s"}}</span>
+            <span>编辑：{{.post.User.Username}}</span>
+            <span>阅读：{{.post.Views}}</span>
+        </p>
+        <ul class="infos">
+            {{str2html .post.Content}}
+        </ul>
+        <div class="keybq">
+        <p><span class="glyphicon glyphicon-tag"></span><span>关键字词</span>[{{str2html .post.TagsLink}}]</p>
+        </div>
+        <div class="nextinfo">
+        {{if .pre}}
+            <p>上一篇：<a href="{{.pre.Link}}">{{str2html .pre.ColorTitle}}</a></p>
+        {{end}}
+        {{if .next}}
+            <p>下一篇：<a href="{{.next.Link}}">{{str2html .next.ColorTitle}}</a></p>
+        {{end}}
+        </div>
     </div>
-    <div class="nextinfo col-lg-12 col-md-12 col-sm-12 col-xs-12 column">
-    {{if .pre}}
-        <p>上一篇：<a href="{{.pre.Link}}">{{str2html .pre.ColorTitle}}</a></p>
-    {{end}}
-    {{if .next}}
-        <p>下一篇：<a href="{{.next.Link}}">{{str2html .next.ColorTitle}}</a></p>
-    {{end}}
+    <script src="{{.root}}js/mycomments.js"></script>
+    <script src="{{.root}}js/md5.js"></script>
+    <!-- Comments Form -->
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 column" id="wrap-form-comment">
+        <div class="well" id="form-comment">
+            <h4>欢迎留下您的评论：</h4>
+            <form role="form" action="/admin/comments/add" method="post">
+                <input id="id_object_pk" type="hidden" name="object_pk" value="{{.post.Id}}" />
+                <input id="id_reply_pk" type="hidden" name="reply_pk" value="0" />
+                <input id="id_reply_fk" type="hidden" name="reply_fk" value="0" />
+                <textarea id="comment_content" class="comment_content form-control" name="comment_content"></textarea>
+                <button id="comment_submit" type="submit" class="btn btn-primary" data-islogin="{{.IsLogin}}">提交评论</button>
+                <button id="cancel_reply" type="button" class="btn btn-default">关闭</button>
+            </form>
+        </div>
     </div>
-    <!--来必力-->
-    <div id="lv-container" data-id="city" data-uid="MTAyMC8zNzgzOC8xNDM2OA==">
-        <script type="text/javascript">
-            (function(d, s) {
-                var j, e = d.getElementsByTagName(s)[0];
-                if (typeof LivereTower === 'function') { return; }
-                j = d.createElement(s);
-                j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
-                j.async = true;
+    <!-- Comments List -->
+    <div class="comments_length col-lg-12 col-md-12 col-sm-12 col-xs-12 column">
+        <p>{{.commentlength}} 条评论 {{.commentuser}} 人参与</p>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 column" id="wrap-comments-list">
+        <div id="comments-list">
+        {{range $key, $item := .commentlistmap}}
+            <div class="comments_one col-lg-12 col-md-12 col-sm-12 col-xs-12 column">
+                <div class="comment_parent col-lg-12 col-md-12 col-sm-12 col-xs-12 column">
+                    <a class="pull-left" href="#">
+                        <img class="media-object" src="{{ $item.Commentlist0.User.Avator }}" height="45" width="45" alt="">
+                    </a>
+                    <div class="media-body" id="comment-{{ $item.Commentlist0.Id }}">
+                        <h4 class="media-heading">{{ $item.Commentlist0.User.Username }}
+                            <small>
+                            {{date $item.Commentlist0.Submittime "Y-m-j H:i:s"}}
+                                {{/*{{if not $item.Commentlist}}*/}}
+                                | <a href="#" data-comment-id="{{ $item.Commentlist0.Id }}"
+                                     data-parent-id="{{ $item.Commentlist0.Id }}" class="comment_reply_link">回复</a>
+                                {{/*{{end}}*/}}
+                            </small>
+                        </h4>
+                        <p>{{ $item.Commentlist0.Comment }}</p>
+                    </div>
+                </div>
+            {{range $k, $v := $item.Commentlist}}
+                <div class="comment_child col-lg-11 col-md-11 col-sm-11 col-xs-11 column">
+                    <a class="pull-left" href="#">
+                        <img class="media-object" src="{{ $v.User.Avator }}" height="30" width="30" alt="">
+                    </a>
+                    <div class="media-body" id="comment-{{ $v.Id }}">
+                        <h4 class="media-heading">{{ $v.User.Username }} <small>回复</small> {{ $v.Return_PkName $v.Reply_pk }}
+                            <small>
+                            {{date $v.Submittime "Y-m-j H:i:s"}}
+                                {{/*{{if $v.Is_LastReply $item.Commentlist $k }}*/}}
+                                | <a href="#" data-comment-id="{{ $v.Id }}"
+                                     data-parent-id="{{ $item.Commentlist0.Id }}" class="comment_reply_link">回复</a>
+                                {{/*{{end}}*/}}
+                            </small>
+                        </h4>
+                        <p>引用：{{ $v.Return_PkContent $v.Reply_pk }}</p>
+                        <p>{{ $v.Comment }}</p>
+                    </div>
+                </div>
+            {{end}}
+            </div>
+        {{end}}
+        </div>
+    </div>
+    {{/*<!--来必力-->*/}}
+    {{/*<div id="lv-container" data-id="city" data-uid="MTAyMC8zNzgzOC8xNDM2OA==">*/}}
+        {{/*<script type="text/javascript">*/}}
+            {{/*(function(d, s) {*/}}
+                {{/*var j, e = d.getElementsByTagName(s)[0];*/}}
+                {{/*if (typeof LivereTower === 'function') { return; }*/}}
+                {{/*j = d.createElement(s);*/}}
+                {{/*j.src = 'https://cdn-city.livere.com/js/embed.dist.js';*/}}
+                {{/*j.async = true;*/}}
 
-                e.parentNode.insertBefore(j, e);
-            })(document, 'script');
-        </script>
-    </div>
-    {{/*<!--畅言-->*/}}
+                {{/*e.parentNode.insertBefore(j, e);*/}}
+            {{/*})(document, 'script');*/}}
+        {{/*</script>*/}}
+    {{/*</div>*/}}
+    <!--畅言-->
     {{/*<div id="SOHUCS" sid="{{.post.Id}}" ></div>*/}}
     {{/*<script type="text/javascript">*/}}
-        {{/*(function(){*/}}
-            {{/*var appid = 'cytHjOI3H';*/}}
-            {{/*var conf = 'prod_66601ec48b771c8920cae5978f7c5983';*/}}
-            {{/*var width = window.innerWidth || document.documentElement.clientWidth;*/}}
-            {{/*if (width < 960) {*/}}
-                {{/*window.document.write(*/}}
-                    {{/*'<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="http://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'*/}}
-                {{/*);*/}}
-            {{/*} else {*/}}
-                {{/*var loadJs=function(d,a){*/}}
-                    {{/*var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;*/}}
-                    {{/*var b=document.createElement("script");*/}}
-                    {{/*b.setAttribute("type","text/javascript");*/}}
-                    {{/*b.setAttribute("charset","UTF-8");*/}}
-                    {{/*b.setAttribute("src",d);*/}}
-                    {{/*if(typeof a==="function"){*/}}
-                        {{/*if(window.attachEvent){*/}}
-                            {{/*b.onreadystatechange=function(){*/}}
-                                {{/*var e=b.readyState;*/}}
-                                {{/*if(e==="loaded"||e==="complete"){*/}}
-                                    {{/*b.onreadystatechange=null;a()*/}}
-                                {{/*}*/}}
+    {{/*(function(){*/}}
+        {{/*var appid = 'cytHjOI3H';*/}}
+        {{/*var conf = 'prod_66601ec48b771c8920cae5978f7c5983';*/}}
+        {{/*var width = window.innerWidth || document.documentElement.clientWidth;*/}}
+        {{/*if (width < 960) {*/}}
+            {{/*window.document.write(*/}}
+            {{/*'<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="http://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'*/}}
+        {{/*);*/}}
+        {{/*} else {*/}}
+            {{/*var loadJs=function(d,a){*/}}
+                {{/*var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;*/}}
+                {{/*var b=document.createElement("script");*/}}
+                {{/*b.setAttribute("type","text/javascript");*/}}
+                {{/*b.setAttribute("charset","UTF-8");*/}}
+                {{/*b.setAttribute("src",d);*/}}
+                {{/*if(typeof a==="function"){*/}}
+                    {{/*if(window.attachEvent){*/}}
+                        {{/*b.onreadystatechange=function(){*/}}
+                            {{/*var e=b.readyState;*/}}
+                            {{/*if(e==="loaded"||e==="complete"){*/}}
+                                {{/*b.onreadystatechange=null;a()*/}}
                             {{/*}*/}}
-                        {{/*}else{*/}}
-                            {{/*b.onload=a*/}}
                         {{/*}*/}}
+                    {{/*}else{*/}}
+                        {{/*b.onload=a*/}}
                     {{/*}*/}}
-                    {{/*c.appendChild(b)*/}}
-                {{/*};*/}}
-                {{/*loadJs(*/}}
-                    {{/*"http://changyan.sohu.com/upload/changyan.js",function(){*/}}
-                        {{/*window.changyan.api.config({appid:appid,conf:conf})*/}}
-                    {{/*}*/}}
-                {{/*);*/}}
-            {{/*}*/}}
-        {{/*})();*/}}
+                {{/*}*/}}
+                {{/*c.appendChild(b)*/}}
+            {{/*};*/}}
+            {{/*loadJs(*/}}
+                {{/*"http://changyan.sohu.com/upload/changyan.js",*/}}
+                {{/*function(){window.changyan.api.config({appid:appid,conf:conf})}*/}}
+            {{/*);*/}}
+        {{/*}*/}}
+    {{/*})();*/}}
     {{/*</script>*/}}
 </div>
 <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
