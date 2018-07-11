@@ -6,7 +6,13 @@ import (
 	"strconv"
 	"strings"
 	"time"
+	"blog-master/controllers/ipfilter"
 )
+
+//初始化过滤器实例
+func init() {
+	ipfilter.ConnFilterCtx()["cc"] = ipfilter.NewCCConnFilter()
+}
 
 const (
 	BIG_PIC_PATH   = "./static/upload/bigpic/"
@@ -18,15 +24,24 @@ var pathArr = []string{"", BIG_PIC_PATH, SMALL_PIC_PATH, FILE_PATH}
 
 type baseController struct {
 	beego.Controller
-	userid         int64
-	username       string
-	moduleName     string
-	controllerName string
-	actionName     string
-	permissionlist map[string]int
+	userid            int64
+	username          string
+	moduleName        string
+	controllerName    string
+	actionName        string
+	permissionlist    map[string]int
+	allowconn         bool
+	allowconnmsg      string
 }
 
 func (this *baseController) Prepare() {
+	this.allowconn = true
+	this.allowconn, this.allowconnmsg = ipfilter.ConnFilterCtx().OnConnected(this.getClientIp())
+	//fmt.Println(ipfilter.ConnFilterCtx()["cc"])
+	if !this.allowconn {
+		//超过3次异常访问，返回500
+		this.Abort("500")
+	}
 	controllerName, actionName := this.GetControllerAndAction()
 	this.moduleName = "admin"
 	this.controllerName = strings.ToLower(controllerName[0 : len(controllerName)-10])

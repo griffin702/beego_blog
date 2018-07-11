@@ -42,7 +42,7 @@ function comment_submit(event){
                 'reply_fk': reply_fk,
                 'comment_content': comment_content,
 				'security_hash':security_hash,
-                'timestamp': timestamp,
+                'timestamp': timestamp
 				},
 			url:url,
 			cache:true,
@@ -61,14 +61,11 @@ function comment_submit(event){
                         $(".comments_length").html($(data).find(".comments_length p"));
                         $("#id_reply_pk").val('');
                         $("#id_reply_fk").val('');
-					},
-					error: function(){
-						alert("false");
 					}
 				});
 			},300),
-			error: function(data){
-				alert("false");
+			error: function(){
+				alert("过于频繁,评论失败!请稍后再评论");
 			}
 		});
 	}

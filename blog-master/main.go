@@ -7,6 +7,7 @@ import (
 	"github.com/astaxie/beego/logs"
 	"strings"
 	"strconv"
+	_ "blog-master/controllers/ipfilter"
 )
 
 func initLogger() {

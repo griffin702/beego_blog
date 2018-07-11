@@ -5,6 +5,7 @@ import (
 	"blog-master/models"
 	"strconv"
 	"strings"
+	"blog-master/controllers/ipfilter"
 )
 
 type baseController struct {
@@ -13,9 +14,17 @@ type baseController struct {
 	right    string
 	page     int
 	pagesize int
+	allowconn     bool
+	allowconnmsg  string
 }
 
 func (this *baseController) Prepare() {
+	this.allowconn = true
+	this.allowconn, this.allowconnmsg = ipfilter.ConnFilterCtx().OnConnected(this.getClientIp())
+	if !this.allowconn {
+		//超过3次异常访问，返回500
+		this.Controller.Abort("500")
+	}
 	this.Data["IsLogin"] = this.IsLogin()
 	this.options = models.GetOptions()
 	this.right = "right.html"
