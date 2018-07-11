@@ -16,7 +16,7 @@ type User struct {
 	Lastip     string        `json:"lastip" orm:"size(32)"`
 	Authkey    string        `orm:"size(10)"`
 	Active     int8
-	Permission string        `orm:"size(100)";`
+	Permission string        `orm:"size(100)"`
 	Avator     string        `json:"avator" orm:"size(150);default('/static/upload/default/user-default-60x60.png')"`
 	Post       []*Post       `orm:"reverse(many)"`
 	Comments   []*Comments   `orm:"reverse(many)"`

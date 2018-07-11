@@ -42,7 +42,10 @@ func (this *UserController) Add() {
 		password := strings.TrimSpace(this.GetString("password"))
 		password2 := strings.TrimSpace(this.GetString("password2"))
 		email := strings.TrimSpace(this.GetString("email"))
-		avator := strings.TrimSpace(this.GetString("avator"))
+		avator := "/static/upload/default/user-default-60x60.png"
+		if avator_input := strings.TrimSpace(this.GetString("avator")); avator_input != "" {
+			avator = avator_input
+		}
 		permissionlist := strings.TrimSpace(
 			this.GetString("permission1") + "|" +
 			this.GetString("permission2") + "|" +
