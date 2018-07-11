@@ -4,6 +4,7 @@ import (
 	"github.com/astaxie/beego/validation"
 	"blog-master/models"
 	"strings"
+	"fmt"
 )
 
 type UserController struct {
@@ -65,6 +66,11 @@ func (this *UserController) Add() {
 			errmsg["username"] = "请输入用户名"
 		} else if v := valid.MaxSize(username, 15, "username"); !v.Ok {
 			errmsg["username"] = "用户名长度不能大于15个字符"
+		}
+
+		user := models.User{Username: username}
+		if err := user.Read(); err == nil {
+			errmsg["username"] = fmt.Sprintf("用户名:%s 已被注册", username)
 		}
 
 		if v := valid.Required(password, "password"); !v.Ok {

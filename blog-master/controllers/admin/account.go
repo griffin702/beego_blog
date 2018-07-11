@@ -4,6 +4,8 @@ import (
 	"blog-master/models"
 	"strconv"
 	"strings"
+	"github.com/astaxie/beego/validation"
+	"fmt"
 )
 
 type AccountController struct {
@@ -34,12 +36,71 @@ func (this *AccountController) Login() {
 				} else {
 					this.Ctx.SetCookie("auth", strconv.FormatInt(user.Id, 10)+"|"+authkey)
 				}
-
 				this.Redirect("/admin", 302)
 			}
+		} else if account == "" {
+			this.Data["errmsg"] = "请输入帐号"
+		} else if password == "" {
+			this.Data["errmsg"] = "请输入密码"
 		}
 	}
 	this.TplName = "admin/account_login.html"
+}
+
+//注册
+func (this *AccountController) Register() {
+	input := make(map[string]string)
+	errmsg := make(map[string]string)
+	if this.Ctx.Request.Method == "POST" && this.GetString("dosubmit") == "yes" {
+		username := strings.TrimSpace(this.GetString("username"))
+		password := strings.TrimSpace(this.GetString("password"))
+		password2 := strings.TrimSpace(this.GetString("password2"))
+		email := strings.TrimSpace(this.GetString("email"))
+		input["username"] = username
+		input["password"] = password
+		input["password2"] = password2
+		input["email"] = email
+		valid := validation.Validation{}
+		if v := valid.Required(username, "username"); !v.Ok {
+			errmsg["username"] = "请输入用户名"
+		} else if v := valid.MaxSize(username, 15, "username"); !v.Ok {
+			errmsg["username"] = "用户名长度不能大于15个字符"
+		} else {
+			user := models.User{}
+			if err := user.Query().Filter("username", username).One(&user); err == nil {
+				errmsg["username"] = fmt.Sprintf("用户名:%s 已被注册", username)
+			}
+		}
+		if v := valid.Required(password, "password"); !v.Ok {
+			errmsg["password"] = "请输入密码"
+		}
+		if v := valid.Required(password2, "password2"); !v.Ok {
+			errmsg["password2"] = "请再次输入密码"
+		} else if password != password2 {
+			errmsg["password2"] = "两次输入的密码不一致"
+		}
+		if v := valid.Required(email, "email"); !v.Ok {
+			errmsg["email"] = "请输入email地址"
+		} else if v := valid.Email(email, "email"); !v.Ok {
+			errmsg["email"] = "Email无效"
+		}
+		if len(errmsg) == 0 {
+			var user models.User
+			user.Username = username
+			user.Password = models.Md5([]byte(password))
+			user.Email = email
+			user.Active = int8(1)
+			if err := user.Insert(); err != nil {
+				this.showmsg(err.Error())
+			} else {
+				this.showmsg("注册成功，请登录")
+			}
+			this.Redirect("/admin/login", 302)
+		}
+	}
+	this.Data["input"] = input
+	this.Data["errmsg"] = errmsg
+	this.TplName = "admin/account_register.html"
 }
 
 //退出登录

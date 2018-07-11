@@ -52,7 +52,7 @@ func (this *baseController) Prepare() {
 
 //登录状态验证
 func (this *baseController) auth() {
-	//允许任何人默认拥有访问account控制器的权限
+	//允许任何人默认拥有访问account，comments的权限
 	this.permissionlist = map[string]int{"account": 0,"comments":0}
 	//提取当前cookie
 	arr := strings.Split(this.Ctx.GetCookie("auth"), "|")
@@ -80,7 +80,7 @@ func (this *baseController) auth() {
 			}
 		}
 	}
-	if this.userid == 0 && this.actionName != "login" {
+	if this.userid == 0 && this.actionName != "login" && this.actionName != "register" {
 		this.Redirect("/admin/login", 302)
 	}
 }
