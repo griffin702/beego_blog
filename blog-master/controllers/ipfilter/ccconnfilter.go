@@ -8,9 +8,9 @@ import (
 )
 
 const (
-	maxConn  = 3            //同IP最大异常访问数
-	checkTimeReset = 60     //重置计数器间隔
-	checkTimeDiff = 10      //异常时间差
+	maxConn  = 10            //同IP最大异常访问数
+	checkTimeReset = 120     //重置计数器间隔
+	checkTimeDiff = 6      //异常时间差
 )
 
 //cc过滤
