@@ -7,11 +7,11 @@ import (
 //友情链接
 type Link struct {
 	Id         int64
-	Sitename   string `orm:"size(80)"`
+	Sitename   string `orm:"size(80);index"`
 	Siteavator string `orm:"size(200)"`
-	Url        string `orm:"size(200)"`
+	Url        string `orm:"size(200);index"`
 	Sitedesc   string `orm:"size(300)"`
-	Rank       int8
+	Rank       int8   `orm:"index"`
 }
 
 func (m *Link) TableName() string {

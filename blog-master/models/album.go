@@ -8,12 +8,12 @@ import (
 //相册表
 type Album struct {
 	Id       int64
-	Name     string    `orm:"size(100)"`
+	Name     string    `orm:"size(100);index"`
 	Cover    string    `orm:"size(70)"`
 	Posttime time.Time `orm:"type(datetime);index"`
-	Ishide   int8
-	Rank     int8
-	Photonum int64
+	Ishide   int8      `orm:"index"`
+	Rank     int8      `orm:"index"`
+	Photonum int64     `orm:"index"`
 }
 
 func (m *Album) TableName() string {

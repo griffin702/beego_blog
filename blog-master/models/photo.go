@@ -8,8 +8,8 @@ import (
 //相册表
 type Photo struct {
 	Id       int64
-	Albumid  int64
-	Des      string    `orm:"size(100)"`
+	Albumid  int64     `orm:"index"`
+	Des      string    `orm:"size(100);index"`
 	Posttime time.Time `orm:"type(datetime);index"`
 	Url      string    `orm:"size(70)"`
 	Small    string    `orm:"-"`

@@ -11,7 +11,7 @@ import (
 type Tag struct {
 	Id    int64
 	Name  string `orm:"size(20);index"`
-	Count int64
+	Count int64  `orm:"index"`
 }
 
 func (m *Tag) TableName() string {

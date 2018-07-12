@@ -10,19 +10,19 @@ import (
 
 type Post struct {
 	Id       int64
-	User     *User       `orm:"rel(fk)"`
-	Title    string      `orm:"size(100)"`
-	Color    string      `orm:"size(7)"`
+	User     *User       `orm:"rel(fk);index"`
+	Title    string      `orm:"size(100);index"`
+	Color    string      `orm:"size(7);index"`
 	Urlname  string      `orm:"size(100);index"`
-	Urltype  int8
+	Urltype  int8        `orm:"index"`
 	Content  string      `orm:"type(text)"`
-	Tags     string      `orm:"size(100)"`
+	Tags     string      `orm:"size(100);index"`
 	Posttime time.Time   `orm:"type(datetime);index"`
-	Views    int64
-	Status   int8
-	Updated  time.Time   `orm:"type(datetime)"`
-	Istop    int8
-	Cover    string      `orm:"size(70);default('/static/upload/defaultcover.png')"`
+	Views    int64       `orm:"index"`
+	Status   int8        `orm:"index"`
+	Updated  time.Time   `orm:"type(datetime);index"`
+	Istop    int8        `orm:"index"`
+	Cover    string      `orm:"size(70);default(/static/upload/defaultcover.png)"`
 }
 
 func (m *Post) TableName() string {

@@ -45,9 +45,10 @@
     </div>
     <!-- Comments List -->
     <div class="comments_length col-lg-12 col-md-12 col-sm-12 col-xs-12 column">
-        <p>{{.commentlength}} 条评论 {{.commentuser}} 人参与</p>
+        <p>{{.commentlength}} 条评论 {{.commentuser}} 人参与<span class="pagenum">({{.pagenum}}/{{.totalpage}})</span></p>
     </div>
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 column" id="wrap-comments-list">
+    {{str2html .pagebar}}
         <div id="comments-list">
         {{range $key, $item := .commentlistmap}}
             <div class="comments_one col-lg-12 col-md-12 col-sm-12 col-xs-12 column">
@@ -87,6 +88,7 @@
             </div>
         {{end}}
         </div>
+    {{str2html .pagebar}}
     </div>
     {{/*<!--来必力-->*/}}
     {{/*<div id="lv-container" data-id="city" data-uid="MTAyMC8zNzgzOC8xNDM2OA==">*/}}

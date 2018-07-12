@@ -8,10 +8,10 @@ import (
 //标签内容关系表
 type TagPost struct {
 	Id         int64
-	Tagid      int64 `orm:"index"`
-	Postid     int64
-	Poststatus int8
-	Posttime   time.Time
+	Tagid      int64       `orm:"index"`
+	Postid     int64       `orm:"index"`
+	Poststatus int8        `orm:"index"`
+	Posttime   time.Time   `orm:"index"`
 }
 
 func (m *TagPost) TableName() string {

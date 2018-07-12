@@ -7,30 +7,38 @@ import (
 )
 
 type Pager struct {
-	Page     int64
-	Totalnum int64
-	Pagesize int64
-	urlpath  string
+	Page        int64
+	Totalnum    int64
+	Totalpage   int64
+	Pagesize    int64
+	urlpath     string
+	postId      int64
 }
 
-func NewPager(page, totalnum, pagesize int64, urlpath string) *Pager {
+func NewPager(page, totalnum, pagesize int64, urlpath string, arg ...int64) *Pager {
 	p := new(Pager)
 	p.Page = page
 	p.Totalnum = totalnum
 	p.Pagesize = pagesize
 	p.urlpath = urlpath
+	if len(arg) > 0 {
+		p.postId = arg[0]
+	}
 	return p
 }
 
 func (this *Pager) url(page int64) string {
-	return fmt.Sprintf(this.urlpath, page)
+	ret := fmt.Sprintf(this.urlpath, page)
+	if this.postId > 0 {
+		ret = fmt.Sprintf(this.urlpath, this.postId, page)
+	}
+	return ret
 }
 
 func (this *Pager) ToString() string {
 	if this.Totalnum <= this.Pagesize {
 		return ""
 	}
-
 	var buf bytes.Buffer
 	var from, to, linknum, offset, totalpage int64
 
@@ -38,6 +46,7 @@ func (this *Pager) ToString() string {
 	linknum = 10
 
 	totalpage = int64(math.Ceil(float64(this.Totalnum) / float64(this.Pagesize)))
+	this.Totalpage = totalpage
 
 	if totalpage < linknum {
 		from = 1

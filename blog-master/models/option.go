@@ -7,8 +7,8 @@ import (
 //配置项表
 type Option struct {
 	Id    int64
-	Name  string
-	Value string
+	Name  string   `orm:"index"`
+	Value string   `orm:"type(text)"`
 }
 
 func (m *Option) TableName() string {

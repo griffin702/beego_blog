@@ -7,7 +7,7 @@ import (
 //权限模型
 type Permission struct {
 	Id    int
-	Name  string `orm:"unique;size(20)"`
+	Name  string `orm:"unique;size(20);index"`
 }
 
 func (m *Permission) TableName() string {

@@ -144,7 +144,8 @@ func (this *MainController) Show() {
 		Commentlist     []*models.Comments
 	}
 	var commentlistmap []CommentlistMap
-	comment.Query().Filter("reply_pk", 0).OrderBy("-submittime").RelatedSel().All(&commentlist0)
+	count, _ := comment.Query().Filter("reply_pk", 0).Count()
+	comment.Query().Filter("reply_pk", 0).OrderBy("-submittime").Limit(this.pagesize, (this.page-1)*this.pagesize).RelatedSel().All(&commentlist0)
 	for _, v := range commentlist0 {
 		comment.Query().Filter("reply_fk", v.Id).OrderBy("submittime").RelatedSel().All(&commentlist)
 		var item = CommentlistMap{}
@@ -158,6 +159,12 @@ func (this *MainController) Show() {
 	this.Data["commentlistmap"] = commentlistmap
 	this.Data["commentlength"] = commentlength
 	this.Data["commentuser"] = commentuser
+	pager := models.NewPager(
+		int64(this.page), int64(count),
+		int64(this.pagesize), "/article/%d/page/%d#wrap-form-comment", post.Id)
+	this.Data["pagebar"] = pager.ToString()
+	this.Data["pagenum"] = this.page
+	this.Data["totalpage"] = pager.Totalpage
 	this.setHeadMetas(post.Title, strings.Trim(post.Tags, ","), post.Title)
 	this.display("article")
 }
