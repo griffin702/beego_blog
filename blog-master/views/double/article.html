@@ -46,7 +46,7 @@
     <!-- Comments List -->
     <div class="comments_length col-lg-12 col-md-12 col-sm-12 col-xs-12 column">
         <p>{{.commentlength}} 条评论 {{.commentuser}} 人参与
-            {{ if gt .pagenum 1 }}<span class="pagenum">({{.pagenum}}/{{.totalpage}})</span>{{ end }}
+            {{ if gt .totalpage 1 }}<span class="pagenum">({{.pagenum}}/{{.totalpage}})</span>{{ end }}
         </p>
     </div>
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 column" id="wrap-comments-list">
@@ -55,7 +55,7 @@
         {{range $key, $item := .commentlistmap}}
             <div class="comments_one col-lg-12 col-md-12 col-sm-12 col-xs-12 column">
                 <div class="comment_parent col-lg-12 col-md-12 col-sm-12 col-xs-12 column">
-                    <a class="pull-left" href="#">
+                    <a class="pull-left">
                         <img class="media-object" src="{{ $item.Commentlist0.User.Avator }}" height="45" width="45" alt="">
                     </a>
                     <div class="media-body" id="comment-{{ $item.Commentlist0.Id }}">
@@ -71,7 +71,7 @@
                 </div>
             {{range $k, $v := $item.Commentlist}}
                 <div class="comment_child col-lg-11 col-md-11 col-sm-11 col-xs-11 column">
-                    <a class="pull-left" href="#">
+                    <a class="pull-left">
                         <img class="media-object" src="{{ $v.User.Avator }}" height="30" width="30" alt="">
                     </a>
                     <div class="media-body" id="comment-{{ $v.Id }}">
