@@ -28,7 +28,7 @@ func init() {
 	if beego.AppConfig.String("runmode") == "dev" {
 		orm.Debug = true
 	}
-	orm.RunSyncdb("default", false, true)
+	//orm.RunSyncdb("default", false, true)
 }
 
 func Md5(buf []byte) string {
