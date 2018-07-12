@@ -10,7 +10,7 @@ import (
 const (
 	maxConn  = 10            //同IP最大异常访问数
 	checkTimeReset = 120     //重置计数器间隔
-	checkTimeDiff = 6      //异常时间差
+	checkTimeDiff = 7      //异常时间差
 )
 
 //cc过滤
@@ -69,7 +69,7 @@ func (filter *CCConnFilter) OnConnected(ip string) (bool, string) {
 				}
 			}
 		}
-		if filter.abnConn[ip] > maxConn {
+		if filter.abnConn[ip] >= maxConn {
 			logs.Warning(fmt.Sprintf("IP:%s,拒绝访问,返回500状态,异常访问次数:%d\n", ip, filter.abnConn[ip]))
 			return false, "拒绝访问!"
 		}
