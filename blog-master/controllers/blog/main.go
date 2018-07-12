@@ -144,8 +144,8 @@ func (this *MainController) Show() {
 		Commentlist     []*models.Comments
 	}
 	var commentlistmap []CommentlistMap
-	count, _ := comment.Query().Filter("reply_pk", 0).Count()
-	comment.Query().Filter("reply_pk", 0).OrderBy("-submittime").Limit(this.pagesize, (this.page-1)*this.pagesize).RelatedSel().All(&commentlist0)
+	count, _ := comment.Query().Filter("obj_pk", post.Id).Filter("reply_pk", 0).Count()
+	comment.Query().Filter("obj_pk", post.Id).Filter("reply_pk", 0).OrderBy("-submittime").Limit(this.pagesize, (this.page-1)*this.pagesize).RelatedSel().All(&commentlist0)
 	for _, v := range commentlist0 {
 		comment.Query().Filter("reply_fk", v.Id).OrderBy("submittime").RelatedSel().All(&commentlist)
 		var item = CommentlistMap{}
