@@ -45,7 +45,9 @@
     </div>
     <!-- Comments List -->
     <div class="comments_length col-lg-12 col-md-12 col-sm-12 col-xs-12 column">
-        <p>{{.commentlength}} 条评论 {{.commentuser}} 人参与<span class="pagenum">({{.pagenum}}/{{.totalpage}})</span></p>
+        <p>{{.commentlength}} 条评论 {{.commentuser}} 人参与
+            {{ if gt .pagenum 1 }}<span class="pagenum">({{.pagenum}}/{{.totalpage}})</span>{{ end }}
+        </p>
     </div>
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 column" id="wrap-comments-list">
     {{str2html .pagebar}}
