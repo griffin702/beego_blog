@@ -154,8 +154,8 @@ func (this *MainController) Show() {
 		commentlistmap = append(commentlistmap, item)
 		commentlist = []*models.Comments{}
 	}
-	commentlength, _ = comment.Query().Count()
-	commentuser, _ = comment.Query().GroupBy("User").Count()
+	commentlength, _ = comment.Query().Filter("obj_pk", post.Id).Count()
+	commentuser, _ = comment.Query().Filter("obj_pk", post.Id).GroupBy("User").Count()
 	this.Data["commentlistmap"] = commentlistmap
 	this.Data["commentlength"] = commentlength
 	this.Data["commentuser"] = commentuser

@@ -65,7 +65,7 @@ function comment_submit(event){
 				});
 			},300),
 			error: function(){
-				alert("过于频繁,评论失败!请稍后再评论");
+				alert("评论失败!\n可能原因:\n1、您还未登录\n2、评论过于频繁");
 			}
 		});
 	}
