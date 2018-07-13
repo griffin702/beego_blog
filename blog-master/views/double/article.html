@@ -16,7 +16,16 @@
             {{str2html .post.Content}}
         </ul>
         <div class="keybq">
-        <p><span class="glyphicon glyphicon-tag"></span><span>关键字词</span>[{{str2html .post.TagsLink}}]</p>
+            <p><span class="glyphicon glyphicon-tag"></span><span>关键字词</span>[{{str2html .post.TagsLink}}]</p>
+        </div>
+        <div class="bdsharebuttonbox bdshare-button-style0-24">
+            <span>分享到：</span>
+            <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+            <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+            <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a>
+            <a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+            <a href="#" class="bds_more" data-cmd="more"></a>
         </div>
         <div class="nextinfo">
         {{if .pre}}
@@ -146,4 +155,7 @@
     {{/*})();*/}}
     {{/*</script>*/}}
 </div>
-<link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+
+<!-- 百度分享按钮 -->
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?v=89860593.js?'];
+</script>
