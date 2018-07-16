@@ -142,19 +142,19 @@ h2.title_tj p { background: #fff; width: 80px }
 
 /*life*/
 .bloglist { overflow: hidden; background: url(../images/r_line.jpg) repeat-y right; padding: 0 15px 0 0!important; }
-.bloglist h3 { margin: 0; padding: 12px 15px 0 0!important; color: #333 }
+.bloglist h3 { margin: 0; padding: 12px 10px 0 10px!important; color: #333 }
 .bloglist div a.articleimg { padding: 15px 15px 15px 20px; }
 .bloglist div a.articleimg img { padding: 0!important; max-height: 135px; max-width: 190px; }
 .bloglist .blog { margin-bottom: 10px; padding: 0; }
 .bloglist .blog:hover { background-color: #f5f5f5; border-radius: 8px; -moz-border-radius:8px; -webkit-border-radius:8px; }
-.blogcontent { padding: 0!important; height: 42px; }
-.blogcontent p { margin: 0; padding-right: 15px; }
-.lifedateview { color: #838383; margin: 0; padding: 2px 15px 2px 5px!important; }
+.blogcontent { padding: 0!important; height: 55px; }
+.blogcontent p { margin: 0; padding: 0 10px; }
+.lifedateview { color: #838383; margin: 0; padding: 2px 10px 2px 15px!important; }
 .lifedateview span { margin: 0; font-size: 10px; }
 .lifedateview span span { padding-right: 3px; }
 .lifedateview span a { color: #099B43; padding: 0 3px; }
 .lifedateview span a:hover { color: #23527c; }
-a.readmore { background: #fd8a61; color: #fff; padding: 5px 10px; float: right; position: relative; right: 30px; }
+a.readmore { background: #fd8a61; color: #fff; padding: 5px 10px; float: right; position: relative; right: 15px; }
 
 /*mood*/
 .moodlist { margin: auto; width: 100%; overflow: hidden }
@@ -170,7 +170,6 @@ a.readmore { background: #fd8a61; color: #fff; padding: 5px 10px; float: right; 
     float: left;
     margin: 15px 15px;
     max-width: 220px;
-    max-height: 150px;
 }
 .sy .bg p {
     margin-top: 15px;

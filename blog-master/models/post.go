@@ -108,10 +108,12 @@ func (m *Post) TagsLink() string {
 
 //摘要
 func (m *Post) Excerpt() string {
+	//如果断定截取的断点可能会存在中文字符，则需要转为rune后再截取，否则可能会截成乱码
+	data := []rune(m.Content)
 	if i := strings.Index(m.Content, "_ueditor_page_break_tag_"); i != -1 {
 		return m.Content[:i]
-	}else if i = -1; len(m.Content) > 100{
-		return m.Content[:100]+"..."
+	}else if i = -1; len(data) > 62{
+		return string(data[:62])+"..."
 	}
 	return m.Content
 }
