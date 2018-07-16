@@ -38,7 +38,7 @@ CREATE TABLE `tb_album` (
 DROP TABLE IF EXISTS `tb_comments`;
 CREATE TABLE `tb_comments` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `obj_pk` bigint(20) NOT NULL DEFAULT '0',
+  `obj_pk_id` bigint(20) NOT NULL,
   `reply_pk` bigint(20) NOT NULL DEFAULT '0',
   `reply_fk` bigint(20) NOT NULL DEFAULT '0',
   `user_id` bigint(20) NOT NULL,
@@ -48,7 +48,7 @@ CREATE TABLE `tb_comments` (
   `is_public` tinyint(4) NOT NULL DEFAULT '0',
   `is_removed` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
-  KEY `tb_comments_obj_pk` (`obj_pk`),
+  KEY `tb_comments_obj_pk_id` (`obj_pk_id`),
   KEY `tb_comments_reply_pk` (`reply_pk`),
   KEY `tb_comments_reply_fk` (`reply_fk`),
   KEY `tb_comments_user_id` (`user_id`),
@@ -56,6 +56,7 @@ CREATE TABLE `tb_comments` (
   KEY `tb_comments_is_public` (`is_public`),
   KEY `tb_comments_is_removed` (`is_removed`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 #
 # Data for table "tb_comments"
