@@ -32,22 +32,22 @@
 					<script type="text/javascript" charset="utf-8">
 						var optionsUP = {"imageUrl":"/admin/article/upload?type=2&w=220&h=150","imagePath":""};
 						//上传标题图片
-		        				var _editor = UE.getEditor("upload_ue",optionsUP);
-		        				_editor.ready(function () {
-						            _editor.setDisabled();
-						            _editor.hide();
-						            _editor.addListener('beforeInsertImage', function (t, arg) {     //侦听图片上传
-						                $("#picture").attr("value", arg[0].src);                      //将地址赋值给相应的input
-						                $("#preview").attr("src", arg[0].src);
-						            })
-						            _editor.addListener('afterUpfile', function (t, arg) {
-						                $("#file").attr("value", _editor.options.filePath + arg[0].url);
-						            })
-					        	});
-					        	function upImage() {
-					            	var myImage = _editor.getDialog("insertimage");
-					            	myImage.open();
-					        	}
+						var _editor = UE.getEditor("upload_ue",optionsUP);
+						_editor.ready(function () {
+							_editor.setDisabled();
+							_editor.hide();
+							_editor.addListener('beforeInsertImage', function (t, arg) {     //侦听图片上传
+								$("#picture").attr("value", arg[0].src);                      //将地址赋值给相应的input
+								$("#preview").attr("src", arg[0].src);
+							})
+							_editor.addListener('afterUpfile', function (t, arg) {
+								$("#file").attr("value", _editor.options.filePath + arg[0].url);
+							})
+						});
+						function upImage() {
+							var myImage = _editor.getDialog("insertimage");
+							myImage.open();
+						}
 					</script>
 				</td>
 			</tr>
