@@ -42,7 +42,7 @@ func (this *CommentsController) Add() {
 					var user models.User
 					user.Query().Filter("id", this.userid).Limit(1).One(&user)
 					comment.User = &models.User{Id: this.userid}
-					comment.Obj_pk = int64(blogid)
+					comment.Obj_pk = &models.Post{Id:int64(blogid)}
 					replypk_to_int, _ := strconv.Atoi(replypk)
 					comment.Reply_pk = int64(replypk_to_int)
 					comment.Reply_fk = int64(replyfk)
@@ -50,6 +50,7 @@ func (this *CommentsController) Add() {
 					if err := comment.Insert(); err != nil {
 						this.showmsg(err.Error())
 					}
+					models.Cache.Delete("newcomments")
 				}
 			}
 			this.Redirect(this.Ctx.Request.Referer(), 302)

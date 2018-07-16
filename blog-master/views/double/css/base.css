@@ -19,12 +19,14 @@ a.n1, a.n2 { width: 100px; display: block; text-align: center; color: #fff; floa
 .n2 { background: #8BBF5D; }
 
 /*右边栏样式*/
+.right-bar { padding: 0 10px!important; }
 .news h3 { font-size: 14px; background: url(../images/r_title_bg.jpg) repeat-x center ;margin-top: 20px}
 .news h3 p { background: #fff; width: 70px }
 .news h3 span { color: #65b020 }
 .news h3.ph span { color: #37ccca; }
+.news h3.npk span { color: #7082f1; }
 .news h3.links span { color: #F17B6B; }
-.news ul { margin-bottom: 20px }
+.news ul { margin-bottom: 20px; padding-left: 15px; }
 .news ul li a:hover { text-decoration: underline }
 .rank li { height: 25px; line-height: 25px; clear: both; padding-left: 10px; overflow: hidden; background: url(../images/li.jpg) no-repeat left center; }
 .rank { margin: 10px 0 }
@@ -150,7 +152,7 @@ h2.title_tj p { background: #fff; width: 80px }
 .blogcontent { padding: 0!important; height: 55px; }
 .blogcontent p { margin: 0; padding: 0 10px; }
 .lifedateview { color: #838383; margin: 0; padding: 2px 10px 2px 15px!important; }
-.lifedateview span { margin: 0; font-size: 10px; }
+.lifedateview span { margin: 0; padding: 0 3px; font-size: 10px; }
 .lifedateview span span { padding-right: 3px; }
 .lifedateview span a { color: #099B43; padding: 0 3px; }
 .lifedateview span a:hover { color: #23527c; }
@@ -221,7 +223,7 @@ a.readmore { background: #fd8a61; color: #fff; padding: 5px 10px; float: right; 
 /*new*/
 .index_about { background: url(../images/r_line.jpg) repeat-y right; }
 .c_titile { font-size: 22px; margin: 20px 0; text-align: center }
-.box_c { border: #ccc 1px dashed; text-align: center; padding: 5px 0; margin-right: 30px;color: #999;}
+.box_c { border: #ccc 1px dashed; text-align: center; padding: 5px 0;color: #999;}
 .box_c span { margin: 0 10px; }
 .box_c span a{color: #099;}
 ul.infos { line-height: 28px; text-indent: 2em; padding: 0 15px 0 15px; }

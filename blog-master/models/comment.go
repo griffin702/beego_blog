@@ -8,7 +8,7 @@ import (
 //评论模型
 type Comments struct {
 	Id                int64
-	Obj_pk            int64     `orm:"index"`
+	Obj_pk            *Post     `orm:"rel(fk);index"`
 	Reply_pk          int64     `orm:"index"`
 	Reply_fk          int64     `orm:"index"`
 	User              *User     `orm:"rel(fk);index"`
@@ -85,3 +85,12 @@ func (m *Comments) Return_PkContent(key int64) (string, error) {
 	}
 	return reply_pk.Comment, nil
 }
+
+func (m *Comments) Return_50(key string) (string) {
+	data := []rune(m.Comment)
+	if len(data) > 8 {
+		return string(data[:8])+"..."
+	}
+	return m.Comment
+}
+

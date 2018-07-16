@@ -122,6 +122,7 @@ func (this *MainController) Show() {
 	if err != nil || post.Status != 0 {
 		this.Redirect("/404.html", 302)
 	}
+	post.Query().Filter("Id", post.Id).RelatedSel().One(post)
 	post.Views++
 	post.Update("Views")
 	models.Cache.Delete("hotblog")

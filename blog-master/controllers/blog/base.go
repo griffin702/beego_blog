@@ -33,6 +33,7 @@ func (this *baseController) Prepare() {
 	this.Data["options"] = this.options
 	this.Data["latestblog"] = models.GetLatestBlog()
 	this.Data["hotblog"] = models.GetHotBlog()
+	this.Data["newcomments"] = models.GetNewComments()
 	this.Data["links"] = models.GetLinks()
 	this.Data["hidejs"] = `<!--[if lt IE 9]>
 	<script src="/static/js/html5shiv.min.js"></script>

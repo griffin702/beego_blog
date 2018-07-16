@@ -23,6 +23,7 @@ type Post struct {
 	Updated  time.Time   `orm:"type(datetime);index"`
 	Istop    int8        `orm:"index"`
 	Cover    string      `orm:"size(70);default(/static/upload/defaultcover.png)"`
+	Comments []*Comments `orm:"reverse(many)"`
 }
 
 func (m *Post) TableName() string {
