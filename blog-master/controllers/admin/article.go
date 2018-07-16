@@ -149,6 +149,10 @@ func (this *ArticleController) Save() {
 		if post.Read() != nil {
 			goto RD
 		}
+		lastcover := post.Cover
+		if lastcover != cover && lastcover != "" && lastcover != "/static/upload/defaultcover.png" {
+			os.Remove("."+lastcover)
+		}
 		if post.Tags != "" {
 			var tagobj models.Tag
 			var tagpostobj models.TagPost
@@ -200,6 +204,9 @@ func (this *ArticleController) Delete() {
 	id, _ := this.GetInt64("id")
 	post := models.Post{Id: id}
 	if post.Read() == nil {
+		if post.Cover != "" && post.Cover != "/static/upload/defaultcover.png" {
+			os.Remove("."+post.Cover)
+		}
 		post.Delete()
 	}
 	models.Cache.Delete("latestblog")

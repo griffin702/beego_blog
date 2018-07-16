@@ -8,7 +8,7 @@ import (
 type Link struct {
 	Id         int64
 	Sitename   string `orm:"size(80);index"`
-	Siteavator string `orm:"size(200)"`
+	Siteavator string `orm:"size(200);default(/static/upload/default/user-default-60x60.png)"`
 	Url        string `orm:"size(200);index"`
 	Sitedesc   string `orm:"size(300)"`
 	Rank       int8   `orm:"index"`

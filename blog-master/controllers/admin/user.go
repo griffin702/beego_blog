@@ -5,6 +5,7 @@ import (
 	"blog-master/models"
 	"strings"
 	"fmt"
+	"os"
 )
 
 type UserController struct {
@@ -126,14 +127,16 @@ func (this *UserController) Edit() {
 	if err := user.Read(); err != nil {
 		this.showmsg("用户不存在")
 	}
-
+	lastavator := user.Avator
 	errmsg := make(map[string]string)
-
 	if this.Ctx.Request.Method == "POST" {
 		password := strings.TrimSpace(this.GetString("password"))
 		password2 := strings.TrimSpace(this.GetString("password2"))
 		email := strings.TrimSpace(this.GetString("email"))
 		avator := strings.TrimSpace(this.GetString("avator"))
+		if avator != lastavator && lastavator != "" && lastavator != "/static/upload/default/user-default-60x60.png" {
+			os.Remove("."+lastavator)
+		}
 		permissionlist := strings.TrimSpace(
 			this.GetString("permission1") + "|" +
 				this.GetString("permission2") + "|" +
@@ -190,6 +193,9 @@ func (this *UserController) Delete() {
 	}
 	user := models.User{Id: id}
 	if user.Read() == nil {
+		if user.Avator != "" && user.Avator != "/static/upload/default/user-default-60x60.png" {
+			os.Remove("."+user.Avator)
+		}
 		user.Delete()
 	}
 
