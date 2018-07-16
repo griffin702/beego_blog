@@ -91,14 +91,12 @@ func GetLinks() []*Link {
 }
 
 func GetNewComments() []*Comments {
-	fmt.Println(!Cache.IsExist("NewComments"))
-	if !Cache.IsExist("NewComments") {
+	if !Cache.IsExist("newcomments") {
 		var result []*Comments
 		new(Comments).Query().Limit(5).OrderBy("-submittime").RelatedSel().All(&result)
-		Cache.Put("NewComments", result)
-		fmt.Println(Cache.data)
+		Cache.Put("newcomments", result)
 	}
-	v := Cache.Get("NewComments")
+	v := Cache.Get("newcomments")
 	return v.([]*Comments)
 }
 //返回带前缀的表名

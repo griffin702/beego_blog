@@ -20,7 +20,6 @@ func (this *MainController) Index() {
 	}
 	this.Data["list"] = list
 	this.Data["pagebar"] = models.NewPager(int64(this.page), int64(count), int64(this.pagesize), "/index%d.html").ToString()
-	models.Cache.Delete("newcomments")
 	this.setHeadMetas()
 	this.display("index")
 }
@@ -35,7 +34,6 @@ func (this *MainController) BlogList() {
 	}
 	this.Data["list"] = list
 	this.Data["pagebar"] = models.NewPager(int64(this.page), int64(count), int64(this.pagesize), "/life%d.html").ToString()
-	models.Cache.Delete("newcomments")
 	this.setHeadMetas("成长录")
 	this.display("life")
 }
