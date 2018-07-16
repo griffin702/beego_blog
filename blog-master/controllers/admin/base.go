@@ -30,13 +30,15 @@ type baseController struct {
 	controllerName    string
 	actionName        string
 	permissionlist    map[string]int
+	clientip          string
 	allowconn         bool
 	allowconnmsg      string
 }
 
 func (this *baseController) Prepare() {
+	this.clientip = this.getClientIp()
 	this.allowconn = true
-	this.allowconn, this.allowconnmsg = ipfilter.ConnFilterCtx().OnConnected(this.getClientIp())
+	this.allowconn, this.allowconnmsg = ipfilter.ConnFilterCtx().OnConnected(this.clientip)
 	//fmt.Println(ipfilter.ConnFilterCtx()["cc"])
 	if !this.allowconn {
 		//超过3次异常访问，返回500

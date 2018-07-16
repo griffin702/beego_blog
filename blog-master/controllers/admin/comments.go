@@ -22,7 +22,7 @@ func (this *CommentsController) List() {
 
 //添加评论
 func (this *CommentsController) Add() {
-	x := ipfilter.ConnFilterCtx()["cc"].GetabnConn(this.getClientIp())
+	x := ipfilter.ConnFilterCtx().GetabnConn(this.clientip)
 	if x > 0 {
 		this.Abort("500")
 	} else {

@@ -10,17 +10,19 @@ import (
 
 type baseController struct {
 	beego.Controller
-	options  map[string]string
-	right    string
-	page     int
-	pagesize int
-	allowconn     bool
-	allowconnmsg  string
+	options           map[string]string
+	right             string
+	page              int
+	pagesize          int
+	clientip          string
+	allowconn         bool
+	allowconnmsg      string
 }
 
 func (this *baseController) Prepare() {
+	this.clientip = this.getClientIp()
 	this.allowconn = true
-	this.allowconn, this.allowconnmsg = ipfilter.ConnFilterCtx().OnConnected(this.getClientIp())
+	this.allowconn, this.allowconnmsg = ipfilter.ConnFilterCtx().OnConnected(this.clientip)
 	if !this.allowconn {
 		//超过3次异常访问，返回500
 		this.Controller.Abort("500")
