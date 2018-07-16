@@ -6,7 +6,9 @@
 <div class="bloglist left col-lg-9 col-md-9 col-sm-12 col-xs-12 column">
     {{range $k, $v := .list}}
     <div class="blog col-lg-12 col-md-12 col-sm-12 col-xs-12 column">
-        <a href="{{$v.Link}}" class="articleimg col-lg-3 col-md-5 hidden-sm hidden-xs column"><img src="{{$v.Cover}}"></a>
+        <a href="{{$v.Link}}" class="articleimg col-lg-3 col-md-5 hidden-sm hidden-xs column">
+            <img src="{{$v.Cover}}" class="col-lg-12 col-md-12 hidden-sm hidden-xs column">
+        </a>
         <h3 class="col-lg-9 col-md-7 col-sm-12 col-xs-12 column">
             <a href="{{$v.Link}}"  target="_blank">{{str2html $v.ColorTitle}}</a>
             <p class="lifedateview">

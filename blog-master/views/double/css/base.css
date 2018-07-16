@@ -140,13 +140,11 @@ h2.title_tj p { background: #fff; width: 80px }
 
 .lock { float: right; margin: 80px 10px 0px 0px; width: 46px; height: 55px; border-radius: 100%; overflow: hidden; background: url(../images/lock.png) no-repeat}
 
-
-
 /*life*/
 .bloglist { overflow: hidden; background: url(../images/r_line.jpg) repeat-y right; padding: 0 15px 0 0!important; }
 .bloglist h3 { margin: 0; padding: 12px 15px 0 0!important; color: #333 }
 .bloglist div a.articleimg { padding: 15px 15px 15px 20px; }
-.bloglist div a.articleimg img { padding: 0!important; }
+.bloglist div a.articleimg img { padding: 0!important; max-height: 135px; max-width: 190px; }
 .bloglist .blog { margin-bottom: 10px; padding: 0; }
 .bloglist .blog:hover { background-color: #f5f5f5; border-radius: 8px; -moz-border-radius:8px; -webkit-border-radius:8px; }
 .blogcontent { padding: 0!important; height: 42px; }
@@ -171,6 +169,8 @@ a.readmore { background: #fd8a61; color: #fff; padding: 5px 10px; float: right; 
 .sy .bg img {
     float: left;
     margin: 15px 15px;
+    max-width: 220px;
+    max-height: 150px;
 }
 .sy .bg p {
     margin-top: 15px;
