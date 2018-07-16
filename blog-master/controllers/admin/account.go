@@ -90,6 +90,7 @@ func (this *AccountController) Register() {
 			user.Password = models.Md5([]byte(password))
 			user.Email = email
 			user.Active = int8(1)
+			user.Lastip = this.getClientIp()
 			user.Avator = "/static/upload/default/user-default-60x60.png"
 			if err := user.Insert(); err != nil {
 				this.showmsg(err.Error())
