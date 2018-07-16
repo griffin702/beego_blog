@@ -90,6 +90,16 @@ func GetLinks() []*Link {
 	return v.([]*Link)
 }
 
+func GetNewComments() []*Comments {
+	if !Cache.IsExist("NewComments") {
+		var result []*Comments
+		new(Comments).Query().Limit(5).OrderBy("-submittime").RelatedSel().All(&result)
+		Cache.Put("NewComments", result)
+	}
+	v := Cache.Get("NewComments")
+	return v.([]*Comments)
+}
+
 //返回带前缀的表名
 func TableName(str string) string {
 	return fmt.Sprintf("%s%s", beego.AppConfig.String("dbprefix"), str)
