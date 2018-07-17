@@ -33,7 +33,7 @@ footer { text-align: center; line-height: 40px; border-top: #E8E8E8 1px solid ; 
 	vertical-align:middle!important;
 	font-size:12px;
 	line-height:26px!important;
-	text-align:center;
+	text-align:right;
 	color:#333;
 	border-top:none!important;
 	padding: 0!important;
@@ -65,3 +65,15 @@ legend .btn { margin-left: 30px; }
 .page a { margin: 0 2px; height: 26px; line-height: 26px; border-radius: 50%; width: 26px; text-align: center; display: inline-block }
 .page>b, .page a:hover { background: #333; color: #FFF; }
 .page a { color: #F33; border: #999 1px solid; }
+
+/*xheditor样式*/
+@media (min-width: 992px) {
+	#xhe0_container.xhe_default table.xheLayout {
+		width: 900px!important;
+	}
+}
+@media (max-width: 991px) {
+	#xhe0_container.xhe_default table.xheLayout {
+		width: 300px!important;
+	}
+}

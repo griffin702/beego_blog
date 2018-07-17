@@ -22,4 +22,20 @@ $(document).ready(function(){
             a.parent().siblings().removeClass("active");
         }
     });
+    $('#content').xheditor({
+        tools:'full',
+        skin:'default',
+        showBlocktag:true,
+        internalScript:false,
+        internalStyle:false,
+        width:600,
+        height:500,
+        loadCSS:'/static/xheditor/css/base.css',
+        fullscreen:false,
+        sourceMode:false,
+        forcePtag:true,
+        upMultiple:5,
+        upImgUrl:"/admin/article/upload?type=3",
+        upImgExt:"jpg,jpeg,gif,png"
+    });
 });

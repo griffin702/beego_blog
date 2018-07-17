@@ -183,7 +183,7 @@
         //,autoSyncData:true //自动同步编辑器要提交的数据
         //,emotionLocalization:false //是否开启表情本地化，默认关闭。若要开启请确保emotion文件夹下包含官网提供的images表情文件夹
 
-        //,pasteplain:false  //是否默认为纯文本粘贴。false为不使用纯文本粘贴，true为使用纯文本粘贴
+        ,pasteplain:true  //是否默认为纯文本粘贴。false为不使用纯文本粘贴，true为使用纯文本粘贴
         //纯文本粘贴模式下的过滤规则
 //        'filterTxtRules' : function(){
 //            function transP(node){
@@ -325,8 +325,8 @@
 
         //tab
         //点击tab键时移动的距离,tabSize倍数，tabNode什么字符做为单位
-        //,tabSize:4
-        //,tabNode:'&nbsp;'
+        ,tabSize:4
+        ,tabNode:'&nbsp;'
 
         //elementPathEnabled
         //是否启用元素路径，默认是显示
@@ -359,7 +359,7 @@
         //是否保持toolbar的位置不动,默认true
         //,autoFloatEnabled:true
         //浮动时工具栏距离浏览器顶部的高度，用于某些具有固定头部的页面
-        //,topOffset:30
+        ,topOffset:30
         //编辑器底部距离工具栏高度(如果参数大于等于编辑器高度，则设置无效)
         //,toolbarTopOffset:400
 
