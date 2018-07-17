@@ -177,7 +177,7 @@ a.readmore { background: #fd8a61; color: #fff; padding: 5px 10px; float: right; 
     margin-top: 15px;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 992px) {
     .sy::before {
         content: "";
         width: 5px;
