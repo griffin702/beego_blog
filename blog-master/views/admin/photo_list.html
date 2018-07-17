@@ -1,45 +1,45 @@
 <fieldset>
 	<legend>相册图片</legend>
 	<form method="post" name="p" action="/admin/article/save">
-	<table class="table table-form">
-		<tbody>
-			<tr>
-	            <td>
-	            	<a href="javascript:void(0);" onclick="upImage();">上传图片</a>
-	            </td>
-			</tr>
-			<tr>
-				<td>
-					<ul id="auto-loop" class="gallery list-unstyled">
-				        {{range $k, $v := .list}}
-				            <li data-desc="{{$v.Des}}"> 
-				              <a href="#">
-				                <img src="{{$v.Small}}" />
-				              </a> 
-				              <a href="/admin/photo/cover?cover={{$v.Small}}&albumid={{$v.Albumid}}">设为封面</a>
-				              <a href="/admin/photo/delete?id={{$v.Id}}&albumid={{$v.Albumid}}" onclick="return del_confirm()">删除</a>
-				            </li>
-				       {{end}}
-    				</ul>
-				</td>
-			</tr>
-		</tbody>
-
-	</table>
+        <div class="table-responsive">
+			<table class="table table-form">
+				<tbody>
+					<tr>
+						<td>
+							<a href="javascript:void(0);" onclick="upImage();">上传图片</a>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<ul id="auto-loop" class="gallery list-unstyled">
+								{{range $k, $v := .list}}
+									<li data-desc="{{$v.Des}}">
+									  <a href="#">
+										<img src="{{$v.Small}}" />
+									  </a>
+									  <a href="/admin/photo/cover?cover={{$v.Small}}&albumid={{$v.Albumid}}">设为封面</a>
+									  <a href="/admin/photo/delete?id={{$v.Id}}&albumid={{$v.Albumid}}" onclick="return del_confirm()">删除</a>
+									</li>
+							   {{end}}
+							</ul>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 	</form>
-
 </fieldset>
 <link href="/static/themes/admin/css/lightGallery.css" rel="stylesheet" type="text/css"/>
 <script>
-	  $(document).ready(function() {
-	    $("#auto-loop").lightGallery({
-	        loop:true,
-	        auto:true,
-	        desc:true,
-	        counter:true,
-	        pause:3000
-	      });
-	    });
+	$(document).ready(function() {
+		$("#auto-loop").lightGallery({
+			loop:true,
+			auto:true,
+			desc:true,
+			counter:true,
+			pause:3000
+		});
+	});
 </script>
 
 <style>

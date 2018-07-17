@@ -4,29 +4,31 @@
 			<span class="glyphicon glyphicon-plus"></span> 添加友链
 		</a>
 	</legend>
-	<table class="table table-hover table-list">
-		<thead>
-		<tr>
-			<th>ID</th>
-			<th>网站名称</th>
-			<th>网站URL</th>
-			<th>排序值</th>
-			<th>操作</th>
-		</tr>
-		</thead>
-		<tbody>
-		{{range $k, $v := .list}}
+    <div class="table-responsive">
+		<table class="table table-hover table-list">
+			<thead>
 			<tr>
-				<td>{{$v.Id}}</td>
-				<td>{{$v.Sitename}}</td>
-				<td>{{$v.Url}}</td>
-				<td>{{$v.Rank}}</td>
-				<td>
-				<a href="/admin/link/edit?id={{$v.Id}}">编辑</a> | 
-				<a href="/admin/link/delete?id={{$v.Id}}" onclick="return del_confirm()">删除</a>
-				</td>
+				<th>ID</th>
+				<th>网站名称</th>
+				<th>网站URL</th>
+				<th>排序值</th>
+				<th>操作</th>
 			</tr>
-		{{end}}
-		</tbody>
-	</table>
+			</thead>
+			<tbody>
+			{{range $k, $v := .list}}
+				<tr>
+					<td>{{$v.Id}}</td>
+					<td>{{$v.Sitename}}</td>
+					<td>{{$v.Url}}</td>
+					<td>{{$v.Rank}}</td>
+					<td>
+					<a href="/admin/link/edit?id={{$v.Id}}">编辑</a> |
+					<a href="/admin/link/delete?id={{$v.Id}}" onclick="return del_confirm()">删除</a>
+					</td>
+				</tr>
+			{{end}}
+			</tbody>
+		</table>
+	</div>
 </fieldset>

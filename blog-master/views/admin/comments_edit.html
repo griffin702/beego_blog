@@ -15,7 +15,7 @@
             <tr>
                 <th>状态</th>
                 <td>
-                    <select name="is_removed" class="span2 form-control" >
+                    <select name="is_removed" class="form-control" >
                         <option value="0" {{if eq .comment.Is_removed 0}}selected{{end}}>正常</option>
                         <option value="1" {{if eq .comment.Is_removed 1}}selected{{end}}>删除</option>
                     </select>

@@ -4,105 +4,104 @@
             <span class="glyphicon glyphicon-share-alt"></span> 返回
         </a>
 	</legend>
-
 	<form class="form-horizontal" method="post">
-	<table class="table table-form">
-		<tbody>
-		<tr>
-			<th>用户名：</th>
-			<td>
-				<input name="username" value="{{.input.username}}" class="span3 form-control" type="text" />
-				<span class="text-error">{{.errmsg.username}}</span>
-			</td>
-		</tr>
-		<tr>
-			<th>密码：</th>
-			<td>
-				<input name="password" value="{{.input.password}}" class="span3 form-control" type="password" />
-				<span class="text-error">{{.errmsg.password}}</span>
-			</td>
-		</tr>
-		<tr>
-			<th>确认密码：</th>
-			<td>
-				<input name="password2" value="{{.input.password2}}" class="span3 form-control" type="password" />
-				<span class="text-error">{{.errmsg.password2}}</span>
-			</td>
-		</tr>
-        <tr>
-            <th>用户头像</th>
-            <td>
-                <input class="span3 form-control" type="text" id="picture" name="avator" />
-                <a class="btn btn-default btn-primary" style="margin-left: 10px;" href="javascript:void(0);"
-                   onclick="upImage();">上传图片</a>
-                <script type="text/javascript" charset="utf-8">
-                    window.UEDITOR_HOME_URL = "/static/ueditor/";
-                </script>
-                <script type="text/javascript" src="/static/ueditor/ueditor.config.js"></script>
-                <script type="text/javascript" src="/static/ueditor/ueditor.all.min.js"></script>
-                <script type="text/plain" id="upload_ue"></script>
-                <script type="text/javascript" charset="utf-8">
-                    var optionsUP = {"imageUrl":"/admin/article/upload?type=2&w=100&h=100","imagePath":""};
-                    //上传标题图片
-                    var _editor = UE.getEditor("upload_ue",optionsUP);
-                    _editor.ready(function () {
-                        _editor.setDisabled();
-                        _editor.hide();
-                        _editor.addListener('beforeInsertImage', function (t, arg) {     //侦听图片上传
-                            $("#picture").attr("value", arg[0].src);                      //将地址赋值给相应的input
-                            $("#preview").attr("src", arg[0].src);
-                        })
-                        _editor.addListener('afterUpfile', function (t, arg) {
-                            $("#file").attr("value", _editor.options.filePath + arg[0].url);
-                        })
-                    });
-                    function upImage() {
-                        var myImage = _editor.getDialog("insertimage");
-                        myImage.open();
-                    }
-                </script>
-            </td>
-        </tr>
-		<tr>
-			<th>邮箱：</th>
-			<td>
-				<input name="email" value="{{.input.email}}" class="span3 form-control" type="text" />
-				<span class="text-error">{{.errmsg.email}}</span>
-			</td>
-		</tr>
-        <tr>
-            <th>权限分配：</th>
-            <td>
-            	<label><input name="permission1" class="checkbox" value="1" type="checkbox" />用户管理</label>
-                <label><input name="permission2" class="checkbox" value="2" type="checkbox" />文章管理</label>
-                <label><input name="permission3" class="checkbox" value="3" type="checkbox" />相册管理</label>
-                <label><input name="permission4" class="checkbox" value="4" type="checkbox" />友链管理</label>
-                <label><input name="permission5" class="checkbox" value="5" type="checkbox" />心情管理</label>
-                <label><input name="permission6" class="checkbox" value="6" type="checkbox" />标签管理</label>
-                <label><input name="permission7" class="checkbox" value="7" type="checkbox" />站点设置</label>
-            </td>
-        </tr>
-		</tr>
-		<tr>
-			<th>激活状态：</th>
-			<td>
-                <label for="data_active_0" class="help-inline">
-					<input type="radio" name="active" value="0" id="data_active_0" checked />未激活</label>
-                <label for="data_active_1" class="help-inline">
-					<input type="radio" name="active" value="1" id="data_active_1" />已激活</label>
-			</td>
-		</tr>
-		</tbody>
-		<tfoot>
+		<table class="table table-form">
+			<tbody>
 			<tr>
-				<th></th>
+				<th>用户名：</th>
 				<td>
-				<button type="submit" class="btn"><i class="icon-ok"></i> 保存</button>
-				<button type="button" class="btn" onclick="javascript:history.back();">取消</button>
+					<input name="username" value="{{.input.username}}" class="form-control" type="text" />
+					<span class="text-error">{{.errmsg.username}}</span>
 				</td>
 			</tr>
-		</tfoot>
-	</table>
+			<tr>
+				<th>密码：</th>
+				<td>
+					<input name="password" value="{{.input.password}}" class="form-control" type="password" />
+					<span class="text-error">{{.errmsg.password}}</span>
+				</td>
+			</tr>
+			<tr>
+				<th>确认密码：</th>
+				<td>
+					<input name="password2" value="{{.input.password2}}" class="form-control" type="password" />
+					<span class="text-error">{{.errmsg.password2}}</span>
+				</td>
+			</tr>
+			<tr>
+				<th>用户头像</th>
+				<td>
+					<input class="form-control" type="text" id="picture" name="avator" />
+					<a class="btn btn-default btn-primary" style="margin-left: 10px;" href="javascript:void(0);"
+					   onclick="upImage();">上传图片</a>
+					<script type="text/javascript" charset="utf-8">
+						window.UEDITOR_HOME_URL = "/static/ueditor/";
+					</script>
+					<script type="text/javascript" src="/static/ueditor/ueditor.config.js"></script>
+					<script type="text/javascript" src="/static/ueditor/ueditor.all.min.js"></script>
+					<script type="text/plain" id="upload_ue"></script>
+					<script type="text/javascript" charset="utf-8">
+						var optionsUP = {"imageUrl":"/admin/article/upload?type=2&w=100&h=100","imagePath":""};
+						//上传标题图片
+						var _editor = UE.getEditor("upload_ue",optionsUP);
+						_editor.ready(function () {
+							_editor.setDisabled();
+							_editor.hide();
+							_editor.addListener('beforeInsertImage', function (t, arg) {     //侦听图片上传
+								$("#picture").attr("value", arg[0].src);                      //将地址赋值给相应的input
+								$("#preview").attr("src", arg[0].src);
+							})
+							_editor.addListener('afterUpfile', function (t, arg) {
+								$("#file").attr("value", _editor.options.filePath + arg[0].url);
+							})
+						});
+						function upImage() {
+							var myImage = _editor.getDialog("insertimage");
+							myImage.open();
+						}
+					</script>
+				</td>
+			</tr>
+			<tr>
+				<th>邮箱：</th>
+				<td>
+					<input name="email" value="{{.input.email}}" class="form-control" type="text" />
+					<span class="text-error">{{.errmsg.email}}</span>
+				</td>
+			</tr>
+			<tr>
+				<th>权限分配：</th>
+				<td>
+					<label><input name="permission1" class="checkbox" value="1" type="checkbox" />用户管理</label>
+					<label><input name="permission2" class="checkbox" value="2" type="checkbox" />文章管理</label>
+					<label><input name="permission3" class="checkbox" value="3" type="checkbox" />相册管理</label>
+					<label><input name="permission4" class="checkbox" value="4" type="checkbox" />友链管理</label>
+					<label><input name="permission5" class="checkbox" value="5" type="checkbox" />心情管理</label>
+					<label><input name="permission6" class="checkbox" value="6" type="checkbox" />标签管理</label>
+					<label><input name="permission7" class="checkbox" value="7" type="checkbox" />站点设置</label>
+				</td>
+			</tr>
+			</tr>
+			<tr>
+				<th>激活状态：</th>
+				<td>
+					<label for="data_active_0" class="help-inline">
+						<input type="radio" name="active" value="0" id="data_active_0" checked />未激活</label>
+					<label for="data_active_1" class="help-inline">
+						<input type="radio" name="active" value="1" id="data_active_1" />已激活</label>
+				</td>
+			</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+					<th></th>
+					<td>
+					<button type="submit" class="btn"><i class="icon-ok"></i> 保存</button>
+					<button type="button" class="btn" onclick="javascript:history.back();">取消</button>
+					</td>
+				</tr>
+			</tfoot>
+		</table>
 	</form>
 
 </fieldset>
