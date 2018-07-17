@@ -4,24 +4,23 @@
             <span class="glyphicon glyphicon-share-alt"></span> 返回
         </a>
 	</legend>
-	<form method="post" name="p" action="/admin/article/save">
+	<form class="form-horizontal" method="post" name="p" action="/admin/article/save">
 		<table class="table table-form">
 			<tbody>
 				<tr>
 					<th class="col-lg-2 col-md-2 col-sm-2 col-xs-2 column">标题</th>
-					<td>
+					<td class="col-lg-10 col-md-10 col-sm-10 col-xs-10 column">
 						<input type="text" name="title" class="form-control" />
 						<input name="color" value="" type="hidden" />
-						<br/><br/>
-						<img src="/static/themes/admin/img/colorpicker.png" id="colorpicker" style="cursor:pointer;margin:0 10px 10px 5px;" />
-						<label class="help-inline"><input type="checkbox" value="1" name="istop" /> 置顶文章</label>
+						<img src="/static/themes/admin/img/colorpicker.png" id="colorpicker" style="cursor:pointer;" />
+						<label class="checkbox-inline"><input type="checkbox" value="1" name="istop" /> 置顶文章</label>
 					</td>
 				</tr>
 				<tr>
 					<th>标题图片</th>
 					<td>
 						<input type="text" class="form-control" id="picture" name="cover"/>
-						<a class="btn btn-default btn-primary" style="margin-left: 10px;" href="javascript:void(0);"
+						<a class="btn btn-default btn-primary" href="javascript:void(0);"
 						   onclick="upImage();">上传图片</a>
 					</td>
 				</tr>
@@ -29,16 +28,14 @@
 					<th>分类标签</th>
 					<td>
 						<input type="text" name="tags" class="form-control" />
-						<br/><br/>
-						<label class="help-inline">多个用英文逗号","分隔</label>
+						<label class="checkbox-inline">多个用英文逗号","分隔</label>
 					</td>
 				</tr>
 				<tr>
 					<th>URL名称</th>
 					<td>
 						<input type="text" name="urlname" class="form-control" />
-						<br/><br/>
-						<label class="help-inline">
+						<label class="checkbox-inline">
 							<input type="checkbox" name="urltype" value="1" />
 							作为独立页面不显示在列表(使用 http://domain/urlname 访问)
 						</label>
@@ -75,7 +72,7 @@
 						<textarea id="content" name="content"></textarea>
 						<script type="text/plain" id="upload_ue"></script>
 						<script type="text/javascript" charset="utf-8">
-							var optionsEditor = {"fileUrl":"/admin/article/upload?type=3","filePath":"","imageUrl":"/admin/article/upload?type=1","imagePath":"","initialFrameWidth":"90%","initialFrameHeight":"400"};
+							var optionsEditor = {"fileUrl":"/admin/article/upload?type=3","filePath":"","imageUrl":"/admin/article/upload?type=1","imagePath":"","initialFrameWidth":"100%","initialFrameHeight":"400"};
 							var optionsUP = {"imageUrl":"/admin/article/upload?type=2&w=190&h=135","imagePath":""};
 							//文章内容编辑器
 							var ue = UE.getEditor("content", optionsEditor);

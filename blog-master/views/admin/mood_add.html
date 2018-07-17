@@ -5,11 +5,11 @@
         </a>
 	</legend>
 	<form class="form-horizontal" method="post">
-		<table class="table table-form table-responsive">
+		<table class="table table-form">
 			<tbody>
 				<tr>
-					<th>说说图片</th>
-					<td>
+					<th class="col-lg-2 col-md-2 col-sm-2 col-xs-2 column">说说图片</th>
+					<td class="col-lg-10 col-md-10 col-sm-10 col-xs-10 column">
 						<input class="form-control" type="text" id="picture" name="cover" />
 						<a class="btn btn-primary" style="margin-left: 10px;" href="javascript:void(0);"
 						   onclick="upImage();">上传图片</a>
@@ -26,7 +26,7 @@
 						<textarea id="content" name="content"></textarea>
 						<script type="text/plain" id="upload_ue"></script>
 						<script type="text/javascript" charset="utf-8">
-							var optionsEditor = {"fileUrl":"/admin/article/upload?type=3","filePath":"","imageUrl":"/admin/article/upload?type=1","imagePath":"","initialFrameWidth":"90%","initialFrameHeight":"400"};
+							var optionsEditor = {"fileUrl":"/admin/article/upload?type=3","filePath":"","imageUrl":"/admin/article/upload?type=1","imagePath":"","initialFrameWidth":"100%","initialFrameHeight":"400"};
 							var optionsUP = {"imageUrl":"/admin/article/upload?type=2&w=220&h=150","imagePath":""};
 							//文章内容编辑器
 							var ue = UE.getEditor("content", optionsEditor);

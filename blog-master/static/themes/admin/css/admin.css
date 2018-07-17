@@ -6,6 +6,7 @@ a:hover {color:#DC6C31; text-decoration:none;}
 p {margin: 0!important;}
 ul {list-style:none;}
 select {font-size: 12px; margin: 0;}
+label { font-size:12px !important;margin: 0;vertical-align: middle; }
 
 .header {
 	background:#464646 url('../img/top-bg.png') repeat-x;
@@ -28,28 +29,23 @@ footer { text-align: center; line-height: 40px; border-top: #E8E8E8 1px solid ; 
 	background:#464646 url('../img/top-bg.png') repeat-x;
 }
 
-.page-content *, label {font-size:12px !important;margin: 0;}
-.page-content {
-	margin-left: 150px; 
-	margin-top: 0px;
-	padding: 0px;
-	background-color: #fff; 
-	min-height:600px;
-}
 .table-form th {
 	vertical-align:middle!important;
 	font-size:12px;
 	line-height:26px!important;
-	text-align:right;
+	text-align:center;
 	color:#333;
 	border-top:none!important;
+	padding: 0!important;
 }
 .table-form tfoot, .table-form tfoot {background:#f9f9f9}
 .table-form td {border:none;border-top:none!important;}
-.table-form input {margin: 0;}
+.table-form td a {margin: 5px;}
+.table-form td label input {margin: 3px 0 0;}
+.table-form input {vertical-align: middle;}
 .table-form textarea {margin: 0;}
-.table-form select {margin: 0;}
-.table-form img {margin: 0!important;}
+.table-form td select {margin: 0;}
+.table-form img {margin: 3px 10px 0 0;}
 .pagination {margin:0;}
 
 .search-form {border:1px solid #FBEED5; background:#FCF8E3; padding:5px; margin:5px 0}
