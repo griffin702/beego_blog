@@ -11,6 +11,7 @@ import (
 	"strconv"
 	"strings"
 	"time"
+    "math/rand"
 )
 
 type ArticleController struct {
@@ -116,7 +117,7 @@ func (this *ArticleController) Save() {
 		status = 0
 	}
 	if cover == "" {
-		cover = "/static/upload/defaultcover.png"
+		cover = fmt.Sprintf("/static/upload/default/blog-default-%d.png", rand.Intn(9))
 	}
 	addtags := make([]string, 0)
 	//标签过滤
@@ -150,7 +151,7 @@ func (this *ArticleController) Save() {
 			goto RD
 		}
 		lastcover := post.Cover
-		if lastcover != cover && lastcover != "" && lastcover != "/static/upload/defaultcover.png" {
+		if lastcover != cover && lastcover != "" && lastcover != "/static/upload/default/blog-default-0.png" {
 			os.Remove("."+lastcover)
 		}
 		if post.Tags != "" {
@@ -204,7 +205,7 @@ func (this *ArticleController) Delete() {
 	id, _ := this.GetInt64("id")
 	post := models.Post{Id: id}
 	if post.Read() == nil {
-		if post.Cover != "" && post.Cover != "/static/upload/defaultcover.png" {
+		if post.Cover != "" && post.Cover != "/static/upload/default/blog-default-0.png" {
 			os.Remove("."+post.Cover)
 		}
 		post.Delete()

@@ -95,7 +95,7 @@ DROP TABLE IF EXISTS `tb_mood`;
 CREATE TABLE `tb_mood` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `content` longtext NOT NULL,
-  `cover` varchar(70) NOT NULL DEFAULT '/static/upload/defaultcover.png',
+  `cover` varchar(70) NOT NULL DEFAULT '/static/upload/default/blog-default-0.png',
   `posttime` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `tb_mood_posttime` (`posttime`)
@@ -184,7 +184,7 @@ CREATE TABLE `tb_post` (
   `status` tinyint(4) NOT NULL DEFAULT '0',
   `updated` datetime NOT NULL,
   `istop` tinyint(4) NOT NULL DEFAULT '0',
-  `cover` varchar(70) NOT NULL DEFAULT '/static/upload/defaultcover.png',
+  `cover` varchar(70) NOT NULL DEFAULT '/static/upload/default/blog-default-0.png',
   PRIMARY KEY (`id`),
   KEY `tb_post_user_id` (`user_id`),
   KEY `tb_post_title` (`title`),

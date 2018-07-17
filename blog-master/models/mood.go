@@ -9,7 +9,7 @@ import (
 type Mood struct {
 	Id       int64
 	Content  string    `orm:"type(text)"`
-	Cover    string    `orm:"size(70);default(/static/upload/defaultcover.png)"`
+	Cover    string    `orm:"size(70);default(/static/upload/default/blog-default-0.png)"`
 	Posttime time.Time `orm:"type(datetime);index"`
 }
 
