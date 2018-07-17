@@ -13,9 +13,25 @@ type CommentsController struct {
 
 //评论列表
 func (this *CommentsController) List() {
+	if this.userid != 1 {
+		this.showmsg("未授权访问")
+	}
 	var list []*models.Comments
 	var comment models.Comments
-	comment.Query().OrderBy("-submittime").All(&list)
+	var (
+		page       int64
+		pagesize   int64 = 10
+		offset     int64
+	)
+	if page, _ = this.GetInt64("page"); page < 1 {
+		page = 1
+	}
+	offset = (page - 1) * pagesize
+	count, _ := comment.Query().Count()
+	if count > 0 {
+		comment.Query().OrderBy("-submittime").Limit(pagesize, offset).All(&list)
+	}
+	this.Data["pagebar"] = models.NewPager(page, count, pagesize, "/admin/comments/list?page=%d").ToString()
 	this.Data["list"] = list
 	this.display()
 }
@@ -47,48 +63,54 @@ func (this *CommentsController) Add() {
 					comment.Reply_pk = int64(replypk_to_int)
 					comment.Reply_fk = int64(replyfk)
 					comment.Ipaddress = this.getClientIp()
+					models.Cache.Delete("newcomments")
 					if err := comment.Insert(); err != nil {
 						this.showmsg(err.Error())
 					}
 				}
 			}
 			this.Redirect(this.Ctx.Request.Referer(), 302)
+		} else {
+			this.Abort("404")
 		}
 	}
 }
 
 //编辑评论
 func (this *CommentsController) Edit() {
+	if this.userid != 1 {
+		this.showmsg("未授权操作")
+	}
 	id, _ := this.GetInt64("id")
-	link := models.Link{Id: id}
-	if err := link.Read(); err != nil {
-		this.showmsg("友链不存在")
+	comment := models.Comments{Id: id}
+	if comment.Read() != nil {
+		this.showmsg("未查询到该评论")
 	}
-
 	if this.Ctx.Request.Method == "POST" {
-		sitename := strings.TrimSpace(this.GetString("sitename"))
-		url := strings.TrimSpace(this.GetString("url"))
-		rank, _ := this.GetInt64("rank")
-		siteavator := strings.TrimSpace(this.GetString("siteavator"))
-		sitedesc := strings.TrimSpace(this.GetString("sitedesc"))
-		link.Sitename = sitename
-		link.Url = url
-		link.Rank = int8(rank)
-		link.Siteavator = siteavator
-		link.Sitedesc = sitedesc
-		link.Update()
-		this.Redirect("/admin/link/list", 302)
+		content := strings.TrimSpace(this.GetString("content"))
+		is_removed, _ := this.GetInt8("is_removed")
+		comment.Comment = content
+		comment.Is_removed = is_removed
+		comment.Update("comment", "is_removed")
+		models.Cache.Delete("newcomments")
+		this.Redirect("/admin/comments/list", 302)
 	}
-	this.Data["link"] = link
+	this.Data["comment"] = comment
 	this.display()
 }
 
 //删除评论
 func (this *CommentsController) Delete() {
-	id, _ := this.GetInt64("id")
-	link := models.Link{Id: id}
-	if link.Read() == nil {
-		link.Delete()
+	if this.userid != 1 {
+		this.showmsg("未授权操作")
 	}
-	this.Redirect("/admin/link/list", 302)
+	id, _ := this.GetInt64("id")
+	comment := models.Comments{Id: id}
+	if comment.Read() != nil {
+		this.showmsg("未查询到该评论")
+	}
+	comment.Is_removed = 1
+	comment.Update("is_removed")
+	models.Cache.Delete("newcomments")
+	this.Redirect("/admin/comments/list", 302)
 }

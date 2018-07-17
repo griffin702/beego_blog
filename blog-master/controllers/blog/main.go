@@ -126,7 +126,6 @@ func (this *MainController) Show() {
 	post.Views++
 	post.Update("Views")
 	models.Cache.Delete("hotblog")
-	models.Cache.Delete("newcomments")
 	post.Content = post.Del_Excerpt()
 	pre, next := post.GetPreAndNext()
 	this.Data["post"] = post
@@ -146,18 +145,18 @@ func (this *MainController) Show() {
 		Commentlist     []*models.Comments
 	}
 	var commentlistmap []CommentlistMap
-	count, _ := comment.Query().Filter("obj_pk", post.Id).Filter("reply_pk", 0).Count()
-	comment.Query().Filter("obj_pk", post.Id).Filter("reply_pk", 0).OrderBy("-submittime").Limit(this.pagesize, (this.page-1)*this.pagesize).RelatedSel().All(&commentlist0)
+	count, _ := comment.Query().Filter("obj_pk", post.Id).Filter("reply_pk", 0).Filter("is_removed", 0).Count()
+	comment.Query().Filter("obj_pk", post.Id).Filter("reply_pk", 0).Filter("is_removed", 0).OrderBy("-submittime").Limit(this.pagesize, (this.page-1)*this.pagesize).RelatedSel().All(&commentlist0)
 	for _, v := range commentlist0 {
-		comment.Query().Filter("reply_fk", v.Id).OrderBy("submittime").RelatedSel().All(&commentlist)
+		comment.Query().Filter("reply_fk", v.Id).Filter("is_removed", 0).OrderBy("submittime").RelatedSel().All(&commentlist)
 		var item = CommentlistMap{}
 		item.Commentlist0 = v
 		item.Commentlist = commentlist
 		commentlistmap = append(commentlistmap, item)
 		commentlist = []*models.Comments{}
 	}
-	commentlength, _ = comment.Query().Filter("obj_pk", post.Id).Count()
-	commentuser, _ = comment.Query().Filter("obj_pk", post.Id).GroupBy("User").Count()
+	commentlength, _ = comment.Query().Filter("obj_pk", post.Id).Filter("is_removed", 0).Count()
+	commentuser, _ = comment.Query().Filter("obj_pk", post.Id).Filter("is_removed", 0).GroupBy("User").Count()
 	this.Data["commentlistmap"] = commentlistmap
 	this.Data["commentlength"] = commentlength
 	this.Data["commentuser"] = commentuser

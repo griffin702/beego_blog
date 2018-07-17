@@ -1,5 +1,9 @@
 <fieldset>
-	<legend>文章列表</legend>
+	<legend>文章列表
+        <a class="btn btn-primary btn-xs" href="/admin/article/add">
+            <span class="glyphicon glyphicon-plus"></span> 发布文章
+        </a>
+	</legend>
 
 	<div class="toolbar">
 		<a href="/admin/article/list?status=0" {{if eq .status 0}}class="active"{{end}}>已发布</a>

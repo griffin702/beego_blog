@@ -25,6 +25,12 @@ func (this *LinkController) Add() {
 		var link models.Link
 		sitename := strings.TrimSpace(this.GetString("sitename"))
 		url := strings.TrimSpace(this.GetString("url"))
+		err := strings.Index(url[:7], "http://")
+		err2 := strings.Index(url[:8], "https://")
+		err3 := strings.Index(url[:2], "//")
+		if err == -1 && err2 == -1 && err3 == -1 {
+			url = "//" + url
+		}
 		rank, _ := this.GetInt64("rank")
 		siteavator := "/static/upload/default/user-default-60x60.png"
 		if avator_input := strings.TrimSpace(this.GetString("siteavator")); avator_input != "" {

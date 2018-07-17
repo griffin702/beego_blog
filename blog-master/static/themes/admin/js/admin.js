@@ -9,6 +9,10 @@ function del_confirm() {
 	return confirm('一旦删除将不可恢复，确定吗？');
 }
 
+function del_comment() {
+    return confirm('确定删除吗？');
+}
+
 $(document).ready(function(){
     //修复导航栏active不自动切换
     $("ul.nav.navbar-nav").find("li").each(function(){

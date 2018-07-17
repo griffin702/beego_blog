@@ -93,7 +93,7 @@ func GetLinks() []*Link {
 func GetNewComments() []*Comments {
 	if !Cache.IsExist("newcomments") {
 		var result []*Comments
-		new(Comments).Query().Limit(5).OrderBy("-submittime").RelatedSel().All(&result)
+		new(Comments).Query().Filter("is_removed", 0).Limit(5).OrderBy("-submittime").RelatedSel().All(&result)
 		Cache.Put("newcomments", result)
 	}
 	v := Cache.Get("newcomments")

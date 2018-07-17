@@ -46,6 +46,9 @@
                                 <li><a href="/admin/mood/list"><span class="glyphicon glyphicon-list"></span> 心情列表</a></li>
                                 <li class="divider"></li>
                                 {{end}}
+                                {{if eq .adminid 1}}
+                                <li><a href="/admin/comments/list"><span class="glyphicon glyphicon-list"></span> 评论管理</a></li>
+                                {{end}}
                                 {{if haspermission .userpermission 6}}
                                 <li><a href="/admin/tag"><span class="glyphicon glyphicon-list"></span> 标签管理</a></li>
                                 <li class="divider"></li>

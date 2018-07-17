@@ -18,7 +18,7 @@
         <h3 class="npk"><p>最新<span>评论</span></p></h3>
         <ul class="rank">
         {{range $k,$v := .newcomments}}
-            <li><a href="{{$v.Obj_pk.Link}}#comment-{{$v.Id}}" title="">{{$v.User.Username}}:{{$v.Return_50 $v.Comment}}</a></li>
+            <li><a href="{{$v.Obj_pk.Link}}#comment-{{$v.Id}}" title="">{{$v.User.Username}}:{{$v.Return_8 $v.Comment}}</a></li>
         {{end}}
         </ul>
         <h3 class="links">
@@ -26,7 +26,7 @@
         </h3>
         <div class="link-friends">
         {{range $k,$v := .links}}
-            <span>
+            <span class="col-lg-4 col-md-4 hidden-sm hidden-xs column">
                 <a rel="link" href="{{$v.Url}}" title="{{$v.Sitename}}" target="_blank">
                 <img alt='' src='{{$v.Siteavator}}' class='wyavater' height='36' width='36' title="{{$v.Sitedesc}}" />
                 <span class="sitename">{{$v.Sitename}}</span>

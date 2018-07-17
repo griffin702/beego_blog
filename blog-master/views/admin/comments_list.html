@@ -1,0 +1,40 @@
+<fieldset>
+	<legend>评论列表</legend>
+	<table class="table table-hover">
+		<thead>
+		<tr>
+			<th class="col-lg-1 col-md-1 col-sm-1 col-xs-1 column">ID</th>
+			<th class="col-lg-1 col-md-1 col-sm-1 col-xs-1 column">BlogID</th>
+			<th class="col-lg-1 col-md-1 col-sm-1 col-xs-1 column">用户ID</th>
+			<th class="col-lg-4 col-md-4 col-sm-4 col-xs-4 column">评论内容</th>
+            <th class="col-lg-2 col-md-2 col-sm-2 col-xs-2 column">评论时间</th>
+            <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1 column">IP</th>
+            <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1 column">Is_removed</th>
+            <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1 column">操作</th>
+		</tr>
+		</thead>
+		<tbody>
+		{{range $k, $v := .list}}
+			<tr>
+				<td>{{$v.Id}}</td>
+                <td>{{$v.Obj_pk.Id}}</td>
+                <td>{{$v.User.Id}}</td>
+                <td>{{$v.Comment}}</td>
+				<td>{{date $v.Submittime "Y-m-d H:i:s"}}</td>
+				<td>{{$v.Ipaddress}}</td>
+                <td>{{$v.Is_removed}}</td>
+				<td>
+                    <a href="/admin/comments/edit?id={{$v.Id}}">编辑</a>
+				    <a href="/admin/comments/delete?id={{$v.Id}}" onclick="return del_comment()">删除</a>
+				</td>
+			</tr>
+		{{end}}
+		</tbody>
+		<tfoot>
+			<tr>
+				<td colspan="20">{{str2html .pagebar}}</td>
+			</tr>
+		</tfoot>
+	</table>
+
+</fieldset>

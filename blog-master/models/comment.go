@@ -15,7 +15,6 @@ type Comments struct {
 	Comment           string    `orm:"type(text)"`
 	Submittime        time.Time `orm:"auto_now_add;type(datetime);index"`
 	Ipaddress         string    `orm:"null"`
-	Is_public         int8      `orm:"index"`     //0-发布，1-不发布
 	Is_removed        int8      `orm:"index"`     //0-正常，1-删除
 }
 
@@ -60,14 +59,6 @@ func (m *Comments) Query() orm.QuerySeter {
 	return orm.NewOrm().QueryTable(m)
 }
 
-//func (m *Comments) Is_LastReply(list []*Comments, key int) bool {
-//	i := len(list) - 1
-//	if i == key {
-//		return true
-//	}
-//	return false
-//}
-
 func (m *Comments) Return_PkName(key int64) (string, error) {
 	var reply_pk Comments
 	err := reply_pk.Query().Filter("Id", key).RelatedSel().Limit(1).One(&reply_pk)
@@ -86,7 +77,7 @@ func (m *Comments) Return_PkContent(key int64) (string, error) {
 	return reply_pk.Comment, nil
 }
 
-func (m *Comments) Return_50(key string) (string) {
+func (m *Comments) Return_8(key string) (string) {
 	data := []rune(m.Comment)
 	if len(data) > 8 {
 		return string(data[:8])+"..."
