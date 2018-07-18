@@ -84,7 +84,7 @@ func (this *PhotoController) UploadPhoto() {
 			out["state"] = err.Error()
 		}
 		filename = fmt.Sprintf("%s/%d%s", savepath, t, ext)
-		err = createSmallPic(file, filename, 220, 150)
+		err = createSmallPic(file, filename, 220, 150, ext)
 		if err != nil {
 			out["state"] = err.Error()
 		}

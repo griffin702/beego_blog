@@ -4,9 +4,6 @@ import (
 	"fmt"
 	"github.com/astaxie/beego/orm"
 	"blog-master/models"
-	"github.com/nfnt/resize"
-	"image/jpeg"
-	"io"
 	"os"
 	"strconv"
 	"strings"
@@ -247,76 +244,4 @@ func (this *ArticleController) Batch() {
 	this.Redirect(this.Ctx.Request.Referer(), 302)
 }
 
-//上传文件(用于文章图片上传，文章封面，说说封面)
-func (this *ArticleController) Upload() {
-	file := this.Ctx.Request.Header.Get("Content-Disposition")
-	fmt.Println(this.Ctx.Request.)
-	utype := this.GetString("type")
-	if utype == "" {
-		utype = "1"
-	}
-	index, _ := strconv.Atoi(utype)
-	fmt.Println(file, index)
 
-	//ext := strings.ToLower(header.Filename[strings.LastIndex(header.Filename, "."):])
-	//out := make(map[string]string)
-	//out["url"] = ""
-	//out["fileType"] = ext
-	//out["original"] = header.Filename
-	//out["state"] = "SUCCESS"
-	//if err != nil {
-	//	out["state"] = err.Error()
-	//} else {
-	//	savepath := pathArr[index] + time.Now().Format("20060102")
-	//	if err = os.MkdirAll(savepath, os.ModePerm); err != nil {
-	//		out["state"] = err.Error()
-	//	} else {
-	//		filename := fmt.Sprintf("%s/%d%s", savepath, time.Now().UnixNano(), ext)
-	//		if this.GetString("type") == "2" {
-	//			w, _ := strconv.Atoi(this.GetString("w"))
-	//			h, _ := strconv.Atoi(this.GetString("h"))
-	//			err = createSmallPic(file, filename, w, h)
-	//			if err != nil {
-	//				out["state"] = err.Error()
-	//			}
-	//		} else {
-	//			if err = this.SaveToFile("upfile", filename); err != nil {
-	//				out["state"] = err.Error()
-	//			}
-	//		}
-	//		out["url"] = filename[1:]
-	//	}
-	//}
-	out := make(map[string]string)
-	out["err"] = ""
-	out["msg"] = "200906030521128703.gif"
-	this.Data["json"] = out
-	this.ServeJSON()
-}
-
-func createSmallPic(file io.Reader, fileSmall string, w, h int) error {
-	// decode jpeg into image.Image
-	img, err := jpeg.Decode(file)
-	if err != nil {
-		return err
-	}
-	b := img.Bounds()
-	if w > b.Dx() {
-		w = b.Dx()
-	}
-	if h > b.Dy() {
-		h = b.Dy()
-	}
-	// resize to width 1000 using Lanczos resampling
-	// and preserve aspect ratio
-	m := resize.Resize(uint(w), uint(h), img, resize.Lanczos3)
-
-	out, err := os.Create(fileSmall)
-	if err != nil {
-		return err
-	}
-	defer out.Close()
-
-	// write new image to file
-	return jpeg.Encode(out, m, nil)
-}

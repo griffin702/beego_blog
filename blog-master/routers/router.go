@@ -7,7 +7,6 @@ import (
 )
 
 func init() {
-
 	//前台路由
 	beego.Router("/", &blog.MainController{}, "*:Index")
 	beego.Router("/404.html", &blog.MainController{}, "*:Go404")
@@ -52,7 +51,6 @@ func init() {
 	beego.Router("/admin/article/save", &admin.ArticleController{}, "post:Save")
 	beego.Router("/admin/article/delete", &admin.ArticleController{}, "*:Delete")
 	beego.Router("/admin/article/batch", &admin.ArticleController{}, "*:Batch")
-	beego.Router("/admin/article/upload", &admin.ArticleController{}, "*:Upload")
 	beego.Router("/admin/tag", &admin.TagController{}, "*:Index")
 
 	//说说管理
@@ -89,4 +87,7 @@ func init() {
 	beego.Router("/admin/comments/add", &admin.CommentsController{}, "*:Add")
 	beego.Router("/admin/comments/edit", &admin.CommentsController{}, "*:Edit")
 	beego.Router("/admin/comments/delete", &admin.CommentsController{}, "*:Delete")
+
+	//独立fileupload
+	beego.Router("/admin/upload", &admin.FileuploadController{}, "*:Upload")
 }
