@@ -67,7 +67,7 @@ func (this *LinkController) Edit() {
 		url := strings.TrimSpace(this.GetString("url"))
 		rank, _ := this.GetInt64("rank")
 		siteavator := strings.TrimSpace(this.GetString("cover"))
-		if siteavator != lastavator && lastavator != "" && lastavator != "/static/upload/default/user-default-60x60.png" {
+		if siteavator != lastavator && !this.Isdefaultsrc(lastavator) {
 			os.Remove("."+lastavator)
 		}
 		sitedesc := strings.TrimSpace(this.GetString("sitedesc"))
@@ -88,7 +88,7 @@ func (this *LinkController) Delete() {
 	id, _ := this.GetInt64("id")
 	link := models.Link{Id: id}
 	if link.Read() == nil {
-		if link.Siteavator != "" && link.Siteavator != "/static/upload/default/user-default-60x60.png" {
+		if !this.Isdefaultsrc(link.Siteavator) {
 			os.Remove("." + link.Siteavator)
 		}
 		link.Delete()

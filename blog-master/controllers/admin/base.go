@@ -150,3 +150,13 @@ func (this *baseController) getTime() time.Time {
 	add := timezone * float64(time.Hour)
 	return time.Now().UTC().Add(time.Duration(add))
 }
+
+func (this *baseController) Isdefaultsrc(value string) bool {
+	var defaultdir = "/static/upload/default/"
+	if value != "" {
+		if index := strings.Index(value, defaultdir); index != -1 {
+			return true
+		}
+	}
+	return false
+}

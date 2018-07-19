@@ -31,7 +31,7 @@ $(document).ready(function(){
             a.parent().siblings().removeClass("active");
         }
     });
-    $('#content1').xheditor({
+    $('#content').xheditor({
         tools:'full',
         skin:'default',
         showBlocktag:true,

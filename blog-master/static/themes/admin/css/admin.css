@@ -45,11 +45,21 @@ footer { text-align: center; line-height: 40px; border-top: #E8E8E8 1px solid ; 
 	.table-form td .input-group .form-control {
 		width: 100%!important;
 	}
+    .table-form td div.alert-warning {
+        width: 50%;
+    }
+}
+.table-form td div.alert-warning {
+    padding: 10px;
+    margin: 5px 0 0 0;
 }
 .table-form td .input-group {
 	margin-bottom: 5px;
 }
-.table-form tfoot, .table-form tfoot {background:#f9f9f9}
+.table-form td .input-group span {
+    padding-right: 0;
+}
+.table-form tfoot {background: #eeeeee}
 .table-form td {border:none;border-top:none!important;}
 .table-form td a {margin: 5px;}
 .table-form td label input {margin: 3px 0 0;}
@@ -81,7 +91,7 @@ legend .btn { margin-left: 30px; }
 /*xheditor样式*/
 @media (min-width: 992px) {
 	#xhe0_container.xhe_default table.xheLayout {
-		width: 900px!important;
+		width: 800px!important;
 	}
 }
 @media (max-width: 991px) {

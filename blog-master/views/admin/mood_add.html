@@ -10,16 +10,22 @@
 				<tr>
 					<th class="col-xs-2">说说图片</th>
 					<td>
-                        <input type="text" id="picture" name="cover" class="form-control" />
+                        <div class="input-group">
+                            <span class="input-group-addon">当前：</span>
+                            <input type="text" id="picture" name="cover" class="form-control" />
+                        </div>
                         <input type="file" id="newcover" name="newcover" />
-                        <img src="" id="autoview" width="190" height="135">
+                        <img src="/static/upload/default/yulan-190x135.png" id="autoview" class="img-rounded" width="190" height="135">
                         <button type="button" id="uploadimg" class="btn btn-primary">上传</button>
+                        <div class="alert alert-warning">
+                            <strong>温馨提示：</strong>点击上传之后生效,服务器仅允许上传格式jpg、jpeg、png并自动裁剪像素:60*60
+                        </div>
 					</td>
 				</tr>
 				<tr>
 					<th>说说内容</th>
 					<td>
-						<textarea id="content1" name="content1"></textarea>
+						<textarea id="content" name="content"></textarea>
 					</td>
 				</tr>
 			</tbody>

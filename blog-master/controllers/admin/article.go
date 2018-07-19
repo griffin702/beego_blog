@@ -96,6 +96,7 @@ func (this *ArticleController) Save() {
 		urltype int8   = 0
 		post    models.Post
 	)
+	fmt.Println(content)
 	if title == "" {
 		this.showmsg("标题不能为空！")
 	}
@@ -147,7 +148,7 @@ func (this *ArticleController) Save() {
 			goto RD
 		}
 		lastcover := post.Cover
-		if lastcover != cover && lastcover != "" && lastcover != "/static/upload/default/blog-default-0.png" {
+		if lastcover != cover && !this.Isdefaultsrc(lastcover) {
 			os.Remove("."+lastcover)
 		}
 		if post.Tags != "" {
@@ -201,7 +202,7 @@ func (this *ArticleController) Delete() {
 	id, _ := this.GetInt64("id")
 	post := models.Post{Id: id}
 	if post.Read() == nil {
-		if post.Cover != "" && post.Cover != "/static/upload/default/blog-default-0.png" {
+		if !this.Isdefaultsrc(post.Cover) {
 			os.Remove("."+post.Cover)
 		}
 		post.Delete()

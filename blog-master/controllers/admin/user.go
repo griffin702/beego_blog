@@ -134,7 +134,7 @@ func (this *UserController) Edit() {
 		password2 := strings.TrimSpace(this.GetString("password2"))
 		email := strings.TrimSpace(this.GetString("email"))
 		avator := strings.TrimSpace(this.GetString("avator"))
-		if avator != lastavator && lastavator != "" && lastavator != "/static/upload/default/user-default-60x60.png" {
+		if avator != lastavator && !this.Isdefaultsrc(lastavator) {
 			os.Remove("."+lastavator)
 		}
 		permissionlist := strings.TrimSpace(
@@ -193,7 +193,7 @@ func (this *UserController) Delete() {
 	}
 	user := models.User{Id: id}
 	if user.Read() == nil {
-		if user.Avator != "" && user.Avator != "/static/upload/default/user-default-60x60.png" {
+		if !this.Isdefaultsrc(user.Avator) {
 			os.Remove("."+user.Avator)
 		}
 		user.Delete()
