@@ -38,6 +38,17 @@ footer { text-align: center; line-height: 40px; border-top: #E8E8E8 1px solid ; 
 	border-top:none!important;
 	padding: 0!important;
 }
+@media (min-width: 992px) {
+	.table-form td .form-control, .table-form td .input-group {
+		width: 50%;
+	}
+	.table-form td .input-group .form-control {
+		width: 100%!important;
+	}
+}
+.table-form td .input-group {
+	margin-bottom: 5px;
+}
 .table-form tfoot, .table-form tfoot {background:#f9f9f9}
 .table-form td {border:none;border-top:none!important;}
 .table-form td a {margin: 5px;}
@@ -46,6 +57,7 @@ footer { text-align: center; line-height: 40px; border-top: #E8E8E8 1px solid ; 
 .table-form textarea {margin: 0;}
 .table-form td select {margin: 0;}
 .table-form img {margin: 3px 10px 0 0;}
+
 .pagination {margin:0;}
 
 .search-form {border:1px solid #FBEED5; background:#FCF8E3; padding:5px; margin:5px 0}

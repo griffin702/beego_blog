@@ -4,58 +4,30 @@
             <span class="glyphicon glyphicon-share-alt"></span> 返回
         </a>
 	</legend>
-	<form class="form-horizontal" method="post">
+	<form class="form-horizontal" method="post" enctype="multipart/form-data">
 		<table class="table table-form">
 			<tbody>
 				<tr>
-					<th class="col-lg-2 col-md-2 col-sm-2 col-xs-2 column">说说图片</th>
-					<td class="col-lg-10 col-md-10 col-sm-10 col-xs-10 column">
-						<input class="form-control" type="text" id="picture" name="cover" />
-						<a class="btn btn-primary" style="margin-left: 10px;" href="javascript:void(0);"
-						   onclick="upImage();">上传图片</a>
+					<th class="col-xs-2">说说图片</th>
+					<td>
+                        <input type="text" id="picture" name="cover" class="form-control" />
+                        <input type="file" id="newcover" name="newcover" />
+                        <img src="" id="autoview" width="190" height="135">
+                        <button type="button" id="uploadimg" class="btn btn-primary">上传</button>
 					</td>
 				</tr>
 				<tr>
 					<th>说说内容</th>
 					<td>
-						<script type="text/javascript" charset="utf-8">
-							window.UEDITOR_HOME_URL = "/static/ueditor/";
-						</script>
-						<script type="text/javascript" src="/static/ueditor/ueditor.config.js"></script>
-						<script type="text/javascript" src="/static/ueditor/ueditor.all.min.js"></script>
-						<textarea id="content" name="content"></textarea>
-						<script type="text/plain" id="upload_ue"></script>
-						<script type="text/javascript" charset="utf-8">
-							var optionsEditor = {"fileUrl":"/admin/article/upload?type=3","filePath":"","imageUrl":"/admin/article/upload?type=1","imagePath":"","initialFrameWidth":"100%","initialFrameHeight":"400"};
-							var optionsUP = {"imageUrl":"/admin/article/upload?type=2&w=220&h=150","imagePath":""};
-							//文章内容编辑器
-							var ue = UE.getEditor("content", optionsEditor);
-							//上传标题图片
-							var _editor = UE.getEditor("upload_ue",optionsUP);
-							_editor.ready(function () {
-								_editor.setDisabled();
-								_editor.hide();
-								_editor.addListener('beforeInsertImage', function (t, arg) {     //侦听图片上传
-									$("#picture").attr("value", arg[0].src);                      //将地址赋值给相应的input
-									$("#preview").attr("src", arg[0].src);
-								})
-								_editor.addListener('afterUpfile', function (t, arg) {
-									$("#file").attr("value", _editor.options.filePath + arg[0].url);
-								})
-							});
-							function upImage() {
-								var myImage = _editor.getDialog("insertimage");
-								myImage.open();
-							}
-						</script>
+						<textarea id="content1" name="content1"></textarea>
 					</td>
 				</tr>
 			</tbody>
 			<tfoot>
 			<tr>
 				<td></td>
-				<td><button type="submit" class="btn"><i class="icon-ok"></i> 提交</button>
-					<button type="button" class="btn" onclick="javascript:history.back();">取消</button></td>
+				<td><button type="submit" class="btn btn-primary"><i class="icon-ok"></i> 提交</button>
+					<button type="button" class="btn btn-primary" onclick="javascript:history.back();">取消</button></td>
 			</tr>
 			</tfoot>
 		</table>

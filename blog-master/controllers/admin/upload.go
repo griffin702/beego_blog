@@ -64,7 +64,9 @@ func (fi *FileInfo) ValidateSize() (valid bool) {
 
 func (this *FileuploadController) Upload() {
 	f, h, err := this.GetFile("filedata")
-	defer f.Close()
+	if f != nil {
+		defer  f.Close()
+	}
 	utype := this.GetString("type")
 		if utype == "" {
 			utype = "1"

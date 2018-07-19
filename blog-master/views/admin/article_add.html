@@ -4,7 +4,7 @@
             <span class="glyphicon glyphicon-share-alt"></span> 返回
         </a>
 	</legend>
-	<form class="form-horizontal" method="post" name="p" action="/admin/article/save">
+	<form class="form-horizontal" method="post" enctype="multipart/form-data" name="p" action="/admin/article/save">
 		<table class="table table-form">
 			<tbody>
 				<tr>
@@ -19,9 +19,10 @@
 				<tr>
 					<th>标题图片:</th>
 					<td>
-						<input type="text" class="form-control" id="picture" name="cover"/>
-						<a class="btn btn-default btn-primary" href="javascript:void(0);"
-						   onclick="upImage();">上传图片</a>
+						<input type="text" id="picture" name="cover" class="form-control" />
+                        <input type="file" id="newcover" name="newcover" />
+                        <img src="" id="autoview" width="190" height="135">
+                        <button type="button" id="uploadimg" class="btn btn-primary">上传</button>
 					</td>
 				</tr>
 				<tr>
@@ -71,8 +72,8 @@
 			<tfoot>
 			<tr>
 				<td></td>
-				<td><button type="submit" class="btn"><i class="icon-ok"></i> 提交</button>
-					<button type="button" class="btn" onclick="javascript:history.back();">取消</button></td>
+				<td><button type="submit" class="btn btn-primary"><i class="icon-ok"></i> 提交</button>
+					<button type="button" class="btn btn-primary" onclick="javascript:history.back();">取消</button></td>
 			</tr>
 			</tfoot>
 		</table>

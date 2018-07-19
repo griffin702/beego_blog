@@ -96,7 +96,6 @@ func (this *ArticleController) Save() {
 		urltype int8   = 0
 		post    models.Post
 	)
-
 	if title == "" {
 		this.showmsg("标题不能为空！")
 	}

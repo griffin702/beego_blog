@@ -25,6 +25,9 @@ func (this *LinkController) Add() {
 		var link models.Link
 		sitename := strings.TrimSpace(this.GetString("sitename"))
 		url := strings.TrimSpace(this.GetString("url"))
+		if len(url) < 9 {
+			this.showmsg("请检查输入的网址")
+		}
 		err := strings.Index(url[:7], "http://")
 		err2 := strings.Index(url[:8], "https://")
 		err3 := strings.Index(url[:2], "//")
@@ -33,7 +36,7 @@ func (this *LinkController) Add() {
 		}
 		rank, _ := this.GetInt64("rank")
 		siteavator := "/static/upload/default/user-default-60x60.png"
-		if avator_input := strings.TrimSpace(this.GetString("siteavator")); avator_input != "" {
+		if avator_input := strings.TrimSpace(this.GetString("cover")); avator_input != "" {
 			siteavator = avator_input
 		}
 		sitedesc := strings.TrimSpace(this.GetString("sitedesc"))
@@ -63,7 +66,7 @@ func (this *LinkController) Edit() {
 		sitename := strings.TrimSpace(this.GetString("sitename"))
 		url := strings.TrimSpace(this.GetString("url"))
 		rank, _ := this.GetInt64("rank")
-		siteavator := strings.TrimSpace(this.GetString("siteavator"))
+		siteavator := strings.TrimSpace(this.GetString("cover"))
 		if siteavator != lastavator && lastavator != "" && lastavator != "/static/upload/default/user-default-60x60.png" {
 			os.Remove("."+lastavator)
 		}
