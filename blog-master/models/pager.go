@@ -41,13 +41,13 @@ func (this *Pager) ToString() string {
 	}
 	var buf bytes.Buffer
 	var from, to, linknum, offset, totalpage int64
-
-	offset = 5
-	linknum = 10
-
+	offset = 2
+	linknum = 4
+	if this.Page < 3 {
+		linknum =5
+	}
 	totalpage = int64(math.Ceil(float64(this.Totalnum) / float64(this.Pagesize)))
 	this.Totalpage = totalpage
-
 	if totalpage < linknum {
 		from = 1
 		to = totalpage
@@ -62,36 +62,36 @@ func (this *Pager) ToString() string {
 			from = totalpage - linknum + 1
 		}
 	}
-
-	buf.WriteString("<div class=\"page\">")
+	buf.WriteString("<ul class=\"pagination\">")
 	if this.Page > 1 {
-		buf.WriteString(fmt.Sprintf("<a href=\"%s\">&laquo;</a>", this.url(this.Page-1)))
+		buf.WriteString(fmt.Sprintf("<li><a href=\"%s\">Prev</a></li>", this.url(this.Page-1)))
 	} else {
-		buf.WriteString("<b>&laquo;</b>")
+		buf.WriteString("<li class=\"disabled\"><a>Prev</a></li>")
 	}
-
-	if this.Page > linknum {
-		buf.WriteString(fmt.Sprintf("<a href=\"%s\">1</a>", this.url(1)))
-	}
-
-	for i := from; i <= to; i++ {
-		if i == this.Page {
-			buf.WriteString(fmt.Sprintf("<b>%d</b>", i))
-		} else {
-			buf.WriteString(fmt.Sprintf("<a href=\"%s\">%d</a>", this.url(i), i))
+	if this.Page >= linknum {
+		buf.WriteString(fmt.Sprintf("<li><a href=\"%s\">1</a></li>", this.url(1)))
+		if this.Page-linknum > 0 {
+			buf.WriteString("<li class=\"disabled\"><a>...</a></li>")
 		}
 	}
-
+	for i := from; i <= to; i++ {
+		if i == this.Page {
+			buf.WriteString(fmt.Sprintf("<li class=\"active\"><a>%d</a></li>", i))
+		} else {
+			buf.WriteString(fmt.Sprintf("<li><a href=\"%s\">%d</a></li>", this.url(i), i))
+		}
+	}
 	if totalpage > to {
-		buf.WriteString(fmt.Sprintf("<a href=\"%s\">%d</a>", this.url(totalpage), totalpage))
+		if totalpage-to > 1 {
+			buf.WriteString("<li class=\"disabled\"><a>...</a></li>")
+		}
+		buf.WriteString(fmt.Sprintf("<li><a href=\"%s\">%d</a></li>", this.url(totalpage), totalpage))
 	}
-
 	if this.Page < totalpage {
-		buf.WriteString(fmt.Sprintf("<a href=\"%s\">&raquo;</a>", this.url(this.Page+1)))
+		buf.WriteString(fmt.Sprintf("<li><a href=\"%s\">Next</a></li>", this.url(this.Page+1)))
 	} else {
-		buf.WriteString(fmt.Sprintf("<b>&raquo;</b>"))
+		buf.WriteString(fmt.Sprintf("<li class=\"disabled\"><a>Next</a></li>"))
 	}
-	buf.WriteString("</div>")
-
+	buf.WriteString("</ul>")
 	return buf.String()
 }

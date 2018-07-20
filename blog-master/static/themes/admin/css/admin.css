@@ -80,12 +80,13 @@ footer { text-align: center; line-height: 40px; border-top: #E8E8E8 1px solid ; 
 
 legend .btn { margin-left: 30px; }
 
-.page { margin: 20px 0; text-align: center; width: 100%; overflow: hidden; }
-.page a b { color: #999; }
-.page>b, .page a { margin: 0 2px; height: 26px; line-height: 26px; border-radius: 50%; width: 26px; text-align: center; display: inline-block }
-.page a { margin: 0 2px; height: 26px; line-height: 26px; border-radius: 50%; width: 26px; text-align: center; display: inline-block }
-.page>b, .page a:hover { background: #333; color: #FFF; }
-.page a { color: #F33; border: #999 1px solid; }
+/*翻页样式*/
+/*.page { margin: 20px 0; text-align: center; width: 100%; overflow: hidden; }*/
+/*.page a b { color: #999; }*/
+/*.page>b, .page a { margin: 0 2px; height: 26px; line-height: 26px; border-radius: 50%; width: 26px; text-align: center; display: inline-block }*/
+/*.page a { margin: 0 2px; height: 26px; line-height: 26px; border-radius: 50%; width: 26px; text-align: center; display: inline-block }*/
+/*.page>b, .page a:hover { background: #333; color: #FFF; }*/
+/*.page a { color: #F33; border: #999 1px solid; }*/
 
 /*xheditor样式*/
 @media (min-width: 992px) {

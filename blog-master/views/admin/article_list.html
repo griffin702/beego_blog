@@ -64,9 +64,6 @@
 				</tbody>
 				<tfoot>
 					<tr>
-						<td colspan="20">{{str2html .pagebar}}</td>
-					</tr>
-					<tr>
 						<td width="30"><input type="checkbox" name="all" value="0" onclick="checkall('ids[]', this)" /></td>
 						<td colspan="2">
 							<select class="form-control" name="op" id="op">
@@ -81,6 +78,7 @@
 					</tr>
 				</tfoot>
 			</table>
+		{{str2html .pagebar}}
 		</div>
 	</form>
 </fieldset>

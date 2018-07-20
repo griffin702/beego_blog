@@ -48,12 +48,12 @@ aside .rnav ul li a:hover { background: rgba(255,255,255,0.2); -webkit-transform
 .link-friends span:hover img{transform:rotate(360deg);-webkit-transform:rotate(360deg);}
 
 /*翻页样式*/
-.page{ margin:20px 0 0 0; text-align:center; width:100%;overflow: hidden;}
-.page a b {color: #999;}
-.page>b,.page a {margin: 0 2px;height: 26px;line-height: 26px;border-radius: 50%;width: 26px;text-align: center;display: inline-block}
-.page a {margin: 0 2px;height: 26px;line-height: 26px;border-radius: 50%;width: 26px;text-align: center;display: inline-block}/* 针对IE6 */
-.page>b,.page a:hover{background: #333;color: #FFF;}
-.page a {color: #F33;border: #999 1px solid;}
+/*.page{ margin:20px 0 0 0; text-align:center; width:100%;overflow: hidden;}*/
+/*.page a b {color: #999;}*/
+/*.page>b,.page a {margin: 0 2px;height: 26px;line-height: 26px;border-radius: 50%;width: 26px;text-align: center;display: inline-block}*/
+/*.page a {margin: 0 2px;height: 26px;line-height: 26px;border-radius: 50%;width: 26px;text-align: center;display: inline-block}!* 针对IE6 *!*/
+/*.page>b,.page a:hover{background: #333;color: #FFF;}*/
+/*.page a {color: #F33;border: #999 1px solid;}*/
 
 .ds-avatar {
     float: left;
