@@ -1,20 +1,21 @@
 <!DOCTYPE html>
+<html lang="zh-cn">
 <head>
-	<meta charset="utf-8" />
-    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta charset="utf-8" />
+    <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-	<title>注册</title>
-	<link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-	<style type="text/css">
-	body {background:#444}
-	p {}
-	.main {width:350px; margin:100px auto 0 auto; color:#888; overflow:hidden;}
-	.loginform {padding: 10px 10px 10px; width:100%; background:#fff; color:#333}
-	fieldset {margin:20px;}
-	</style>
+    <title>登录</title>
+    <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <style type="text/css">
+        body {background:#444}
+        label {font-size: 12px}
+        .main {width:350px; margin:100px auto 0 auto; color:#888; overflow:hidden;}
+        .loginform {padding: 10px 10px 10px; width:100%; background:#fff; color:#333}
+        fieldset {margin:20px;}
+    </style>
 </head>
-<body>
+<body onload="document.getElementById('username').focus();">
 	<div class="main">
 		<div class="loginform">
 			<form method="post">
@@ -31,7 +32,7 @@
                     {{end}}
                     <div class="input-group">
                         <span class="input-group-addon">账号</span>
-						<input type="text" name="username" class="form-control" placeholder="请输入账号" />
+						<input type="text" id="username" name="username" class="form-control" placeholder="请输入账号" />
                     </div>
                     <br />
                     <div class="input-group">

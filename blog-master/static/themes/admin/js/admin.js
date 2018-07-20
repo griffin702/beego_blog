@@ -23,6 +23,9 @@ function dataURLtoFile(dataurl, filename) {//将base64转换为文件
 }
 
 $(document).ready(function(){
+    // $("body").onload = function () {
+    //     $("#account").focus();
+    // };
     //修复导航栏active不自动切换
     $("ul.nav.navbar-nav").find("li").each(function(){
         var a = $(this).find("a:first");
@@ -37,12 +40,13 @@ $(document).ready(function(){
         showBlocktag:true,
         internalScript:false,
         internalStyle:false,
+        cleanPaste:3,
         width:600,
         height:500,
         loadCSS:'/static/xheditor/css/base.css',
         fullscreen:false,
         sourceMode:false,
-        forcePtag:true,
+        forcePtag:false,
         html5Upload:false,
         upMultiple:1,
         upImgUrl:"/admin/upload",
