@@ -19,6 +19,7 @@ func init() {
 	if dbport == "" {
 		dbport = "3306"
 	}
+	//&loc=Asia%2FShanghai（已单独做了时区自动处理）
 	dburl := dbuser + ":" + dbpassword + "@tcp(" + dbhost + ":" + dbport + ")/" + dbname + "?charset=utf8"
 	orm.RegisterDataBase("default", "mysql", dburl)
 	orm.RegisterModel(

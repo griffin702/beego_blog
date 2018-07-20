@@ -3,13 +3,14 @@ beego_blog
 
 Source: https://github.com/griffin702/beego_blog
 myblog: http://www.inana.top/
+myWeChat: griffin702
 
 默认不自动生成数据库，初次使用时可直接使用项目根目录下的beego_blog.sql手动导入数据库
 初始管理员账号密码：admin 123456
 
 感谢原作者：Double Liu
 
-节点：
+更新节点：
 2018/6/19
 1.0.0版本：
 1、修复原项目代码中的BUG
@@ -36,3 +37,10 @@ myblog: http://www.inana.top/
 	a、优化orm，新增表索引，将所有条件查询的字段都加上索引，优化后，查询速度提升较高。
 	b、评论列表分页显示，大大减少单页的查询次数。
 5、修复部分敏感信息签名的bug
+
+2018/7/20
+1、后台管理页面重新排版，确保PC端与移动端都能正常自适应
+2、原ueditor编辑器上传需要flash支持，目前很多浏览器开始弃用flash接口，无法在移动端上传，故改用xheditor。
+3、添加图片预览界面，友好提示等优化体验
+4、修复时区不一致问题
+5、原上传模块太简陋，重新独立upload模块，并友好支持xheditor编辑器上传图片
