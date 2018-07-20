@@ -63,6 +63,7 @@ func (this *CommentsController) Add() {
 					comment.Reply_pk = int64(replypk_to_int)
 					comment.Reply_fk = int64(replyfk)
 					comment.Ipaddress = this.getClientIp()
+					comment.Submittime = this.getTime()
 					models.Cache.Delete("newcomments")
 					if err := comment.Insert(); err != nil {
 						this.showmsg(err.Error())

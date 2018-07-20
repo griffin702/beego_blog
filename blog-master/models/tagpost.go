@@ -11,7 +11,7 @@ type TagPost struct {
 	Tagid      int64       `orm:"index"`
 	Postid     int64       `orm:"index"`
 	Poststatus int8        `orm:"index"`
-	Posttime   time.Time   `orm:"index"`
+	Posttime   time.Time   `auto_now_add;orm:"index"`
 }
 
 func (m *TagPost) TableName() string {

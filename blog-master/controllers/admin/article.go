@@ -96,7 +96,6 @@ func (this *ArticleController) Save() {
 		urltype int8   = 0
 		post    models.Post
 	)
-	fmt.Println(content)
 	if title == "" {
 		this.showmsg("标题不能为空！")
 	}
@@ -137,8 +136,12 @@ func (this *ArticleController) Save() {
 	}
 
 	if id < 1 {
+		if posttime, err := time.Parse("2006-01-02 15:04:05", timestr); err == nil {
+			post.Posttime = posttime
+		} else {
+			post.Posttime, _ = time.Parse("2006-01-02 15:04:05", post.Posttime.Format("2006-01-02 15:04:05"))
+		}
 		post.User = &models.User{Id:this.userid}
-		post.Posttime = this.getTime()
 		post.Updated = this.getTime()
 		post.Insert()
 		models.Cache.Delete("latestblog")
@@ -177,11 +180,6 @@ func (this *ArticleController) Save() {
 		}
 		post.Tags = "," + strings.Join(addtags, ",") + ","
 	}
-	if posttime, err := time.Parse("2006-01-02 15:04:05", timestr); err == nil {
-		post.Posttime = posttime
-	} else {
-		post.Posttime, _ = time.Parse("2006-01-02 15:04:05", post.Posttime.Format("2006-01-02 15:04:05"))
-	}
 	post.Status = int8(status)
 	post.Title = title
 	post.Color = color
@@ -191,7 +189,7 @@ func (this *ArticleController) Save() {
 	post.Urlname = urlname
 	post.Urltype = urltype
 	post.Updated = this.getTime()
-	post.Update("tags", "status", "title", "color", "cover", "istop", "content", "urlname", "urltype", "updated", "posttime")
+	post.Update("tags", "status", "title", "color", "cover", "istop", "content", "urlname", "urltype", "updated")
 
 RD:
 	this.Redirect("/admin/article/list", 302)

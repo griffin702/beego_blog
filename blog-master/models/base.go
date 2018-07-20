@@ -19,7 +19,7 @@ func init() {
 	if dbport == "" {
 		dbport = "3306"
 	}
-	dburl := dbuser + ":" + dbpassword + "@tcp(" + dbhost + ":" + dbport + ")/" + dbname + "?charset=utf8&loc=Asia%2FShanghai"
+	dburl := dbuser + ":" + dbpassword + "@tcp(" + dbhost + ":" + dbport + ")/" + dbname + "?charset=utf8"
 	orm.RegisterDataBase("default", "mysql", dburl)
 	orm.RegisterModel(
 		new(User), new(Post), new(Tag), new(Option), new(TagPost),
