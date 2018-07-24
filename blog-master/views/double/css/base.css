@@ -149,8 +149,7 @@ h2.title_tj p { background: #fff; width: 80px }
 .bloglist div a.articleimg img { padding: 4px!important; max-height: 135px; max-width: 190px; }
 .bloglist .blog { margin-bottom: 10px; padding: 0; }
 .bloglist .blog:hover { background-color: #f5f5f5; border-radius: 8px; -moz-border-radius:8px; -webkit-border-radius:8px; }
-.blogcontent { padding: 0!important; height: 55px; }
-.blogcontent p { margin: 0; padding: 0 10px; }
+.blogcontent { padding: 0 10px!important; height: 55px; }
 .lifedateview { color: #838383; margin: 0; padding: 2px 10px 2px 15px!important; }
 .lifedateview span { margin: 0; padding: 0 3px; font-size: 10px; }
 .lifedateview span span { padding-right: 3px; }
@@ -259,7 +258,7 @@ ul.infos p img { display: block;margin: auto; max-width:100%;}
         bottom: 380px;
         right: 14%;
     }
-    #to_down, #to_top, #wechat_btn {
+    #to_down, #to_top {
         padding: 6px 12px!important;
         margin-bottom: 5px;
         display: block;
@@ -269,6 +268,15 @@ ul.infos p img { display: block;margin: auto; max-width:100%;}
         background: #f9f9f9;
     }
     #to_top {display: none;}
+    #wechat_btn {
+        padding: 9px 12px!important;
+        display: block;
+        border: none;
+        align-items: center;
+        font-size: 35px;
+        background: #f9f9f9;
+        height: 60px;
+    }
     #to_down:hover, #to_top:hover, #wechat_btn:hover {
         background: #dddddd;
     }
@@ -278,13 +286,12 @@ ul.infos p img { display: block;margin: auto; max-width:100%;}
         float: left;
         position: fixed;
         z-index: 1031;
-        top: 15px;
-        right: 25%;
+        top: 14px;
+        right: 22%;
     }
-    #to_down, #to_top, #wechat_btn {
+    #to_down, #to_top {
         float: left;
-        padding: 1px 5px!important;
-        margin-bottom: 5px;
+        padding: 3px 5px!important;
         display: block;
         border: none;
         align-items: center;
@@ -292,6 +299,16 @@ ul.infos p img { display: block;margin: auto; max-width:100%;}
         background: #f9f9f9;
     }
     #to_top {display: none;}
+    #wechat_btn {
+        float: left;
+        padding: 0 5px!important;
+        display: block;
+        border: none;
+        align-items: center;
+        font-size: 20px;
+        background: #f9f9f9;
+        height: 24px;
+    }
     #to_down:hover, #to_top:hover, #wechat_btn:hover {
         background: #dddddd;
     }

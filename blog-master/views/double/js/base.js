@@ -69,7 +69,7 @@ $(document).ready(function(){
         event.stopPropagation();
         $("#wechat_btn").popover('toggle');
     });
-    $(document).click(function(){
+    $(document).on('click touchstart', function(){
         $("#wechat_btn").popover('destroy');
         $("[data-toggle='popover']").popover();
     });
