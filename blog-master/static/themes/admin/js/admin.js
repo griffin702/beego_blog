@@ -37,7 +37,7 @@ $(document).ready(function(){
     $('#content').xheditor({
         tools:'full',
         skin:'default',
-        showBlocktag:true,
+        showBlocktag:false,
         internalScript:false,
         internalStyle:false,
         cleanPaste:3,
@@ -46,7 +46,7 @@ $(document).ready(function(){
         loadCSS:'/static/xheditor/css/base.css',
         fullscreen:false,
         sourceMode:false,
-        forcePtag:false,
+        forcePtag:true,
         html5Upload:false,
         upMultiple:1,
         upImgUrl:"/admin/upload",
