@@ -6,6 +6,7 @@ import (
 	"github.com/astaxie/beego/orm"
 	"strings"
 	"time"
+	"regexp"
 )
 
 type Post struct {
@@ -110,13 +111,15 @@ func (m *Post) TagsLink() string {
 //摘要
 func (m *Post) Excerpt() string {
 	//如果断定截取的断点可能会存在中文字符，则需要转为rune后再截取，否则可能会截成乱码
-	data := []rune(m.Content)
+	re, _ := regexp.Compile("<img.+/>")
+	rep := re.ReplaceAllString(m.Content, "")
+	data := []rune(rep)
 	if i := strings.Index(m.Content, "<hr />"); i != -1 {
 		return m.Content[:i]
-	}else if i = -1; len(data) > 62{
+	}else if i = -1; len(data) > 62 {
 		return string(data[:62])+"..."
 	}
-	return m.Content
+	return rep
 }
 
 func (m *Post) Del_Excerpt() string {

@@ -17,12 +17,12 @@
                 <span><span class="glyphicon glyphicon-tags"></span> [{{str2html $v.TagsLink}}]</span>
             </p>
         </h3>
-        <ul class="col-lg-9 col-md-7 col-sm-12 col-xs-12 column">
-        <p>{{str2html $v.Excerpt}}</p>
+        <div class="blogcontent col-lg-9 col-md-7 col-sm-12 col-xs-12 column">
+            {{str2html $v.Excerpt}}
+        </div>
         <a title="阅读全文" href="{{$v.Link}}"  target="_blank" class="readmore">阅读全文
             <span class="glyphicon glyphicon-forward"></span>
         </a>
-        </ul>
     </div>
     {{end}}
     {{str2html .pagebar}}

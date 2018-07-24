@@ -150,7 +150,7 @@ h2.title_tj p { background: #fff; width: 80px }
 .bloglist .blog { margin-bottom: 10px; padding: 0; }
 .bloglist .blog:hover { background-color: #f5f5f5; border-radius: 8px; -moz-border-radius:8px; -webkit-border-radius:8px; }
 .blogcontent { padding: 0 10px!important; height: 55px; }
-.lifedateview { color: #838383; margin: 0; padding: 2px 10px 2px 15px!important; }
+.lifedateview { color: #838383; margin: 0; padding: 2px 10px 2px 5px!important; }
 .lifedateview span { margin: 0; padding: 0 3px; font-size: 10px; }
 .lifedateview span span { padding-right: 3px; }
 .lifedateview span a { color: #099B43; padding: 0 3px; }
@@ -225,7 +225,8 @@ a.readmore { background: #fd8a61; color: #fff; padding: 5px 10px; float: right; 
 .box_c { border: #ccc 1px dashed; text-align: center; padding: 5px 0;color: #999;}
 .box_c span { margin: 0 10px; }
 .box_c span a{color: #099;}
-ul.infos { line-height: 28px; text-indent: 2em; padding: 0 15px 0 15px; }
+ul.infos { line-height: 28px; padding: 0 15px 0 15px; }
+ul.infos span { text-indent: 2em; }
 ul.infos p { margin-bottom: 20px }
 ul.infos p img { display: block;margin: auto; max-width:100%;}
 .keybq { line-height: 30px; height: 30px; padding-left: 15px; border: 1px solid #F0F0F0; background-color: #f0f0f0; }
