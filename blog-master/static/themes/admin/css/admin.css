@@ -91,11 +91,11 @@ legend .btn { margin-left: 30px; }
 /*xheditor样式*/
 @media (min-width: 992px) {
 	#xhe0_container.xhe_default table.xheLayout {
-		width: 800px!important;
+		width: 85%!important;
 	}
 }
 @media (max-width: 991px) {
 	#xhe0_container.xhe_default table.xheLayout {
-		width: 300px!important;
+		width: 100%!important;
 	}
 }

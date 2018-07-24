@@ -35,13 +35,13 @@ a.n1, a.n2 { width: 100px; display: block; text-align: center; color: #fff; floa
 .paih { background: url(../images/ph.jpg) no-repeat left 8px; margin: 10px 0 }
 .paih li { line-height: 30px; height: 30px; overflow: hidden; padding-left: 10px; border-bottom: #CCC dotted 1px }
 .weather, .news { padding: 0!important; }
-.weixin { background: url(../images/weixin.jpg) no-repeat; width: 100%; display: inline-block; height: 320px; overflow: hidden; margin: 10px 0; clear: both }
+.weixin { background: url(../images/weixin.jpg) no-repeat; width: 100%; display: inline-block; height: 320px; overflow: hidden; clear: both }
 aside .rnav ul li a:hover { background: rgba(255,255,255,0.2); -webkit-transform: rotate(360deg); -moz-transform: rotate(360deg); -o-transform: rotate(360deg); transform: rotate(360deg); }
 .ad{ width:100%; margin:10px auto;}
 .duoshuo{ width:710px;overflow: hidden; background: url(../images/r_line.jpg) repeat-y right; line-height:22px; margin:20px auto;padding-right: 30px; }
 
 /*@links*/
-.link-friends{overflow: hidden;}
+.link-friends{overflow: hidden; padding-bottom: 10px}
 .link-friends span{text-align: center;font-size:12px;padding:15px 5px;}
 .link-friends span img{border-radius:100%;margin-bottom:5px;transition:0.5s;--webkit-transtion:0.5s;}
 .link-friends span .sitename{display:block;padding:0;}
@@ -252,3 +252,48 @@ ul.infos p img { display: block;margin: auto; max-width:100%;}
 .otherlink ul { margin: 10px 0 }
 .otherlink li { line-height: 24px; height: 24px; display: block; width: 290px; float: left; overflow: hidden; margin-right: 30px; }
 .otherlink li a:hover{ text-decoration:underline}
+
+@media (min-width: 992px) {
+    .top-to-page {
+        position: fixed;
+        bottom: 380px;
+        right: 14%;
+    }
+    #to_down, #to_top, #wechat_btn {
+        padding: 6px 12px!important;
+        margin-bottom: 5px;
+        display: block;
+        border: none;
+        align-items: center;
+        font-size: 10px;
+        background: #f9f9f9;
+    }
+    #to_top {display: none;}
+    #to_down:hover, #to_top:hover, #wechat_btn:hover {
+        background: #dddddd;
+    }
+}
+@media (max-width: 991px) {
+    .top-to-page {
+        float: left;
+        position: fixed;
+        z-index: 1031;
+        top: 15px;
+        right: 25%;
+    }
+    #to_down, #to_top, #wechat_btn {
+        float: left;
+        padding: 1px 5px!important;
+        margin-bottom: 5px;
+        display: block;
+        border: none;
+        align-items: center;
+        font-size: 10px;
+        background: #f9f9f9;
+    }
+    #to_top {display: none;}
+    #to_down:hover, #to_top:hover, #wechat_btn:hover {
+        background: #dddddd;
+    }
+}
+

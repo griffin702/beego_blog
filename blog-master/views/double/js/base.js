@@ -43,6 +43,36 @@ $(document).ready(function(){
     if ('scrollRestoration' in history) {
         history.scrollRestoration = 'manual';
     }
+    $("#to_top").click(function (event) {
+        event.preventDefault();
+        $('html,body').animate({
+            scrollTop: 0
+        }, 500);
+    });
+    $("#to_down").click(function (event) {
+        event.preventDefault();
+        $('html,body').animate({
+            scrollTop: document.body.scrollHeight
+        }, 500);
+    });
+    window.addEventListener('scroll', function(){
+        var t = document.documentElement.scrollTop || document.body.scrollTop;
+        var s = document.body.scrollHeight * 0.5;
+        if (t < s) {
+            $("#to_top").removeClass('show').addClass('hidden');
+        } else {
+            $("#to_top").removeClass('hidden').addClass('show');
+        }
+    });
+    $("[data-toggle='popover']").popover();
+    $("#wechat_btn").click(function(event){
+        event.stopPropagation();
+        $("#wechat_btn").popover('toggle');
+    });
+    $(document).click(function(){
+        $("#wechat_btn").popover('destroy');
+        $("[data-toggle='popover']").popover();
+    });
 });
 
 function ajax_Main(type,data,url){
