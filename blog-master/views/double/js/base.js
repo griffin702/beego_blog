@@ -43,6 +43,7 @@ $(document).ready(function(){
     if ('scrollRestoration' in history) {
         history.scrollRestoration = 'manual';
     }
+    //顶底滚动处理
     $("#to_top").click(function (event) {
         event.preventDefault();
         $('html,body').animate({
@@ -72,6 +73,14 @@ $(document).ready(function(){
     $(document).on('click touchstart', function(){
         $("#wechat_btn").popover('destroy');
         $("[data-toggle='popover']").popover();
+    });
+    //图片加载失败处理
+    $("img.img-thumbnail").error(function(){
+        var num=Math.floor(Math.random()*9.9);
+        $(this).attr('src','/static/upload/default/blog-default-' + num + '.png');
+    });
+    $("img.wyavater").error(function(){
+        $(this).attr('src','/static/upload/default/user-default-60x60.png');
     });
 });
 

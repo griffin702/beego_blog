@@ -10,10 +10,18 @@ a span { font-size: 10px; }
 #logo a { float: left; width: 150px; height: 45px; margin: 5px 30px 0 50px; background: url(../images/logo.gif) no-repeat; display: block }
 #topnav_current { color: #e15782; }
 .en { color: #999; font-size: 12px; z-index: 1; display: block; }/* ie */
-article { width: 1000px; margin: 20px auto; overflow: hidden }
+article { padding-right: 10px!important; overflow: hidden }
 footer { text-align: center; line-height: 20px; border-top: #E8E8E8 1px solid ; width:1000px; padding:10px 15px; }
-h1.t_nav span { float: right; color: #999; padding:15px 0;}
-h1.t_nav { border-bottom: #F1F1F1 1px solid; font-size: 12px; font-weight: normal; line-height: 40px; height: 40px; }
+
+h1.t_nav p { margin: 0; font-size: 12px; }
+@media (min-width: 992px) {
+    h1.t_nav p { padding-left: 5%; display: inline; vertical-align: text-top; line-height: 30px; }
+}
+@media (max-width: 991px) {
+    h1.t_nav p { float: left; line-height: 20px; padding: 5px 0; }
+}
+h1.t_nav p span { vertical-align:text-top; font-size: 14px; color:#999; }
+h1.t_nav { border-bottom: #F1F1F1 1px solid; font-size: 12px; font-weight: normal; line-height: 40px; height: 40px; margin: 0; }
 a.n1, a.n2 { width: 100px; display: block; text-align: center; color: #fff; float: left }
 .n1 { background: #5EA51B; }
 .n2 { background: #8BBF5D; }
@@ -143,7 +151,7 @@ h2.title_tj p { background: #fff; width: 80px }
 .lock { float: right; margin: 80px 10px 0px 0px; width: 46px; height: 55px; border-radius: 100%; overflow: hidden; background: url(../images/lock.png) no-repeat}
 
 /*life*/
-.bloglist { overflow: hidden; background: url(../images/r_line.jpg) repeat-y right; padding: 0 15px 0 0!important; }
+.bloglist { overflow: hidden; background: url(../images/r_line.jpg) repeat-y right; padding: 10px 15px 10px 0!important; }
 .bloglist h3 { margin: 0; padding: 15px 10px 0 10px!important; color: #333 }
 .bloglist div a.articleimg { padding: 15px 15px 15px 20px; }
 .bloglist div a.articleimg img { padding: 4px!important; max-height: 135px; max-width: 190px; }
@@ -155,7 +163,7 @@ h2.title_tj p { background: #fff; width: 80px }
 .lifedateview span span { padding-right: 3px; }
 .lifedateview span a { color: #099B43; padding: 0 3px; }
 .lifedateview span a:hover { color: #23527c; }
-a.readmore { background: #fd8a61; color: #fff; padding: 5px 10px; float: right; position: relative; right: 15px; }
+a.readmore { background: #fd8a61; color: #fff; padding: 5px 10px; float: right; position: relative; right: 15px; bottom: 5px; }
 
 /*mood*/
 .moodlist { margin: auto; width: 100%; overflow: hidden }
@@ -210,7 +218,7 @@ a.readmore { background: #fd8a61; color: #fff; padding: 5px 10px; float: right; 
 .sy:hover { color: #333; text-shadow: #f7f7f7 1px 1px 1px }
 .sy .bg {background: #f8f8f8;}
 .sy .bg:hover {background: #f4f2f2;}
-.dateview {background: #5EA51B; border-radius: 0px 40px; text-align: center; color: #fff;padding: 8px 10px;margin-top: 10px;}
+.dateview {background: #5EA51B; border-radius: 0 40px; text-align: center; color: #fff;padding: 5px 10px;margin-top: 10px;}
 .page { margin: 20px 0; text-align: center; width: 100%; overflow: hidden; }
 .page a b { color: #999; }
 .page>b, .page a { margin: 0 2px; height: 26px; line-height: 26px; border-radius: 50%; width: 26px; text-align: center; display: inline-block }
@@ -220,12 +228,12 @@ a.readmore { background: #fd8a61; color: #fff; padding: 5px 10px; float: right; 
 
 
 /*new*/
-.index_about { background: url(../images/r_line.jpg) repeat-y right; }
+.index_about { background: url(../images/r_line.jpg) repeat-y right; padding-left: 0!important; }
 .c_titile { font-size: 22px; margin: 20px 0; text-align: center }
 .box_c { border: #ccc 1px dashed; text-align: center; padding: 5px 0;color: #999;}
-.box_c span { margin: 0 10px; }
+.box_c span { margin: 0 5px; }
 .box_c span a{color: #099;}
-ul.infos { line-height: 28px; text-indent: 2em; padding: 0 15px 0 15px; }
+ul.infos { line-height: 28px; text-indent: 2em; padding: 0 5px 0 5px; }
 ul.infos p { margin-bottom: 5px; }
 ul.infos p img { display: block;margin: auto; max-width:100%;}
 .keybq { line-height: 30px; height: 30px; padding-left: 15px; border: 1px solid #F0F0F0; background-color: #f0f0f0; }
@@ -233,19 +241,23 @@ ul.infos p img { display: block;margin: auto; max-width:100%;}
 .bdsharebuttonbox { padding: 5px 15px!important; }
 .bdsharebuttonbox span { float: left!important; margin-top: 9px; }
 .nextinfo { line-height: 24px; padding-top: 10px;}
-.article_all { padding:0!important; }
+.article_all { padding:10px 0!important; }
 
+/*@ 评论列表样式 @*/
 #wrap-form-comment, #wrap-comments-list, .comments_length { padding:0!important; }
 .comment_content { min-height: 150px; max-width: 100%; margin-bottom: 20px; }
 .comments_one { padding: 8px 10px!important; border-bottom: 1px solid #DEDEDE; }
 .comments_one:first-child { border-top: 1px solid #DEDEDE; padding-top: 15px; }
 .comment_parent { padding:10px 0!important; }
 .comment_child { padding:10px 0!important; float: right!important; }
-.media-object { border-radius:100%; }
+.media-object { border-radius:20%; }
 .pull-left { padding: 0 15px 0 5px; }
 .reply_btn { border-left: 2px solid #777; padding-left: 5px; }
 .comment-quote { border-left: 3px solid #9ce8f8; padding-left: 10px; color: #afafaf; }
 .pagenum { color: #999; font-size: 10px; }
+
+/*.comments_one img{border-radius:20%;transition:0.5s;--webkit-transtion:0.5s;}*/
+/*.comments_one:hover img{transform:rotate(360deg);-webkit-transform:rotate(360deg);}*/
 
 .otherlink h2 { border-bottom: #099 2px solid; line-height: 40px; font-size: 12px; font-weight: normal; margin-right: 20px; background:url(../images/5794.png) 10px center no-repeat; padding-left:40px}
 .otherlink ul { margin: 10px 0 }

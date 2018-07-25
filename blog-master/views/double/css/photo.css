@@ -555,9 +555,16 @@
 	background-color: #000;
 }
 
-h1.t_nav span{float:right; color:#999}
-h1.t_nav { border-bottom: #F1F1F1 1px solid; font-size: 12px; font-weight: normal; line-height: 40px; height: 40px; }
-h1.t_nav a { width: 100px; display: block; text-align: center; color: #fff; float: left }
+h1.t_nav p { margin: 0; font-size: 12px; }
+@media (min-width: 992px) {
+	h1.t_nav p { padding-left: 5%; display: inline; vertical-align: text-top; line-height: 30px; }
+}
+@media (max-width: 991px) {
+	h1.t_nav p { float: left; line-height: 20px; padding: 5px 0; }
+}
+h1.t_nav p span { vertical-align:text-top; font-size: 14px; color:#999; }
+h1.t_nav { border-bottom: #F1F1F1 1px solid; font-size: 12px; font-weight: normal; line-height: 40px; height: 40px; margin: 0; }
+a.n1, a.n2 { width: 100px; display: block; text-align: center; color: #fff; float: left }
 .n1 { background: #5EA51B; }
 .n2 { background: #8BBF5D; }
 .moodlist { margin: auto; width: 100%; overflow: hidden }
