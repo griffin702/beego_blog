@@ -23,9 +23,6 @@ function dataURLtoFile(dataurl, filename) {//将base64转换为文件
 }
 
 $(document).ready(function(){
-    // $("body").onload = function () {
-    //     $("#account").focus();
-    // };
     //修复导航栏active不自动切换
     $("ul.nav.navbar-nav").find("li").each(function(){
         var a = $(this).find("a:first");
@@ -35,7 +32,24 @@ $(document).ready(function(){
         }
     });
     $('#content').xheditor({
-        tools:'full',
+        plugins:{
+            Code:{c:'btnCode',t:'插入代码',h:1,e:function(){
+                    var _this=this;
+                    var htmlCode='<div><select id="xheCodeType"><option value="html">HTML/XML</option><option value="js">Javascript</option><option value="css">CSS</option><option value="php">PHP</option><option value="java">Java</option><option value="py">Python</option><option value="pl">Perl</option><option value="rb">Ruby</option><option value="cs">C#</option><option value="c">C++/C</option><option value="vb">VB/ASP</option><option value="">其它</option></select></div><div><textarea id="xheCodeValue" wrap="soft" spellcheck="false" style="width:300px;height:100px;" /></div><div style="text-align:right;"><input type="button" id="xheSave" value="确定" /></div>';
+                    var jCode=$(htmlCode),jType=$('#xheCodeType',jCode),jValue=$('#xheCodeValue',jCode),jSave=$('#xheSave',jCode);
+                    jSave.click(function(){
+                        _this.loadBookmark();
+                        _this.pasteHTML('<pre class="prettyprint lang-'+jType.val()+'">'+_this.domEncode(jValue.val())+'</pre>');
+                        _this.hidePanel();
+                        return false;
+                    });
+                    _this.saveBookmark();
+                    _this.showDialog(jCode);
+                }}
+        },
+        tools:'Cut,Copy,Paste,Pastetext,|,' +
+        'Blocktag,Fontface,FontSize,Bold,Italic,Underline,Strikethrough,FontColor,BackColor,SelectAll,Removeformat,|,' +
+        'Align,List,Outdent,Indent,|,Link,Unlink,Anchor,Img,Flash,Media,Hr,Code,Emot,Table,|,Source,Preview,Print,Fullscreen',
         skin:'default',
         showBlocktag:false,
         internalScript:false,

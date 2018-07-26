@@ -326,3 +326,9 @@ ul.infos p img { display: block;margin: auto; max-width:100%;}
     }
 }
 
+//代码段样式
+pre{
+	margin-left:1.5em;
+	border-left:3px solid #CCC;
+	padding:0 1em;
+}
