@@ -127,9 +127,25 @@ $(document).ready(function(){
             ajax_Main("GET",{},state.url);
         }
     }, false);
-    if ('scrollRestoration' in history) {
-        history.scrollRestoration = 'manual';
-    }
+    $("table.table.table-hover tbody").find("tr").each(function () {
+        var thisurl = 'https://www.inana.top' + $(this).find('td.hl_title a').attr('href');
+        $(this).find('td.hl_do a:first').on('click', function () {
+            $.ajax({
+                url: 'http://data.zz.baidu.com/urls?site=https://www.inana.top&token=d0Dca7O4TosN7655',
+                method: 'POST',
+                data: thisurl,
+                contentType: false,
+                processData: false,
+                cache: false,
+                success: function () {
+                    alert('主动推送百度成功');
+                },
+                error: function () {
+                    // alert('推送失败');
+                }
+            });
+        })
+    })
 });
 
 function ajax_Main(type,data,url){
