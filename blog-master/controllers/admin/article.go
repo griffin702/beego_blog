@@ -9,6 +9,9 @@ import (
 	"strings"
 	"time"
     "math/rand"
+	"net/http"
+	"io/ioutil"
+	"github.com/astaxie/beego/logs"
 )
 
 type ArticleController struct {
@@ -19,6 +22,20 @@ type ArticleController struct {
 func (this *ArticleController) Add() {
 	this.Data["posttime"] = this.getTime().Format("2006-01-02 15:04:05")
 	this.display()
+}
+func PostBaidu(url string) (string,error) {
+	resp, err := http.Post("http://data.zz.baidu.com/urls?site=https://www.inana.top&token=d0Dca7O4TosN7655",
+		"application/x-www-form-urlencoded",
+		strings.NewReader(url))
+	if err != nil {
+		return "", err
+	}
+	defer resp.Body.Close()
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return "", err
+	}
+	return string(body), nil
 }
 
 //管理
@@ -36,6 +53,17 @@ func (this *ArticleController) List() {
 	searchtype = this.GetString("searchtype")
 	keyword = this.GetString("keyword")
 	status, _ = this.GetInt64("status")
+	postid, _ := this.GetInt64("postid")
+	if postid != 0 {
+		post.Query().Filter("id", postid).One(&post)
+		thisurl := fmt.Sprintf("https://www.inana.top%s", post.Link())
+		str, err := PostBaidu(thisurl)
+		if err != nil {
+			logs.Warning(err.Error())
+		} else {
+			logs.Info(fmt.Sprintf("提交链接%s到百度成功,返回:%s", thisurl,str))
+		}
+	}
 	if page, _ = this.GetInt64("page"); page < 1 {
 		page = 1
 	}
