@@ -60,8 +60,10 @@ func (this *ArticleController) List() {
 		str, err := PostBaidu(thisurl)
 		if err != nil {
 			logs.Warning(err.Error())
+			this.showmsg(err.Error())
 		} else {
 			logs.Info(fmt.Sprintf("提交链接%s到百度成功,返回:%s", thisurl,str))
+			this.showmsg(fmt.Sprintf("提交链接%s到百度成功,返回:%s", thisurl,str))
 		}
 	}
 	if page, _ = this.GetInt64("page"); page < 1 {
