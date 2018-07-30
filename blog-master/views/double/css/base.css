@@ -237,7 +237,6 @@ ul.infos { line-height: 28px; padding: 0 5px 0 5px; }
 ul.infos p { margin-bottom: 5px; text-indent: 2em; }
 ul.infos p img { display: block;margin: auto; max-width:100%;}
 ul.infos pre {
-    margin-left:1.5em;
     border: 0;
     border-left: 3px solid #CCC;
 }
