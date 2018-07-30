@@ -233,9 +233,14 @@ a.readmore { background: #fd8a61; color: #fff; padding: 5px 10px; float: right; 
 .box_c { border: #ccc 1px dashed; text-align: center; padding: 5px 0;color: #999;}
 .box_c span { margin: 0 5px; }
 .box_c span a{color: #099;}
-ul.infos { line-height: 28px; text-indent: 2em; padding: 0 5px 0 5px; }
-ul.infos p { margin-bottom: 5px; }
+ul.infos { line-height: 28px; padding: 0 5px 0 5px; }
+ul.infos p { margin-bottom: 5px; text-indent: 2em; }
 ul.infos p img { display: block;margin: auto; max-width:100%;}
+ul.infos pre {
+    margin-left:1.5em;
+    border: 0;
+    border-left: 3px solid #CCC;
+}
 .keybq { line-height: 30px; height: 30px; padding-left: 15px; border: 1px solid #F0F0F0; background-color: #f0f0f0; }
 .keybq span, .keybq a { color: #099; padding: 0 5px; }
 .bdsharebuttonbox { padding: 5px 15px!important; }
@@ -324,11 +329,4 @@ ul.infos p img { display: block;margin: auto; max-width:100%;}
     #to_down:hover, #to_top:hover, #wechat_btn:hover {
         background: #dddddd;
     }
-}
-
-//代码段样式
-pre{
-	margin-left:1.5em;
-	border-left:3px solid #CCC;
-	padding:0 1em;
 }
