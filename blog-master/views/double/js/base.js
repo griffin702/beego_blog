@@ -40,9 +40,6 @@ $(document).ready(function(){
             ajax_Main("GET",{},state.url);
         }
     }, false);
-    if ('scrollRestoration' in history) {
-        history.scrollRestoration = 'manual';
-    }
     //顶底滚动处理
     $("#to_top").click(function (event) {
         event.preventDefault();

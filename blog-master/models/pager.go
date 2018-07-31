@@ -41,6 +41,7 @@ func (this *Pager) ToString() string {
 	}
 	var buf bytes.Buffer
 	var from, to, linknum, offset, totalpage int64
+	var omit string
 	offset = 2
 	linknum = 4
 	if this.Page < 3 {
@@ -64,15 +65,15 @@ func (this *Pager) ToString() string {
 	}
 	buf.WriteString("<ul class=\"pagination\">")
 	if this.Page > 1 {
-		buf.WriteString(fmt.Sprintf("<li><a href=\"%s\">Prev</a></li>", this.url(this.Page-1)))
+		buf.WriteString(fmt.Sprintf("<li><a href=\"%s\">上一页</a></li>", this.url(this.Page-1)))
 	} else {
-		buf.WriteString("<li class=\"disabled\"><a>Prev</a></li>")
+		buf.WriteString("<li class=\"disabled\"><a>上一页</a></li>")
 	}
 	if this.Page >= linknum {
-		buf.WriteString(fmt.Sprintf("<li><a href=\"%s\">1</a></li>", this.url(1)))
 		if this.Page-linknum > 0 {
-			buf.WriteString("<li class=\"disabled\"><a>...</a></li>")
+			omit = "..."
 		}
+		buf.WriteString(fmt.Sprintf("<li><a href=\"%s\">1%s</a></li>", this.url(1), omit))
 	}
 	for i := from; i <= to; i++ {
 		if i == this.Page {
@@ -83,14 +84,14 @@ func (this *Pager) ToString() string {
 	}
 	if totalpage > to {
 		if totalpage-to > 1 {
-			buf.WriteString("<li class=\"disabled\"><a>...</a></li>")
+			omit = "..."
 		}
-		buf.WriteString(fmt.Sprintf("<li><a href=\"%s\">%d</a></li>", this.url(totalpage), totalpage))
+		buf.WriteString(fmt.Sprintf("<li><a href=\"%s\">%s%d</a></li>", this.url(totalpage), omit, totalpage))
 	}
 	if this.Page < totalpage {
-		buf.WriteString(fmt.Sprintf("<li><a href=\"%s\">Next</a></li>", this.url(this.Page+1)))
+		buf.WriteString(fmt.Sprintf("<li><a href=\"%s\">下一页</a></li>", this.url(this.Page+1)))
 	} else {
-		buf.WriteString(fmt.Sprintf("<li class=\"disabled\"><a>Next</a></li>"))
+		buf.WriteString(fmt.Sprintf("<li class=\"disabled\"><a>下一页</a></li>"))
 	}
 	buf.WriteString("</ul>")
 	return buf.String()

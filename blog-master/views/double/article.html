@@ -38,7 +38,8 @@
     </div>
     <script src="{{.root}}js/mycomments.js"></script>
     <script src="{{.root}}js/md5.js"></script>
-    <!-- Comments Form -->
+    <!-- Comments Form -->{{$islogin := .IsLogin}}
+{{if .IsLogin}}
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 column" id="wrap-form-comment">
         <div class="well" id="form-comment">
             <h4>欢迎留下您的评论：</h4>
@@ -52,6 +53,13 @@
             </form>
         </div>
     </div>
+{{else}}
+    <p class="checklogin col-lg-12 col-md-12 col-sm-12 col-xs-12 column">
+        如需留言，请
+        <a href="/admin/login"><span class="glyphicon glyphicon-log-in"></span> 登录</a>，没有账号？请
+        <a href="/admin/register"><span class="glyphicon glyphicon-new-window"></span> 注册</a>
+    </p>
+{{end}}
     <!-- Comments List -->
     <div class="comments_length col-lg-12 col-md-12 col-sm-12 col-xs-12 column">
         <p>{{.commentlength}} 条评论 {{.commentuser}} 人参与
@@ -69,10 +77,10 @@
                     <div class="media-body" id="comment-{{ $item.Commentlist0.Id }}">
                         <h4 class="media-heading">{{ $item.Commentlist0.User.Username }}
                             <small>{{date $item.Commentlist0.Submittime "Y-m-j H:i:s"}}</small>
-                            <small class="reply_btn">
+                            {{if $islogin}}<small class="reply_btn">
                                 <a href="#" data-comment-id="{{ $item.Commentlist0.Id }}"
                                      data-parent-id="{{ $item.Commentlist0.Id }}" class="comment_reply_link">回复</a>
-                            </small>
+                            </small>{{end}}
                         </h4>
                         <p>{{ $item.Commentlist0.Comment }}</p>
                     </div>

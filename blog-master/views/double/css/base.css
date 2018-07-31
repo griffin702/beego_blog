@@ -154,9 +154,18 @@ h2.title_tj p { background: #fff; width: 80px }
 .bloglist { overflow: hidden; background: url(../images/r_line.jpg) repeat-y right; padding: 10px 15px 10px 0!important; }
 .bloglist h3 { margin: 0; padding: 15px 10px 0 10px!important; color: #333 }
 .bloglist div a.articleimg { padding: 15px 15px 15px 20px; }
-.bloglist div a.articleimg img { padding: 4px!important; max-height: 135px; max-width: 190px; }
+.bloglist div a.articleimg img {
+    padding: 4px!important; max-height: 135px; max-width: 190px;
+    -webkit-transition:all .4s linear;
+    transition:all .4s linear;
+}
 .bloglist .blog { margin-bottom: 10px; padding: 0; }
 .bloglist .blog:hover { background-color: #f5f5f5; border-radius: 8px; -moz-border-radius:8px; -webkit-border-radius:8px; }
+.bloglist .blog:hover a.articleimg img {
+    -ms-transform:scale(1.12);
+    -webkit-transform:scale(1.12);
+    transform:scale(1.12);
+}
 .blogcontent { padding: 0 10px!important; height: 55px; }
 .lifedateview { color: #838383; margin: 0; padding: 2px 10px 2px 5px!important; }
 .lifedateview span { margin: 0; padding: 0 3px; font-size: 10px; }
@@ -248,7 +257,7 @@ ul.infos pre {
 .article_all { padding:10px 0!important; }
 
 /*@ 评论列表样式 @*/
-#wrap-form-comment, #wrap-comments-list, .comments_length { padding:0!important; }
+#wrap-form-comment, #wrap-comments-list, .comments_length, .checklogin { padding:0!important; }
 .comment_content { min-height: 150px; max-width: 100%; margin-bottom: 20px; }
 .comments_one { padding: 8px 10px!important; border-bottom: 1px solid #DEDEDE; }
 .comments_one:first-child { border-top: 1px solid #DEDEDE; padding-top: 15px; }

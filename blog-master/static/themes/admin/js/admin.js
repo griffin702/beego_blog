@@ -137,7 +137,7 @@ function ajax_Main(type,data,url){
         cache:true,
         dataType:"html",
         success: function(data){
-            $("table").html($(data).find("table"));
+            $("table-responsive").html($(data).find("table"));
             $(window).scrollTop(0);
         },
         error: function(){
