@@ -248,6 +248,9 @@ ul.infos p img { display: block;margin: auto; max-width:100%;}
 ul.infos pre {
     border: 0;
     border-left: 3px solid #CCC;
+    padding: 9.5px;
+    margin: 10px 0 10px 10px;
+    border-radius: 0;
 }
 .keybq { line-height: 30px; height: 30px; padding-left: 15px; border: 1px solid #F0F0F0; background-color: #f0f0f0; }
 .keybq span, .keybq a { color: #099; padding: 0 5px; }

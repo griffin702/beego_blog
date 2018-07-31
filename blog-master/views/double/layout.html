@@ -11,11 +11,13 @@
     <meta name="description" content="{{.description}}">
     <link href="{{.root}}css/base.css" rel="stylesheet">
     <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="/static/bootstrap/css/prettify.min.css" rel="stylesheet" type="text/css">
     <script src="/static/js/jquery-1.9.1.min.js" type="text/javascript"></script>
     <script type="text/javascript" src="/static/xheditor/xheditor-1.2.2.min.js"></script>
     <script type="text/javascript" src="/static/xheditor/xheditor_lang/zh-cn.js"></script>
-    <script src="{{.root}}js/base.js"></script>
-    <script src="/static/bootstrap/js/bootstrap.min.js"></script>
+    <script src="{{.root}}js/base.js" type="text/javascript"></script>
+    <script src="/static/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="/static/bootstrap/js/run_prettify.min.js" type="text/javascript"></script>
     {{str2html .hidejs}}
 </head>
 <body>
