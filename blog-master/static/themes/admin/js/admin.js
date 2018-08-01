@@ -99,19 +99,7 @@ $(document).ready(function(){
                         $('#picture').val(JSON.parse(JSON.stringify(data)).msg);
                         formData = new FormData();
                         if (uptype === 3) {
-                            setTimeout(function() {$.ajax({
-                                url: '/admin/photo/list?albumid='+albumid,
-                                method: 'GET',
-                                contentType: false,
-                                processData: false,
-                                cache: false,
-                                success: function (newdata) {
-                                    $("#auto-loop").html($(newdata).find("#auto-loop li"));
-                                },
-                                error: function (err) {
-                                    alert(err);
-                                }
-                            })},500);
+                            ajax_Main("GET", {}, '/admin/photo/list?albumid='+albumid);
                         }
                     },
                     error: function (err) {
@@ -153,7 +141,7 @@ $(document).ready(function(){
 });
 
 function ajax_Main(type,data,url){
-    $.ajax({
+    setTimeout(function () {$.ajax({
         type:type,
         data:data,
         url:url,
@@ -166,5 +154,5 @@ function ajax_Main(type,data,url){
         error: function(){
             alert("false");
         }
-    });
+    })}, 500);
 }
