@@ -45,7 +45,6 @@ CREATE TABLE `tb_comments` (
   `comment` longtext NOT NULL,
   `submittime` datetime NOT NULL,
   `ipaddress` varchar(255) DEFAULT NULL,
-  `is_public` tinyint(4) NOT NULL DEFAULT '0',
   `is_removed` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `tb_comments_obj_pk_id` (`obj_pk_id`),
@@ -53,7 +52,6 @@ CREATE TABLE `tb_comments` (
   KEY `tb_comments_reply_fk` (`reply_fk`),
   KEY `tb_comments_user_id` (`user_id`),
   KEY `tb_comments_submittime` (`submittime`),
-  KEY `tb_comments_is_public` (`is_public`),
   KEY `tb_comments_is_removed` (`is_removed`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
