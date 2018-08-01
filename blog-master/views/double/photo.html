@@ -1,12 +1,13 @@
-<script src="/static/js/jquery.min.js" type="text/javascript"></script>
 <script src="/static/js/lightGallery.min.js"></script>
 <link href="{{.root}}css/photo.css" rel="stylesheet">
 <script>
     $(document).ready(function() {
         $("#auto-loop").lightGallery({
+            loop:true,
+            auto:true,
             desc:true,
             counter:true,
-            loop:true
+            pause:3000
         });
     });
 </script>
@@ -16,13 +17,13 @@
     <a href="/album.html" class="n2">相册列表</a>
     <p><span class="glyphicon glyphicon-map-marker"></span> 每一个瞬间的摄影，都是无法复摹独一无二的</p>
 </h1>
-<div class="photolist">
-    <ul id="auto-loop" class="gallery list-unstyled">
+<div class="photolist col-lg-12 col-md-12 col-sm-12 col-xs-12 column">
+    <ul id="auto-loop" class="gallery list-unstyled col-lg-12 col-md-12 col-sm-12 col-xs-12 column">
         {{range $k, $v := .list}}
-            <li data-desc="{{$v.Des}}" data-src="{{$v.Url}}"> 
-                <a href="#">
-                    <img src="{{$v.Small}}" />
-                    <span>{{$v.Des}}</span>
+            <li data-desc="{{$v.Des}}" data-src="{{$v.Url}}" class="col-lg-2 col-md-2 col-sm-6 col-xs-6 column">
+                <a href="#" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 column">
+                    <img src="{{$v.Small}}" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 column" />
+                    <span class="col-lg-12 col-md-12 col-sm-12 col-xs-12 column">{{$v.Des}}</span>
                 </a>
             </li>
        {{end}}

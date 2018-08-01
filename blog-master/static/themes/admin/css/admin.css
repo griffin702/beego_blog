@@ -65,7 +65,7 @@ footer { text-align: center; line-height: 40px; border-top: #E8E8E8 1px solid ; 
 .table-form input {vertical-align: middle;}
 .table-form textarea {margin: 0;}
 .table-form td select {margin: 0;}
-.table-form img {margin: 3px 10px 0 0;}
+.table-form img {display: block;margin: 0;}
 
 .pagination {margin:0;}
 
@@ -98,4 +98,37 @@ legend .btn { margin-left: 30px; }
 	#xhe0_container.xhe_default table.xheLayout {
 		width: 100%!important;
 	}
+}
+
+/*photo列表样式*/
+.gallery li {
+	display: block;
+	float: left;
+	margin: 15px;
+}
+.gallery li img {
+    border-radius: 5px;
+	max-width: 190px;
+}
+.gallery li a {
+    position: relative;
+    bottom: -10px;
+}
+@media (max-width: 375px) {
+    .gallery li {
+        max-width: 150px;
+        margin: 5px 5px 15px 5px;
+    }
+    .gallery li img {
+        max-width: 150px;
+    }
+}
+@media (min-width: 376px) and (max-width: 991px) {
+    .gallery li {
+        max-width: 170px;
+        margin: 5px 5px 15px 5px;
+    }
+    .gallery li img {
+        max-width: 170px;
+    }
 }

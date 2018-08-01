@@ -1,24 +1,19 @@
 <link href="{{.root}}css/photo.css" rel="stylesheet">
-<script>
-    $(document).ready(function() {
-        $("#auto-loop").lightGallery({});
-    })
-</script>
 
 <h1 class="t_nav">
     <a href="/" class="n1">网站首页</a>
     <a href="/album.html" class="n2">光影瞬间</a>
     <p><span class="glyphicon glyphicon-map-marker"></span> 每一个瞬间的摄影，都是无法复摹独一无二的</p>
 </h1>
-<div class="photolist">
-    <ul id="auto-loop" class="gallery list-unstyled">
+<div class="albumlist col-lg-12 col-md-12 col-sm-12 col-xs-12 column">
+    <ul class="gallery list-unstyled col-lg-12 col-md-12 col-sm-12 col-xs-12 column">
         {{range $k, $v := .list}}
-            <li> 
-              <a href="/photo{{$v.Id}}.html">
-                <div class="box1" style="background:url({{$v.Cover}});">
-                    <div class="box2"><font size=6 face="Times" color="white">{{$v.Photonum}}</font></div>
+            <li class="col-lg-2 col-md-2 col-sm-6 col-xs-6 column">
+              <a href="/photo{{$v.Id}}.html" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 column">
+                <div class="box1 col-lg-12 col-md-12 col-sm-12 col-xs-12 column" style="background:url({{$v.Cover}});">
+                    <div class="box2">{{$v.Photonum}}</div>
                 </div>
-                <span>{{$v.Name}}</span>
+                <span class="col-lg-12 col-md-12 col-sm-12 col-xs-12 column">{{$v.Name}}</span>
               </a> 
             </li>
        {{end}}

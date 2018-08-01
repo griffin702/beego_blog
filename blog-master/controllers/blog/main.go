@@ -79,7 +79,11 @@ func (this *MainController) Photo() {
 	new(models.Photo).Query().Filter("albumid", this.page).All(&list)
 	this.right = ""
 	for _, v := range list {
-		v.Small = strings.Replace(v.Url, "bigpic", "smallpic", 1)
+		arr1 := strings.Split(v.Url, "/")
+		filename := arr1[len(arr1)-1]
+		arr2 := strings.Split(filename, ".")
+		ext := "." + arr2[len(arr2)-1]
+		v.Small = strings.Replace(v.Url, ext, "_small"+ext, 1)
 	}
 	this.Data["list"] = list
 	this.display("photo")

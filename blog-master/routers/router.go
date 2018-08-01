@@ -68,7 +68,6 @@ func init() {
 	beego.Router("/admin/photo/list", &admin.PhotoController{}, "*:List")
 	beego.Router("/admin/photo/cover", &admin.PhotoController{}, "*:Cover")
 	beego.Router("/admin/photo/delete", &admin.PhotoController{}, "*:Delete")
-	beego.Router("/admin/photo/uploadphoto", &admin.PhotoController{}, "*:UploadPhoto")
 
 	//用户管理
 	beego.Router("/admin/user/list", &admin.UserController{}, "*:List")

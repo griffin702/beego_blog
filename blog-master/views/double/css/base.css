@@ -10,7 +10,7 @@ a span { font-size: 10px; }
 #logo a { float: left; width: 150px; height: 45px; margin: 5px 30px 0 50px; background: url(../images/logo.gif) no-repeat; display: block }
 #topnav_current { color: #e15782; }
 .en { color: #999; font-size: 12px; z-index: 1; display: block; }/* ie */
-article { padding-right: 10px!important; overflow: hidden }
+article { padding: 0 10px!important; overflow: hidden }
 footer { text-align: center; line-height: 20px; border-top: #E8E8E8 1px solid ; width:1000px; padding:10px 15px; }
 
 h1.t_nav p { margin: 0; font-size: 12px; }
@@ -143,12 +143,12 @@ h2.title_tj p { background: #fff; width: 80px }
 .avatar a span { display: block; margin-top: 63px; padding-top: 6px; width: 122px; height: 55px; text-align: center; line-height: 20px; color: #fff; background: rgba(0, 0, 0, .5); -webkit-transition: margin-top .2s ease-in-out; -moz-transition: margin-top .2s ease-in-out; -o-transition: margin-top .2s ease-in-out; transition: margin-top .2s ease-in-out; }
 .avatar a:hover span { display: block; margin-top: 0; }
 
-.avatarher { float: right; margin: 40px 10px 0px 0px; width: 130px; height: 130px; border-radius: 100%; overflow: hidden; border: #FFF 4px solid }
+.avatarher { float: right; margin: 40px 10px 0 0; width: 130px; height: 130px; border-radius: 100%; overflow: hidden; border: #FFF 4px solid }
 .avatarher a { display: block; padding-top: 85px; width: 122px; background: url(../images/avatarher.jpg) no-repeat; background-size: 130px 130px }
 .avatarher a span { display: block; margin-top: 63px; padding-top: 6px; width: 122px; height: 55px; text-align: center; line-height: 20px; color: #fff; background: rgba(0, 0, 0, .5); -webkit-transition: margin-top .2s ease-in-out; -moz-transition: margin-top .2s ease-in-out; -o-transition: margin-top .2s ease-in-out; transition: margin-top .2s ease-in-out; }
 .avatarher a:hover span { display: block; margin-top: 0; }
 
-.lock { float: right; margin: 80px 10px 0px 0px; width: 46px; height: 55px; border-radius: 100%; overflow: hidden; background: url(../images/lock.png) no-repeat}
+.lock { float: right; margin: 80px 10px 0 0; width: 46px; height: 55px; border-radius: 100%; overflow: hidden; background: url(../images/lock.png) no-repeat}
 
 /*life*/
 .bloglist { overflow: hidden; background: url(../images/r_line.jpg) repeat-y right; padding: 10px 15px 10px 0!important; }
@@ -191,6 +191,14 @@ a.readmore { background: #fd8a61; color: #fff; padding: 5px 10px; float: right; 
 }
 .sy .bg p {
     margin-top: 15px;
+}
+@media (max-width: 991px) {
+    .sy .bg p {
+        display: block;
+    }
+    .dateview {
+        font-size: 10px;
+    }
 }
 
 @media (min-width: 992px) {

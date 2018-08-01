@@ -13,6 +13,7 @@ import (
 	"image/png"
 	"image"
 	"image/gif"
+	"blog-master/models"
 )
 
 type FileuploadController struct {
@@ -62,6 +63,25 @@ func (fi *FileInfo) ValidateSize() (valid bool) {
 	return false
 }
 
+//插入照片
+func (this *FileuploadController) Insert(albumid int64, desc, url string) {
+	var photo models.Photo
+	photo.Albumid = albumid
+	photo.Des = desc
+	photo.Posttime, _ = time.Parse("2006-01-02 15:04:05", time.Now().Format("2006-01-02 15:04:05"))
+	photo.Url = url
+	if err := photo.Insert(); err != nil {
+		this.showmsg(err.Error())
+	} else {
+		var album models.Album
+		album.Id = albumid
+		if album.Read() == nil {
+			album.Photonum++
+			album.Update()
+		}
+	}
+}
+
 func (this *FileuploadController) Upload() {
 	f, h, err := this.GetFile("filedata")
 	if f != nil {
@@ -91,17 +111,18 @@ func (this *FileuploadController) Upload() {
 		}
 		if Out["err"] == "" {
 			index, _ := strconv.Atoi(utype)
+			timenow := time.Now().UnixNano()
 			fileSaveName := fmt.Sprintf("%s/%s/%s", LOCAL_FILE_DIR, typemap[index], time.Now().Format("20060102"))
-			imgPath := fmt.Sprintf("%s/%d%s", fileSaveName, time.Now().UnixNano(), ext)
+			imgPath := fmt.Sprintf("%s/%d%s", fileSaveName, timenow, ext)
 			filetool.InsureDir(fileSaveName)
-			if index == 1 {//上传类型1：只保存大图
+			if index == 1 {//上传类型1：文章上传，只保存大图
 				err = this.SaveToFile("filedata", imgPath)
 				if err != nil {
 				Out["err"] = err.Error()
 				} else {
 				Out["msg"] = "/" + imgPath
 				}
-			} else if index == 2 {//上传类型2：只保存小图
+			} else if index == 2 {//上传类型2：头像、封面等上传，只保存小图
 				w, _ := strconv.Atoi(this.GetString("w"))
 				h, _ := strconv.Atoi(this.GetString("h"))
 				err = createSmallPic(f, imgPath, w, h, ext)
@@ -110,20 +131,22 @@ func (this *FileuploadController) Upload() {
 				} else {
 					Out["msg"] = "/" + imgPath
 				}
-			} else if index == 3 {//上传类型3：同时保存大图小图
+			} else if index == 3 {//上传类型3：照片上传，同时保存大图小图
 				err = this.SaveToFile("filedata", imgPath)
 				if err != nil {
 					Out["err"] = err.Error()
 				} else {
 					Out["msg"] = "/" + imgPath
 				}
-				imgPathsmall := fmt.Sprintf("%s/%d_small%s", fileSaveName, time.Now().UnixNano(), ext)
+				imgPathsmall := fmt.Sprintf("%s/%d_small%s", fileSaveName, timenow, ext)
 				w, _ := strconv.Atoi(this.GetString("w"))
 				h, _ := strconv.Atoi(this.GetString("h"))
 				err = createSmallPic(f, imgPathsmall, w, h, ext)
 				if err != nil {
 					Out["err"] = err.Error()
 				}
+				albumid, _ := this.GetInt64("albumid")
+				this.Insert(albumid, fi.Name, Out["msg"])
 			}
 		}
 	}
@@ -148,13 +171,14 @@ func createSmallPic(file io.Reader, fileSmall string, w, h int, ext string) erro
 	if err != nil {
 		return err
 	}
-	b := img.Bounds()
-	if w > b.Dx() {
-		w = b.Dx()
-	}
-	if h > b.Dy() {
-		h = b.Dy()
-	}
+	//如果指定宽高比原图宽高还大，则按原图宽高保存
+	//b := img.Bounds()
+	//if w > b.Dx() {
+	//	w = b.Dx()
+	//}
+	//if h > b.Dy() {
+	//	h = b.Dy()
+	//}
 	// resize to width 1000 using Lanczos resampling
 	// and preserve aspect ratio
 	m := resize.Resize(uint(w), uint(h), img, resize.Lanczos3)

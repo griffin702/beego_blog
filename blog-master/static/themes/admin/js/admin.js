@@ -69,6 +69,11 @@ $(document).ready(function(){
     //处理上传
     $('#newcover').on('change', function() {
         var file = this.files[0];
+        var uptype = $(this).data('uptype');
+        var albumid = $(this).data('albumid');
+        if (!uptype) {
+            uptype = 2
+        }
         var reader = new FileReader();
         var formData = new FormData();
         var autoview = document.querySelector('#autoview');
@@ -77,7 +82,10 @@ $(document).ready(function(){
             autoview.src = this.result;
             var upwidth = autoview.width;
             var upheight = autoview.height;
-            var upurl = '/admin/upload/?type=2&w=' + upwidth + '&h='+ upheight;
+            var upurl = '/admin/upload/?type=' + uptype + '&w=' + upwidth + '&h='+ upheight;
+            if (albumid) {
+                upurl = upurl + '&albumid=' + albumid
+            }
             formData.append('filedata', dataURLtoFile(this.result, file.name));
             $('#uploadimg').on('click', function() {
                 $.ajax({
@@ -90,6 +98,21 @@ $(document).ready(function(){
                     success: function(data) {
                         $('#picture').val(JSON.parse(JSON.stringify(data)).msg);
                         formData = new FormData();
+                        if (uptype === 3) {
+                            setTimeout(function() {$.ajax({
+                                url: '/admin/photo/list?albumid='+albumid,
+                                method: 'GET',
+                                contentType: false,
+                                processData: false,
+                                cache: false,
+                                success: function (newdata) {
+                                    $("#auto-loop").html($(newdata).find("#auto-loop li"));
+                                },
+                                error: function (err) {
+                                    alert(err);
+                                }
+                            })},500);
+                        }
                     },
                     error: function (err) {
                         alert(err);

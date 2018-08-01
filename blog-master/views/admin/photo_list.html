@@ -1,22 +1,25 @@
 <fieldset>
-	<legend>相册图片</legend>
+	<legend>相册图片
+        <a class="btn btn-primary btn-xs" onclick="javascript:history.back();">
+            <span class="glyphicon glyphicon-share-alt"></span> 返回
+        </a>
+	</legend>
 	<form method="post" name="p" action="/admin/article/save">
+        <input type="file" id="newcover" name="newcover" data-uptype="3" data-albumid="{{.albumid}}" />
+        <img src="/static/upload/default/yulan-190x135.png" id="autoview" class="img-rounded" width="190" height="135">
+        <button type="button" id="uploadimg" class="btn btn-primary">上传</button>
+        <div class="alert alert-warning">
+            <strong>温馨提示：</strong>点击上传之后生效,服务器仅允许上传格式jpg、jpeg、png并自动裁剪像素:190*135
+        </div>
         <div class="table-responsive">
 			<table class="table table-form">
 				<tbody>
 					<tr>
 						<td>
-							<a href="javascript:void(0);" onclick="upImage();">上传图片</a>
-						</td>
-					</tr>
-					<tr>
-						<td>
 							<ul id="auto-loop" class="gallery list-unstyled">
 								{{range $k, $v := .list}}
 									<li data-desc="{{$v.Des}}">
-									  <a href="#">
-										<img src="{{$v.Small}}" />
-									  </a>
+									  <img src="{{$v.Small}}" />
 									  <a href="/admin/photo/cover?cover={{$v.Small}}&albumid={{$v.Albumid}}">设为封面</a>
 									  <a href="/admin/photo/delete?id={{$v.Id}}&albumid={{$v.Albumid}}" onclick="return del_confirm()">删除</a>
 									</li>
@@ -29,37 +32,3 @@
 		</div>
 	</form>
 </fieldset>
-<link href="/static/themes/admin/css/lightGallery.css" rel="stylesheet" type="text/css"/>
-<script>
-	$(document).ready(function() {
-		$("#auto-loop").lightGallery({
-			loop:true,
-			auto:true,
-			desc:true,
-			counter:true,
-			pause:3000
-		});
-	});
-</script>
-
-<style>
-	ul{
-		list-style: none outside none;
-	    padding-left: 0;
-	}
-	.gallery li {
-		display: block;
-		float: left;
-		height: 100px;
-		margin-bottom: 6px;
-		margin-right: 6px;
-		width: 100px;
-	}
-	.gallery li a {
-		height: 100px;
-		width: 100px;
-	}
-	.gallery li a img {
-		max-width: 100px;
-	}
-</style>
