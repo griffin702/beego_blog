@@ -610,8 +610,8 @@ ul.gallery li a span {
 	border-top: 0;
 }
 
-.box1 {height:135px;border-radius: 8px 8px 0 0;border: #E8E8E8 2px solid;border-bottom: 0;background-size:100% 100%!important;}
-@media (max-width: 991px) {
-	.box1 {height:111px;}
-}
+.box1 {height:130px;border-radius: 8px 8px 0 0;border: #E8E8E8 2px solid;border-bottom: 0;background-size:100% 100%!important;}
+/*@media (max-width: 991px) {*/
+	/*.box1 {height:111px;}*/
+/*}*/
 .box2 {width:50px; height:25px;position:absolute;bottom:0;right:0;text-align:center;}

@@ -97,13 +97,15 @@ $(document).ready(function(){
                     cache: false,
                     success: function(data) {
                         $('#picture').val(JSON.parse(JSON.stringify(data)).msg);
+                        autoview.src = '/static/upload/default/yulan-190x135.png';
                         formData = new FormData();
                         if (uptype === 3) {
-                            ajax_Main("GET", {}, '/admin/photo/list?albumid='+albumid);
+                            ajax_Main("GET", {}, '/admin/photo/list?albumid='+albumid, 500);
                         }
                     },
                     error: function (err) {
-                        alert(err);
+                        alert(err.error());
+                        autoview.src = '/static/upload/default/yulan-190x135.png';
                         formData = new FormData();
                     }
                 });
@@ -116,7 +118,7 @@ $(document).ready(function(){
         var ourl = $(this).attr('href');
         var otitle = document.title;
         if (ourl) {
-            ajax_Main("GET", {}, ourl);
+            ajax_Main("GET", {}, ourl, 50);
             if (history.pushState) {
                 var state = ({
                     url: ourl, title: otitle
@@ -135,12 +137,12 @@ $(document).ready(function(){
             var state=e.state;
             //修改当前标题为历史标题
             document.title=state.title;
-            ajax_Main("GET",{},state.url);
+            ajax_Main("GET", {}, state.url, 50);
         }
     }, false);
 });
 
-function ajax_Main(type,data,url){
+function ajax_Main(type, data, url, timewait){
     setTimeout(function () {$.ajax({
         type:type,
         data:data,
@@ -148,11 +150,11 @@ function ajax_Main(type,data,url){
         cache:true,
         dataType:"html",
         success: function(data){
-            $(".table-responsive").html($(data).find("table"));
+            $(".table-responsive").html($(data).find("table.table"));
             $(window).scrollTop(0);
         },
         error: function(){
             alert("false");
         }
-    })}, 500);
+    })}, timewait);
 }

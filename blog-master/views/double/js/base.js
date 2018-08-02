@@ -18,7 +18,7 @@ $(document).ready(function(){
         var ourl = $(this).attr('href');
         var otitle = document.title;
         if (ourl) {
-            ajax_Main("GET", {}, ourl);
+            ajax_Main("GET", {}, ourl, 50);
             if (history.pushState) {
                 var state = ({
                     url: ourl, title: otitle
@@ -37,7 +37,7 @@ $(document).ready(function(){
             var state=e.state;
             //修改当前标题为历史标题
             document.title=state.title;
-            ajax_Main("GET",{},state.url);
+            ajax_Main("GET", {}, state.url, 50);
         }
     }, false);
     //顶底滚动处理
@@ -84,8 +84,8 @@ $(document).ready(function(){
     });
 });
 
-function ajax_Main(type,data,url){
-    $.ajax({
+function ajax_Main(type, data, url, timewait){
+    setTimeout(function () {$.ajax({
         type:type,
         data:data,
         url:url,
@@ -98,5 +98,5 @@ function ajax_Main(type,data,url){
         error: function(){
             alert("false");
         }
-    });
+    })}, timewait);
 }
