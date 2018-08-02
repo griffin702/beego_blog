@@ -27,7 +27,7 @@ type Sizer interface {
 const (
 	LOCAL_FILE_DIR    = "static/upload"
 	MIN_FILE_SIZE     = 1       // bytes
-	MAX_FILE_SIZE     = 5000000 // bytes
+	MAX_FILE_SIZE     = 10000000 // bytes
 	IMAGE_TYPES       = "(jpg|gif|p?jpeg|(x-)?png)"
 )
 

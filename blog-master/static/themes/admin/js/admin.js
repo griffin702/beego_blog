@@ -96,15 +96,20 @@ $(document).ready(function(){
                     processData: false,
                     cache: false,
                     success: function(data) {
-                        $('#picture').val(JSON.parse(JSON.stringify(data)).msg);
+                        var err = JSON.parse(JSON.stringify(data)).err;
+                        if (err !== '') {
+                            alert(err);
+                        } else {
+                            $('#picture').val(JSON.parse(JSON.stringify(data)).msg);
+                            if (uptype === 3) {
+                                ajax_Main("GET", {}, '/admin/photo/list?albumid='+albumid, 500);
+                            }
+                        }
                         autoview.src = '/static/upload/default/yulan-190x135.png';
                         formData = new FormData();
-                        if (uptype === 3) {
-                            ajax_Main("GET", {}, '/admin/photo/list?albumid='+albumid, 500);
-                        }
                     },
-                    error: function (err) {
-                        alert(err.error());
+                    error: function () {
+                        alert("false");
                         autoview.src = '/static/upload/default/yulan-190x135.png';
                         formData = new FormData();
                     }
