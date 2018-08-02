@@ -3,6 +3,7 @@ package models
 import (
 	"github.com/astaxie/beego/orm"
 	"time"
+	"strings"
 )
 
 //相册表
@@ -49,4 +50,13 @@ func (m *Photo) Delete() error {
 
 func (m *Photo) Query() orm.QuerySeter {
 	return orm.NewOrm().QueryTable(m)
+}
+
+func (m *Photo) ChangetoSmall() string {
+	arr1 := strings.Split(m.Url, "/")
+	filename := arr1[len(arr1)-1]
+	arr2 := strings.Split(filename, ".")
+	ext := "." + arr2[len(arr2)-1]
+	m.Small = strings.Replace(m.Url, ext, "_small"+ext, 1)
+	return m.Small
 }

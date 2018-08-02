@@ -2,8 +2,8 @@ package admin
 
 import (
 	"blog-master/models"
-	"strings"
 	"strconv"
+	"os"
 )
 
 type PhotoController struct {
@@ -20,13 +20,6 @@ func (this *PhotoController) List() {
 		albumid = 1
 	}
 	photo.Query().Filter("albumid", albumid).OrderBy("-posttime").All(&list)
-	for _, v := range list {
-		arr1 := strings.Split(v.Url, "/")
-		filename := arr1[len(arr1)-1]
-		arr2 := strings.Split(filename, ".")
-		ext := "." + arr2[len(arr2)-1]
-		v.Small = strings.Replace(v.Url, ext, "_small"+ext, 1)
-	}
 	this.Data["list"] = list
 	this.Data["albumid"] = albumid
 	this.display()
@@ -38,6 +31,10 @@ func (this *PhotoController) Delete() {
 	albumid := this.GetString("albumid")
 	photo := models.Photo{Id: id}
 	if photo.Read() == nil {
+		if !this.Isdefaultsrc(photo.Url) {
+			os.Remove("."+photo.Url)
+			os.Remove("."+photo.ChangetoSmall())
+		}
 		if photo.Delete() == nil {
 			var album models.Album
 			album.Id, _ = strconv.ParseInt(albumid, 10, 64)
