@@ -67,55 +67,60 @@ $(document).ready(function(){
         upImgExt:"jpg,jpeg,gif,png"
     });
     //处理上传
+    var autoview = document.querySelector('#autoview');
+    var uptype, upurl, albumid;
     $('#newcover').on('change', function() {
         var file = this.files[0];
-        var uptype = $(this).data('uptype');
-        var albumid = $(this).data('albumid');
+        uptype = $(this).data('uptype');
+        albumid = $(this).data('albumid');
         if (!uptype) {
             uptype = 2
         }
         var reader = new FileReader();
-        var formData = new FormData();
-        var autoview = document.querySelector('#autoview');
+        var upwidth = autoview.width;
+        var upheight = autoview.height;
+        upurl = '/admin/upload/?type=' + uptype + '&w=' + upwidth + '&h=' + upheight;
+        if (albumid) {
+            upurl = upurl + '&albumid=' + albumid
+        }
         reader.readAsDataURL(file);
         reader.onload = function () {
             autoview.src = this.result;
-            var upwidth = autoview.width;
-            var upheight = autoview.height;
-            var upurl = '/admin/upload/?type=' + uptype + '&w=' + upwidth + '&h='+ upheight;
-            if (albumid) {
-                upurl = upurl + '&albumid=' + albumid
-            }
-            formData.append('filedata', dataURLtoFile(this.result, file.name));
-            $('#uploadimg').on('click', function() {
-                $.ajax({
-                    url: upurl,
-                    method: 'POST',
-                    data: formData,
-                    contentType: false,
-                    processData: false,
-                    cache: false,
-                    success: function(data) {
-                        var err = JSON.parse(JSON.stringify(data)).err;
-                        if (err !== '') {
-                            alert(err);
-                        } else {
-                            $('#picture').val(JSON.parse(JSON.stringify(data)).msg);
-                            if (uptype === 3) {
-                                ajax_Main("GET", {}, '/admin/photo/list?albumid='+albumid, 500);
-                            }
-                        }
-                        autoview.src = '/static/upload/default/yulan-190x135.png';
-                        formData = new FormData();
-                    },
-                    error: function () {
-                        alert("false");
-                        autoview.src = '/static/upload/default/yulan-190x135.png';
-                        formData = new FormData();
-                    }
-                });
-            });
+            autoview.name = file.name;
         };
+    });
+    $('#uploadimg').on('click', function() {
+        var formData = new FormData();
+        if (uptype === 2) {
+            var lastsrc = $('#picture').val();
+            upurl = upurl + '&lastsrc=' + lastsrc;
+        }
+        formData.append('filedata', dataURLtoFile(autoview.src, autoview.name));
+        $.ajax({
+            url: upurl,
+            method: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            cache: false,
+            success: function(data) {
+                var err = JSON.parse(JSON.stringify(data)).err;
+                if (err !== '') {
+                    alert(err);
+                } else {
+                    $('#picture').val(JSON.parse(JSON.stringify(data)).msg);
+                    if (uptype === 3) {
+                        ajax_Main("GET", {}, '/admin/photo/list?albumid='+albumid, 500);
+                    }
+                }
+                // autoview.src = '/static/upload/default/yulan-190x135.png';
+                formData = new FormData();
+            },
+            error: function () {
+                alert("false");
+                formData = new FormData();
+            }
+        });
     });
     //处理分页ajax
     $("#wy-delegate-admin").on("click","ul.pagination li a",function(event){
@@ -145,6 +150,15 @@ $(document).ready(function(){
             ajax_Main("GET", {}, state.url, 50);
         }
     }, false);
+    //图片加载失败处理
+    $("#autoview").error(function(){
+        if ($(this).attr('width') === '60' && $(this).attr('height') === '60') {
+            $(this).attr('src','/static/upload/default/user-default-60x60.png');
+        } else {
+            var num = Math.floor(Math.random() * 9.9);
+            $(this).attr('src', '/static/upload/default/blog-default-' + num + '.png');
+        }
+    });
 });
 
 function ajax_Main(type, data, url, timewait){

@@ -6,7 +6,7 @@
 	</legend>
 	<form method="post" name="p" action="/admin/article/save">
         <input type="file" id="newcover" name="newcover" data-uptype="3" data-albumid="{{.albumid}}" />
-        <img src="/static/upload/default/yulan-190x135.png" id="autoview" class="img-rounded" width="190" height="135">
+        <img src="/static/upload/default/yulan-190x135.png" name="filename" id="autoview" class="img-rounded" width="190" height="135">
         <button type="button" id="uploadimg" class="btn btn-primary">上传</button>
         <div class="alert alert-warning">
             <strong>温馨提示：</strong>点击上传之后生效,服务器仅允许上传格式jpg、jpeg、png并自动裁剪像素:190*135
@@ -27,6 +27,7 @@
 							</ul>
 						</td>
 					</tr>
+                    <td colspan="6">{{str2html .pagebar}}</td>
 				</tbody>
 			</table>
 		</div>

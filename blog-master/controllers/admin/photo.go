@@ -12,16 +12,26 @@ type PhotoController struct {
 
 //照片列表
 func (this *PhotoController) List() {
+	var page int64
+	var pagesize int64 = 10
 	var albumid int64
 	var list []*models.Photo
 	var photo models.Photo
 
+	if page, _ = this.GetInt64("page"); page < 1 {
+		page = 1
+	}
+	offset := (page - 1) * pagesize
 	if albumid, _ = this.GetInt64("albumid"); albumid < 1 {
 		albumid = 1
 	}
-	photo.Query().Filter("albumid", albumid).OrderBy("-posttime").All(&list)
+	count, _ := photo.Query().Filter("albumid", albumid).Count()
+	if count > 0 {
+		photo.Query().Filter("albumid", albumid).OrderBy("-posttime").Limit(pagesize, offset).All(&list)
+	}
 	this.Data["list"] = list
 	this.Data["albumid"] = albumid
+	this.Data["pagebar"] = models.NewPager(page, count, pagesize, "/admin/photo/list?page=%d").ToString()
 	this.display()
 }
 

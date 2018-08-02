@@ -60,7 +60,7 @@ footer { text-align: center; line-height: 40px; border-top: #E8E8E8 1px solid ; 
 }
 .table-form tfoot {background: #eeeeee}
 .table-form td {border:none;border-top:none!important;}
-.table-form td a {margin: 5px;}
+.table-form td ul.gallery li a {margin: 5px;}
 .table-form td label input {margin: 3px 0 0;}
 .table-form input {vertical-align: middle;}
 .table-form textarea {margin: 0;}
@@ -131,4 +131,8 @@ legend .btn { margin-left: 30px; }
     .gallery li img {
         max-width: 170px;
     }
+}
+
+#autoview {
+    margin: 10px;
 }

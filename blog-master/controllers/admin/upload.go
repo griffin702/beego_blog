@@ -88,9 +88,9 @@ func (this *FileuploadController) Upload() {
 		defer  f.Close()
 	}
 	utype := this.GetString("type")
-		if utype == "" {
-			utype = "1"
-		}
+	if utype == "" {
+		utype = "1"
+	}
 	Out := map[string]string{"err":"","msg":""}
 	if err != nil {
 		Out["err"] = "no file"
@@ -118,9 +118,9 @@ func (this *FileuploadController) Upload() {
 			if index == 1 {//上传类型1：文章上传，只保存大图
 				err = this.SaveToFile("filedata", imgPath)
 				if err != nil {
-				Out["err"] = err.Error()
+					Out["err"] = err.Error()
 				} else {
-				Out["msg"] = "/" + imgPath
+					Out["msg"] = "/" + imgPath
 				}
 			} else if index == 2 {//上传类型2：头像、封面等上传，只保存小图
 				w, _ := strconv.Atoi(this.GetString("w"))
@@ -129,6 +129,11 @@ func (this *FileuploadController) Upload() {
 				if err != nil {
 					Out["err"] = err.Error()
 				} else {
+					//保存成功，则删除旧资源
+					lastsrc := this.GetString("lastsrc")
+					if lastsrc != "" && !this.Isdefaultsrc(lastsrc) {
+						os.Remove("."+lastsrc)
+					}
 					Out["msg"] = "/" + imgPath
 				}
 			} else if index == 3 {//上传类型3：照片上传，同时保存大图小图

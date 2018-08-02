@@ -29,7 +29,7 @@ func init() {
 
 	//照片展示
 	beego.Router("/photo.html", &blog.MainController{}, "*:Photo")
-	beego.Router("/photo:page:int.html", &blog.MainController{}, "*:Photo")
+	beego.Router("/photo:albumid:int.html", &blog.MainController{}, "*:Photo")
 
 	//相册展示
 	beego.Router("/album.html", &blog.MainController{}, "*:Album")

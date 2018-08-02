@@ -69,16 +69,31 @@ func (this *MainController) Mood() {
 //照片展示
 func (this *MainController) Photo() {
 	album := new(models.Album)
-	album.Id = int64(this.page)
-	err := album.Read()
-	if err != nil || album.Ishide != 0 {
+	albumid, err := strconv.ParseInt(this.Ctx.Input.Param(":albumid"), 10, 64)
+	if err != nil {
+		this.Redirect("/404.html", 302)
+	}
+	album.Id = albumid
+	err2 := album.Read()
+	if err2 != nil || album.Ishide != 0 {
 		this.Redirect("/404.html", 302)
 	}
 	this.setHeadMetas("相册 " + album.Name + " 内的照片")
+	var page int64
+	var pagesize int64 = 18
 	var list []*models.Photo
-	new(models.Photo).Query().Filter("albumid", this.page).All(&list)
+	var photo models.Photo
+	if page, _ = this.GetInt64("page"); page < 1 {
+		page = 1
+	}
+	offset := (page - 1) * pagesize
+	count, _ := photo.Query().Filter("albumid", albumid).Count()
+	if count > 0 {
+		photo.Query().Filter("albumid", albumid).OrderBy("-posttime").Limit(pagesize, offset).All(&list)
+	}
 	this.right = ""
 	this.Data["list"] = list
+	this.Data["pagebar"] = models.NewPager(page, count, pagesize, "/photo%d.html?page=%d", albumid).ToString()
 	this.display("photo")
 }
 
