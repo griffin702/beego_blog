@@ -18,11 +18,11 @@
 			<tbody>
 			{{range $k, $v := .list}}
 				<tr>
-					<td>{{$v.Id}}</td>
-					<td>{{date $v.Posttime "Y-m-d H:i:s"}}</td>
-					<td>{{str2html $v.Content}}</td>
+					<td style="min-width: 80px">{{$v.Id}}</td>
+					<td style="min-width: 100px">{{date $v.Posttime "Y-m-d H:i:s"}}</td>
+					<td style="white-space: normal;min-width: 500px">{{str2html $v.Content}}</td>
 					<td><img src="{{$v.Cover}}" width = "170" height="80" /></td>
-					<td>
+					<td style="min-width: 80px">
 					<a href="/admin/mood/delete?id={{$v.Id}}" onclick="return del_confirm()">删除</a>
 					</td>
 				</tr>
