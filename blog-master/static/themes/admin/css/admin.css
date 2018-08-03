@@ -1,5 +1,5 @@
 @CHARSET "UTF-8";
-body {background:#fff;padding: 0;}
+body { font-family:"微软雅黑",serif; }
 a {color:#2277AA;}
 a:hover {color:#DC6C31; text-decoration:none;}
 p {margin: 0!important;}

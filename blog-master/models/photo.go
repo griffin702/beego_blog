@@ -60,3 +60,12 @@ func (m *Photo) ChangetoSmall() string {
 	m.Small = strings.Replace(m.Url, ext, "_small"+ext, 1)
 	return m.Small
 }
+
+func (m *Photo) LongNameAlter() string {
+	data := []rune(m.Des)
+	length := len(data)
+	if length > 15 {
+		return string(data[:6])+"..."+string(data[length-7:length])
+	}
+	return m.Des
+}

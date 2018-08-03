@@ -51,3 +51,12 @@ func (m *Album) Delete() error {
 func (m *Album) Query() orm.QuerySeter {
 	return orm.NewOrm().QueryTable(m)
 }
+
+func (m *Album) LongNameAlter() string {
+	data := []rune(m.Name)
+	length := len(data)
+	if length > 15 {
+		return string(data[:6])+"..."+string(data[length-7:length])
+	}
+	return m.Name
+}

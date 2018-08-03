@@ -7,7 +7,7 @@
     <div class="article_all col-lg-12 col-md-12 col-sm-12 col-xs-12 column">
     {{range $k, $v := .list}}
         <div class="sy col-lg-8 col-md-8 col-sm-10 col-xs-10 column">
-            <div class="bg col-lg-11 col-md-11 col-sm-11 col-xs-11 column">
+            <div class="bg">
               <img class="moodimg" src="{{$v.Cover}}">
               <p>{{str2html $v.Content}}</p>
             </div>
