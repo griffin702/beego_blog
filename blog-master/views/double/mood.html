@@ -1,3 +1,17 @@
+<script src="/static/js/lightGallery.min.js"></script>
+<link href="{{.root}}css/photo.css" rel="stylesheet">
+<script>
+    $(document).ready(function() {
+        $(".viewcover").lightGallery({
+            loop:true,
+            auto:true,
+            desc:true,
+            counter:true,
+            pause:3000
+        });
+    });
+</script>
+
 <div class="moodlist">
     <h1 class="t_nav">
         <a href="/" class="n1">网站首页</a>
@@ -8,8 +22,12 @@
     {{range $k, $v := .list}}
         <div class="sy col-lg-8 col-md-8 col-sm-10 col-xs-10 column">
             <div class="bg">
-              <img class="moodimg" src="{{$v.Cover}}">
-              <p>{{str2html $v.Content}}</p>
+                <ul class="viewcover gallery list-unstyled">
+                    <li data-src="{{$v.Cover}}">
+                        <img class="moodimg" src="{{$v.ChangetoSmall}}">
+                    </li>
+                </ul>
+                <p>{{str2html $v.Content}}</p>
             </div>
         </div>
         <span class="dateview col-lg-2 col-md-2 col-sm-2 col-xs-2 column">{{date $v.Posttime "Y-m-j"}}</span>

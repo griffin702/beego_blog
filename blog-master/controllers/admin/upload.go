@@ -150,8 +150,10 @@ func (this *FileuploadController) Upload() {
 				if err != nil {
 					Out["err"] = err.Error()
 				}
-				albumid, _ := this.GetInt64("albumid")
-				this.Insert(albumid, fi.Name, Out["msg"])
+				albumid, err := this.GetInt64("albumid")
+				if err == nil {
+					this.Insert(albumid, fi.Name, Out["msg"])
+				}
 			}
 		}
 	}

@@ -3,6 +3,7 @@ package models
 import (
 	"github.com/astaxie/beego/orm"
 	"time"
+	"strings"
 )
 
 //心情表
@@ -47,4 +48,13 @@ func (m *Mood) Delete() error {
 
 func (m *Mood) Query() orm.QuerySeter {
 	return orm.NewOrm().QueryTable(m)
+}
+
+func (m *Mood) ChangetoSmall() string {
+	arr1 := strings.Split(m.Cover, "/")
+	filename := arr1[len(arr1)-1]
+	arr2 := strings.Split(filename, ".")
+	ext := "." + arr2[len(arr2)-1]
+	small := strings.Replace(m.Cover, ext, "_small"+ext, 1)
+	return small
 }
