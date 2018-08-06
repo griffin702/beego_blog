@@ -26,7 +26,8 @@ $(document).ready(function(){
     //修复导航栏active不自动切换
     $("ul.nav.navbar-nav").find("li").each(function(){
         var a = $(this).find("a:first");
-        if (a.attr("href") == location.pathname){
+        if (a.attr("href") === location.pathname){
+            a.parent().parent().parent().addClass("active");
             a.parent().addClass("active");
             a.parent().siblings().removeClass("active");
         }
@@ -65,6 +66,23 @@ $(document).ready(function(){
         upMultiple:1,
         upImgUrl:"/admin/upload",
         upImgExt:"jpg,jpeg,gif,png"
+    });
+    $('#moodcontent').xheditor({
+        tools:'Cut,Copy,Paste,Pastetext,|,' +
+        'Blocktag,Fontface,FontSize,Bold,Italic,Underline,Strikethrough,FontColor,BackColor,SelectAll,Removeformat,|,' +
+        'Align,List,Outdent,Indent,Emot,Table,|,Source,Preview,Print,Fullscreen',
+        skin:'default',
+        showBlocktag:false,
+        internalScript:false,
+        internalStyle:false,
+        cleanPaste:3,
+        width:600,
+        height:500,
+        loadCSS:'/static/xheditor/css/base.css',
+        fullscreen:false,
+        sourceMode:false,
+        forcePtag:true,
+        html5Upload:false,
     });
     //处理上传
     var autoview = document.querySelector('#autoview');

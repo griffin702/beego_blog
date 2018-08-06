@@ -19,9 +19,11 @@ func (this *SystemController) Setting() {
 		options[v.Name] = v.Value
 		mp[v.Name] = v
 	}
-
 	if this.Ctx.Request.Method == "POST" {
-		keys := []string{"sitename", "subtitle", "nickname", "siteurl", "duoshuo", "weibo", "github", "pagesize", "albumsize", "keywords", "description", "theme", "timezone", "stat"}
+		keys := []string{"sitename", "subtitle", "nickname", "siteurl", "mybirth",
+		"weibo", "github", "pagesize", "albumsize", "keywords",
+		"description", "theme", "timezone", "stat", "myoldcity",
+		"mycity", "myprifessional", "myworkdesc", "mylang", "mylike"}
 		for _, key := range keys {
 			val := this.GetString(key)
 			if _, ok := mp[key]; !ok {
@@ -32,8 +34,10 @@ func (this *SystemController) Setting() {
 				option.Insert()
 			} else {
 				option := mp[key]
-				option.Value = val
-				option.Update("Value")
+				if option.Value != val {
+					option.Value = val
+					option.Update("Value")
+				}
 			}
 		}
 		this.Redirect("/admin/system/setting", 302)

@@ -49,6 +49,9 @@ func GetOptions() map[string]string {
 		o.QueryTable(&Option{}).All(&result)
 		options := make(map[string]string)
 		for _, v := range result {
+			if v.Name == "myworkdesc" {
+				v.Value = strings.Replace(v.Value, "\r\n", "<br/>", -1)
+			}
 			options[v.Name] = v.Value
 		}
 		Cache.Put("options", options)
