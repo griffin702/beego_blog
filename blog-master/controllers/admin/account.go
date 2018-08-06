@@ -14,12 +14,10 @@ type AccountController struct {
 
 //登录
 func (this *AccountController) Login() {
-	fmt.Println(this.GetString("dosubmit"))
 	if this.GetString("dosubmit") == "yes" {
 		account := strings.TrimSpace(this.GetString("account"))
 		password := strings.TrimSpace(this.GetString("password"))
 		remember := this.GetString("remember")
-		fmt.Println(account,password,remember)
 		if account != "" && password != "" {
 			var user models.User
 			user.Username = account
