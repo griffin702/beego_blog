@@ -54,11 +54,13 @@ aside .rnav ul li a:hover { background: rgba(255,255,255,0.2); -webkit-transform
 .ad{ width:100%; margin:10px auto;}
 
 /*@links*/
-.link-friends{overflow: hidden; padding-bottom: 10px}
-.link-friends span{text-align: center;font-size:12px;padding:15px 5px;}
+.link-friends{overflow: hidden;padding-bottom: 20px}
+.link-friends span{font-size:12px;float:left;text-align: center;width: 80px;padding: 10px 0}
 .link-friends span img{border-radius:100%;margin-bottom:5px;transition:0.5s;--webkit-transtion:0.5s;}
 .link-friends span .sitename{display:block;padding:0;}
+.link-friends span span{display:block}
 .link-friends span:hover img{transform:rotate(360deg);-webkit-transform:rotate(360deg);}
+.link-friends-body {padding: 20px 15px}
 
 /*翻页样式*/
 /*.page{ margin:20px 0 0 0; text-align:center; width:100%;overflow: hidden;}*/

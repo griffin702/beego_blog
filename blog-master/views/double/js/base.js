@@ -45,13 +45,13 @@ $(document).ready(function(){
         }
     }, false);
     //顶底滚动处理
-    $("#to_top").click(function (event) {
+    $("#to_top").on('click',function (event) {
         event.preventDefault();
         $('html,body').animate({
             scrollTop: 0
         }, 500);
     });
-    $("#to_down").click(function (event) {
+    $("#to_down").on('click',function (event) {
         event.preventDefault();
         $('html,body').animate({
             scrollTop: document.body.scrollHeight
@@ -67,7 +67,7 @@ $(document).ready(function(){
         }
     });
     $("[data-toggle='popover']").popover();
-    $("#wechat_btn").click(function(event){
+    $("#wechat_btn").on('click',function(event){
         event.stopPropagation();
         $("#wechat_btn").popover('toggle');
     });
@@ -86,25 +86,29 @@ $(document).ready(function(){
     $("img.moodimg").error(function(){
         $(this).remove();
     });
+    $('#wy-login-modal,#wy-register-modal').on("shown.bs.modal",function(){
+        $('input[name=username]').focus();
+    });
     $('#wy-login-submit').on("click",function(evt){
         evt.preventDefault();
-        var account = $('#wy-login-form input#account').val(),
-            password = $('#wy-login-form input[name=password]').val(),
-            dosubmit = $('#wy-login-form input[name=dosubmit]').val(),
-            remember = $('#wy-login-form input[name=remember]').val();
-        var checked = $('input[name=remember]').is(':checked');
+        var username = $('input[name=username]').val(),
+            password = $('input[name=password]').val(),
+            dosubmit = $('input[name=dosubmit]').val();
+        var q_remember = $('input[name=remember]');
+        var remember = q_remember.val();
+        var checked = q_remember.is(':checked');
         var data;
         if (checked) {
             data = {
                 'dosubmit': dosubmit,
-                'account': account,
+                'username': username,
                 'password': password,
                 'remember': remember
             }
         } else {
             data = {
                 'dosubmit': dosubmit,
-                'account': account,
+                'username': username,
                 'password': password
             }
         }
@@ -114,11 +118,11 @@ $(document).ready(function(){
             data: data,
             success: function(data){
                 var msg = $(data).find('.alert-warning');
-                $('#wy-login-form .alert-warning').remove();
+                $('.alert-warning').remove();
                 $('#wy-login-form').prepend(msg);
                 if (!msg.html()) {
-                    $('#wy-login-form input[name=password]').val('');
-                    $('#wy-login-form input[name=remember]').val('');
+                    $('input[name=password]').val('');
+                    $('input[name=remember]').val('');
                     window.location.reload();
                 }
             },
@@ -129,17 +133,17 @@ $(document).ready(function(){
     });
     $('#wy-register-submit').on("click",function(evt){
         evt.preventDefault();
-        var username = $('#wy-regist-form input[name=username]').val(),
-            password = $('#wy-regist-form input[name=password]').val(),
-            password2 = $('#wy-regist-form input[name=password2]').val(),
-            email = $('#wy-regist-form input[name=email]').val(),
-            dosubmit = $('#wy-regist-form input[name=dosubmit]').val();
+        var username = $('input[name=username]').val(),
+            password = $('input[name=password]').val(),
+            password2 = $('input[name=password2]').val(),
+            email = $('input[name=email]').val(),
+            dosubmit = $('input[name=dosubmit]').val();
         var data = {
                 'dosubmit': dosubmit,
                 'username': username,
                 'password': password,
                 'password2': password2,
-                'email': email,
+                'email': email
             };
         $.ajax({
             type: 'POST',
@@ -147,13 +151,13 @@ $(document).ready(function(){
             data: data,
             success: function(data){
                 var msg = $(data).find('.alert-warning');
-                $('#wy-regist-form .alert-warning').remove();
+                $('.alert-warning').remove();
                 $('#wy-regist-form').prepend(msg);
                 if (!msg.html()) {
-                    $('#wy-regist-form input[name=username]').val('');
-                    $('#wy-regist-form input[name=password]').val('');
-                    $('#wy-regist-form input[name=password2]').val('');
-                    $('#wy-regist-form input[name=email]').val('');
+                    $('input[name=username]').val('');
+                    $('input[name=password]').val('');
+                    $('input[name=password2]').val('');
+                    $('input[name=email]').val('');
                     alert("账号："+username+"注册成功,请使用该账号登录!")
                     $('.relogin').click();
                 }

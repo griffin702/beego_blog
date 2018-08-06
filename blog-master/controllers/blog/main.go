@@ -209,3 +209,41 @@ func (this *MainController) Category() {
 	this.setHeadMetas(tag.Name, tag.Name, tag.Name)
 	this.display("life")
 }
+
+//分类查看
+func (this *MainController) Links() {
+	var comment models.Comments
+	var commentlist0 []*models.Comments
+	var commentlist []*models.Comments
+	var commentlength int64
+	var commentuser int64
+	type CommentlistMap struct {
+		Commentlist0    *models.Comments
+		Commentlist     []*models.Comments
+	}
+	var commentlistmap []CommentlistMap
+	count, _ := comment.Query().Filter("obj_pk", -1).Filter("reply_pk", 0).Filter("is_removed", 0).Count()
+	comment.Query().Filter("obj_pk", -1).Filter("reply_pk", 0).Filter("is_removed", 0).OrderBy("-submittime").Limit(this.pagesize, (this.page-1)*this.pagesize).RelatedSel("User").All(&commentlist0)
+	for _, v := range commentlist0 {
+		comment.Query().Filter("reply_fk", v.Id).Filter("is_removed", 0).OrderBy("submittime").RelatedSel("User").All(&commentlist)
+		var item = CommentlistMap{}
+		item.Commentlist0 = v
+		item.Commentlist = commentlist
+		commentlistmap = append(commentlistmap, item)
+		commentlist = []*models.Comments{}
+	}
+	commentlength, _ = comment.Query().Filter("obj_pk", -1).Filter("is_removed", 0).Count()
+	commentuser, _ = comment.Query().Filter("obj_pk", -1).Filter("is_removed", 0).GroupBy("User").Count()
+	this.Data["commentlistmap"] = commentlistmap
+	this.Data["commentlength"] = commentlength
+	this.Data["commentuser"] = commentuser
+	pager := models.NewPager(
+		int64(this.page), int64(count),
+		int64(this.pagesize), "/links%d.html#wrap-form-comment")
+	this.Data["pagebar"] = pager.ToString()
+	this.Data["pagenum"] = this.page
+	this.Data["totalpage"] = pager.Totalpage
+	this.setHeadMetas("友情链接")
+	this.right = ""
+	this.display("links")
+}

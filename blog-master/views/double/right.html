@@ -26,7 +26,7 @@
         </h3>
         <div class="link-friends">
         {{range $k,$v := .links}}
-            <span class="col-lg-4 col-md-4 hidden-sm hidden-xs column">
+            <span>
                 <a rel="link" href="{{$v.Url}}" title="{{$v.Sitename}}" target="_blank">
                 <img alt='' src='{{$v.Siteavator}}' class='wyavater' height='36' width='36' title="{{$v.Sitedesc}}" />
                 <span class="sitename">{{$v.Sitename}}</span>

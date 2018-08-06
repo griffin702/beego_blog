@@ -27,6 +27,9 @@ func init() {
 
 	beego.Router("/about.html", &blog.MainController{}, "*:About")
 
+	//友情链接
+	beego.Router("/links.html", &blog.MainController{}, "*:Links")
+	beego.Router("/links:page:int.html", &blog.MainController{}, "*:Links")
 	//照片展示
 	beego.Router("/photo.html", &blog.MainController{}, "*:Photo")
 	beego.Router("/photo:albumid:int.html", &blog.MainController{}, "*:Photo")

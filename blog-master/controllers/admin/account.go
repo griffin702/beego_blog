@@ -15,12 +15,12 @@ type AccountController struct {
 //登录
 func (this *AccountController) Login() {
 	if this.GetString("dosubmit") == "yes" {
-		account := strings.TrimSpace(this.GetString("account"))
+		username := strings.TrimSpace(this.GetString("username"))
 		password := strings.TrimSpace(this.GetString("password"))
 		remember := this.GetString("remember")
-		if account != "" && password != "" {
+		if username != "" && password != "" {
 			var user models.User
-			user.Username = account
+			user.Username = username
 			if user.Read("username") != nil || user.Password != models.Md5([]byte(password)) {
 				this.Data["errmsg"] = "帐号或密码错误"
 			} else if user.Active == 0 {
@@ -38,7 +38,7 @@ func (this *AccountController) Login() {
 				}
 				this.Redirect("/", 302)
 			}
-		} else if account == "" {
+		} else if username == "" {
 			this.Data["errmsg"] = "请输入帐号"
 		} else if password == "" {
 			this.Data["errmsg"] = "请输入密码"

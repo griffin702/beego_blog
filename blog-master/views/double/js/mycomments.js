@@ -72,7 +72,8 @@ function comment_submit(event){
 }
 $(document).ready(function(){
 	$('#cancel_reply').hide();
-	$('#wy-delegate-all').on('click','.comment_reply_link',show_reply_form);
-    $('#wy-delegate-all').on('click','#cancel_reply',cancel_reply_form);
-    $('#wy-delegate-all').on('click','#comment_submit',comment_submit);
+	var parent_all = $('#wy-delegate-all');
+    parent_all.on('click','.comment_reply_link',show_reply_form);
+    parent_all.on('click','#cancel_reply',cancel_reply_form);
+    parent_all.on('click','#comment_submit',comment_submit);
 });
