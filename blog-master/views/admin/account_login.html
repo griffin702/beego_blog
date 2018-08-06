@@ -8,41 +8,41 @@
 	<title>登录</title>
 	<link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
 	<style type="text/css">
-	body {background:#444}
-	label {font-size: 12px}
-	.main {width:350px; margin:100px auto 0 auto; color:#888; overflow:hidden;}
-	.loginform {padding: 10px 10px 10px; width:100%; background:#fff; color:#333}
-	fieldset {margin:20px;}
+        .loginbody {background-color: #444}
+		label {font-size: 12px}
+		label input {position: relative;bottom: -3px;margin-right: 5px!important;}
+		.main {width:350px; margin:100px auto 0 auto; color:#888; overflow:hidden;}
+		.loginform {padding: 10px 10px 10px; width:100%; background:#fff; color:#333}
+		fieldset {margin:20px;}
 	</style>
 </head>
-<body onload="document.getElementById('account').focus();">
+<body class="loginbody" onload="document.getElementById('account').focus();">
 	<div class="main">
 		<div class="loginform">
 			<form method="post">
 				<input type="hidden" name="dosubmit" value="yes" />
 				<fieldset>
-					<legend>后台登录</legend>
+					<legend>inana站点登录</legend>
                 {{if .errmsg}}
                     <div class="alert alert-warning">
-                        <button type="button" class="close" data-dismiss="alert"></button>
-                    {{.errmsg}}
+                        {{.errmsg}}
                     </div>
                 {{end}}
                     <div class="input-group">
                         <span class="input-group-addon">账号</span>
-						<input type="text" id="account" name="account" class="form-control" placeholder="请输入管理员账号" />
+						<input type="text" id="account" name="account" class="form-control" placeholder="请输入用户名" />
                     </div>
                     <br />
                     <div class="input-group">
                         <span class="input-group-addon">密码</span>
-					    <input type="password" name="password" class="form-control" placeholder="请输入密码" />
+					    <input type="password" name="password" class="form-control" placeholder="请输入用户密码" />
                     </div>
                     <br />
                     <div class="input-group">
                         <label><input id="remember" name="remember" value="yes" type="checkbox" />记住我一周</label>
                     </div>
                     <br />
-					<button type="submit" style="float: right;" class="btn btn-success" id="login_btn">登 录</button>
+					<button type="submit" style="float: right;" class="btn btn-success" id="wy-register-submit">登 录</button>
                     <br /><hr />
 					<p>还没有帐号？请
 						<a href="/admin/register"><span class="glyphicon glyphicon-new-window"></span> 注册</a>

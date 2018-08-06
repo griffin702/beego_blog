@@ -14,10 +14,12 @@ type AccountController struct {
 
 //登录
 func (this *AccountController) Login() {
+	fmt.Println(this.GetString("dosubmit"))
 	if this.GetString("dosubmit") == "yes" {
 		account := strings.TrimSpace(this.GetString("account"))
 		password := strings.TrimSpace(this.GetString("password"))
 		remember := this.GetString("remember")
+		fmt.Println(account,password,remember)
 		if account != "" && password != "" {
 			var user models.User
 			user.Username = account
@@ -36,7 +38,7 @@ func (this *AccountController) Login() {
 				} else {
 					this.Ctx.SetCookie("auth", strconv.FormatInt(user.Id, 10)+"|"+authkey)
 				}
-				this.Redirect("/admin", 302)
+				this.Redirect("/", 302)
 			}
 		} else if account == "" {
 			this.Data["errmsg"] = "请输入帐号"
@@ -95,9 +97,9 @@ func (this *AccountController) Register() {
 			if err := user.Insert(); err != nil {
 				this.showmsg(err.Error())
 			} else {
-				this.showmsg("注册成功，请登录")
+				this.showmsg("注册成功，请使用该账号登录")
 			}
-			this.Redirect("/admin/login", 302)
+			this.Redirect("/", 302)
 		}
 	}
 	this.Data["input"] = input
@@ -108,7 +110,7 @@ func (this *AccountController) Register() {
 //退出登录
 func (this *AccountController) Logout() {
 	this.Ctx.SetCookie("auth", "")
-	this.Redirect("/admin/login", 302)
+	this.Redirect("/", 302)
 }
 
 //资料修改

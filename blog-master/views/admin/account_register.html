@@ -8,23 +8,22 @@
     <title>登录</title>
     <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
     <style type="text/css">
-        body {background:#444}
+        .loginbody {background-color: #444}
         label {font-size: 12px}
         .main {width:350px; margin:100px auto 0 auto; color:#888; overflow:hidden;}
         .loginform {padding: 10px 10px 10px; width:100%; background:#fff; color:#333}
         fieldset {margin:20px;}
     </style>
 </head>
-<body onload="document.getElementById('username').focus();">
+<body class="loginbody" onload="document.getElementById('username').focus();">
 	<div class="main">
 		<div class="loginform">
 			<form method="post">
 				<input type="hidden" name="dosubmit" value="yes" />
 				<fieldset>
-					<legend>注册角色</legend>
+					<legend>inana站点注册</legend>
                     {{if .errmsg}}
                         <div class="alert alert-warning">
-                            <button type="button" class="close" data-dismiss="alert"></button>
                             {{range $k, $v := .errmsg}}
                                 {{$v}}<br />
                             {{end}}
@@ -47,10 +46,10 @@
                     <br />
                     <div class="input-group">
                         <span class="input-group-addon">Email</span>
-                        <input type="email" name="email" class="form-control" placeholder="请输入您的邮箱" />
+                        <input type="email" name="email" class="form-control" placeholder="请输入正确的邮箱" />
                     </div>
                     <br />
-					<button type="submit" style="float: right;" class="btn btn-success" id="register_btn">注 册</button>
+					<button type="submit" style="float: right;" class="btn btn-success" id="wy-register-submit">注 册</button>
                     <br /><hr />
                     <p>已有帐号？返回
                         <a href="/admin/login"><span class="glyphicon glyphicon-log-in"></span> 登录</a>

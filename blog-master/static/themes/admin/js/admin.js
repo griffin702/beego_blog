@@ -5,6 +5,10 @@ function checkall(name, obj) {
 	});
 }
 
+function sure_logout() {
+    return confirm('确定退出登录吗？');
+}
+
 function del_confirm() {
 	return confirm('一旦删除将不可恢复，确定吗？');
 }

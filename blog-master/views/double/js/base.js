@@ -1,3 +1,7 @@
+function sure_logout() {
+    return confirm('确定退出登录吗？');
+}
+
 $(document).ready(function(){
     //修复导航栏active不自动切换
     $("ul:first.nav.navbar-nav").find("li").each(function() {
@@ -81,6 +85,83 @@ $(document).ready(function(){
     });
     $("img.moodimg").error(function(){
         $(this).attr('src','');
+    });
+    $('#wy-login-submit').on("click",function(evt){
+        evt.preventDefault();
+        var account = $('#wy-login-form input#account').val(),
+            password = $('#wy-login-form input[name=password]').val(),
+            dosubmit = $('#wy-login-form input[name=dosubmit]').val(),
+            remember = $('#wy-login-form input[name=remember]').val();
+        var checked = $('input[name=remember]').is(':checked');
+        var data;
+        if (checked) {
+            data = {
+                'dosubmit': dosubmit,
+                'account': account,
+                'password': password,
+                'remember': remember
+            }
+        } else {
+            data = {
+                'dosubmit': dosubmit,
+                'account': account,
+                'password': password
+            }
+        }
+        $.ajax({
+            type: 'POST',
+            url: '/admin/login',
+            data: data,
+            success: function(data){
+                var msg = $(data).find('.alert-warning');
+                $('#wy-login-form .alert-warning').remove();
+                $('#wy-login-form').prepend(msg);
+                if (!msg.html()) {
+                    $('#wy-login-form input[name=password]').val('');
+                    $('#wy-login-form input[name=remember]').val('');
+                    window.location.reload();
+                }
+            },
+            error: function(){
+                alert("登录失败");
+            }
+        });
+    });
+    $('#wy-register-submit').on("click",function(evt){
+        evt.preventDefault();
+        var username = $('#wy-regist-form input[name=username]').val(),
+            password = $('#wy-regist-form input[name=password]').val(),
+            password2 = $('#wy-regist-form input[name=password2]').val(),
+            email = $('#wy-regist-form input[name=email]').val(),
+            dosubmit = $('#wy-regist-form input[name=dosubmit]').val();
+        var data = {
+                'dosubmit': dosubmit,
+                'username': username,
+                'password': password,
+                'password2': password2,
+                'email': email,
+            };
+        $.ajax({
+            type: 'POST',
+            url: '/admin/register',
+            data: data,
+            success: function(data){
+                var msg = $(data).find('.alert-warning');
+                $('#wy-regist-form .alert-warning').remove();
+                $('#wy-regist-form').prepend(msg);
+                if (!msg.html()) {
+                    $('#wy-regist-form input[name=username]').val('');
+                    $('#wy-regist-form input[name=password]').val('');
+                    $('#wy-regist-form input[name=password2]').val('');
+                    $('#wy-regist-form input[name=email]').val('');
+                    alert("账号："+username+"注册成功,请使用该账号登录!")
+                    $('.relogin').click();
+                }
+            },
+            error: function(){
+                alert("登录失败");
+            }
+        });
     });
 });
 

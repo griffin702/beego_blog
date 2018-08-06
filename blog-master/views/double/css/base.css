@@ -13,6 +13,11 @@ a span { font-size: 10px; }
 .en { color: #999; font-size: 12px; z-index: 1; display: block; }/* ie */
 article { padding: 10px 10px!important; overflow: hidden }
 footer { text-align: center; line-height: 20px; border-top: #E8E8E8 1px solid ; width:1000px; padding:10px 15px; }
+.loginform {max-width:350px;padding: 10px 10px 10px; background:#fff; color:#333;}
+.loginform .input-group {margin: 15px}
+.modal-dialog {max-width: 380px}
+.input-group label {font-size: 12px}
+.input-group label input {position: relative;bottom: -3px;margin-right: 5px}
 
 h1.t_nav p { margin: 0; font-size: 12px; }
 @media (min-width: 992px) {

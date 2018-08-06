@@ -91,9 +91,12 @@
                             </ul>
                         </li>
                     </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="/" target="_blank"><span class="glyphicon glyphicon-home"></span> 站点首页</a></li>
-                        <li><a href="/admin/logout" style="margin-right: 20px;"><span class="glyphicon glyphicon-off"></span> 退出登录</a></li>
+                    <ul class="nav navbar-nav navbar-right" style="padding-right: 30px;">
+                        <li><a href="/"><span class="glyphicon glyphicon-home"></span> 站点首页</a></li>
+                        <li><a href="/admin/logout" onclick="return sure_logout()"><span class="glyphicon glyphicon-off"></span> 退出登录</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right" style="padding-right: 30px;">
+                        <li><p><span class="glyphicon glyphicon-user"></span> {{.adminname}}</p></li>
                     </ul>
                 </div>
             </nav>
