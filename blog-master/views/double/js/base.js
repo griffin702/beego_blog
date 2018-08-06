@@ -84,7 +84,7 @@ $(document).ready(function(){
         $(this).attr('src','/static/upload/default/user-default-60x60.png');
     });
     $("img.moodimg").error(function(){
-        $(this).attr('src','');
+        $(this).remove();
     });
     $('#wy-login-submit').on("click",function(evt){
         evt.preventDefault();
