@@ -244,6 +244,5 @@ func (this *MainController) Links() {
 	this.Data["pagenum"] = this.page
 	this.Data["totalpage"] = pager.Totalpage
 	this.setHeadMetas("友情链接")
-	this.right = ""
 	this.display("links")
 }

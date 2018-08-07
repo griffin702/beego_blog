@@ -36,7 +36,7 @@ func (this *AccountController) Login() {
 				} else {
 					this.Ctx.SetCookie("auth", strconv.FormatInt(user.Id, 10)+"|"+authkey)
 				}
-				this.Redirect("/", 302)
+				this.Redirect(this.Ctx.Request.Referer(), 302)
 			}
 		} else if username == "" {
 			this.Data["errmsg"] = "请输入帐号"
@@ -97,7 +97,7 @@ func (this *AccountController) Register() {
 			} else {
 				this.showmsg("注册成功，请使用该账号登录")
 			}
-			this.Redirect("/", 302)
+			this.Redirect(this.Ctx.Request.Referer(), 302)
 		}
 	}
 	this.Data["input"] = input
@@ -108,7 +108,7 @@ func (this *AccountController) Register() {
 //退出登录
 func (this *AccountController) Logout() {
 	this.Ctx.SetCookie("auth", "")
-	this.Redirect("/", 302)
+	this.Redirect(this.Ctx.Request.Referer(), 302)
 }
 
 //资料修改

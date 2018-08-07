@@ -56,8 +56,10 @@
 {{else}}
     <p class="checklogin col-lg-12 col-md-12 col-sm-12 col-xs-12 column">
         如需留言，请
-        <a href="/admin/login"><span class="glyphicon glyphicon-log-in"></span> 登录</a>，没有账号？请
-        <a href="/admin/register"><span class="glyphicon glyphicon-new-window"></span> 注册</a>
+        <a href="#" data-toggle="modal" data-target="#wy-login-modal">
+            <span class="glyphicon glyphicon-log-in"></span> 登录</a>，没有账号？请
+        <a href="#" data-toggle="modal" data-target="#wy-register-modal">
+            <span class="glyphicon glyphicon-new-window"></span> 注册</a>
     </p>
 {{end}}
     <!-- Comments List -->
@@ -76,6 +78,8 @@
                     </a>
                     <div class="media-body" id="comment-{{ $item.Commentlist0.Id }}">
                         <h4 class="media-heading">{{ $item.Commentlist0.User.Username }}
+                        {{ if eq $item.Commentlist0.User.Id 1 }}
+                            <span class="btn btn-info btn-xs">官方</span>{{end}}
                             <small>{{date $item.Commentlist0.Submittime "Y-m-j H:i:s"}}</small>
                         {{if $islogin}}<small class="reply_btn">
                                 <a href="#" data-comment-id="{{ $item.Commentlist0.Id }}"
@@ -92,6 +96,8 @@
                     </a>
                     <div class="media-body" id="comment-{{ $v.Id }}">
                         <h4 class="media-heading">{{ $v.User.Username }}
+                        {{ if eq $v.User.Id 1 }}
+                            <span class="btn btn-info btn-xs">官方</span>{{end}}
                             <small>{{date $v.Submittime "Y-m-j H:i:s"}}</small>
                         {{if $islogin}}<small class="reply_btn">
                                 <a href="#" data-comment-id="{{ $v.Id }}"

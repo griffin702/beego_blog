@@ -5,6 +5,7 @@ ul { list-style: none; }
 a:link, a:visited, a:hover, a:focus { text-decoration: none!important; }
 .navbar-nav .active a { color: #f04a40 !important; }
 a span { font-size: 10px; }
+.btn-xs { padding: 1px 3px!important;line-height: 1!important; }
 .left { float: left; }
 .right { float: right; }
 .blank { height: 5px; overflow: hidden; width: 100%; margin: auto; clear: both }

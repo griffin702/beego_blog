@@ -4,8 +4,8 @@
     <p><span class="glyphicon glyphicon-map-marker"></span> 人生贵知心，定交无暮早。</p>
 </h1>
 
-<div class="link-friends-body col-lg-12 col-md-12 col-sm-12 col-xs-12 column" id="wy-delegate-all">
-    <blockquote><p>请先做好本站链接再申请。发现没有链接到本站的一律删除不做通知</p></blockquote>
+<div class="link-friends-body col-lg-9 col-md-9 col-sm-12 col-xs-12 column" id="wy-delegate-all">
+    <blockquote><p>请先做好本站链接再申请，发现没有链接到本站的一律删除不做通知！</p></blockquote>
     <blockquote><p>中国好伙伴</p></blockquote>
     <div class="link-friends">
     {{range $k,$v := .links}}
@@ -38,8 +38,10 @@
 {{else}}
     <p class="checklogin col-lg-12 col-md-12 col-sm-12 col-xs-12 column">
         如需留言，请
-        <a href="/admin/login"><span class="glyphicon glyphicon-log-in"></span> 登录</a>，没有账号？请
-        <a href="/admin/register"><span class="glyphicon glyphicon-new-window"></span> 注册</a>
+        <a href="#" data-toggle="modal" data-target="#wy-login-modal">
+            <span class="glyphicon glyphicon-log-in"></span> 登录</a>，没有账号？请
+        <a href="#" data-toggle="modal" data-target="#wy-register-modal">
+            <span class="glyphicon glyphicon-new-window"></span> 注册</a>
     </p>
 {{end}}
     <!-- Comments List -->
@@ -58,6 +60,8 @@
                     </a>
                     <div class="media-body" id="comment-{{ $item.Commentlist0.Id }}">
                         <h4 class="media-heading">{{ $item.Commentlist0.User.Username }}
+                            {{ if eq $item.Commentlist0.User.Id 1 }}
+                            <span class="btn btn-info btn-xs">官方</span>{{end}}
                             <small>{{date $item.Commentlist0.Submittime "Y-m-j H:i:s"}}</small>
                         {{if $islogin}}<small class="reply_btn">
                             <a href="#" data-comment-id="{{ $item.Commentlist0.Id }}"
@@ -74,6 +78,8 @@
                     </a>
                     <div class="media-body" id="comment-{{ $v.Id }}">
                         <h4 class="media-heading">{{ $v.User.Username }}
+                        {{ if eq $v.User.Id 1 }}
+                            <span class="btn btn-info btn-xs">官方</span>{{end}}
                             <small>{{date $v.Submittime "Y-m-j H:i:s"}}</small>
                         {{if $islogin}}<small class="reply_btn">
                             <a href="#" data-comment-id="{{ $v.Id }}"
