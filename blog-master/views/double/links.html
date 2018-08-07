@@ -25,7 +25,8 @@
         <div class="well" id="form-comment">
             <h4>欢迎留下您的评论：</h4>
             <form role="form" action="/admin/comments/add" method="post">
-                <input id="id_object_pk" type="hidden" name="object_pk" value="-1" />
+                <input id="id_object_pk" type="hidden" name="object_pk" value="0" />
+                <input id="id_object_pk_type" type="hidden" name="object_pk_type" value="1" />
                 <input id="id_reply_pk" type="hidden" name="reply_pk" value="0" />
                 <input id="id_reply_fk" type="hidden" name="reply_fk" value="0" />
                 <textarea id="comment_content" class="comment_content form-control" name="comment_content"></textarea>

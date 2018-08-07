@@ -13,8 +13,8 @@ function show_reply_form(event) {
 function cancel_reply_form(event) {
     event.preventDefault();
     $('#comment_content').val('');
-    $('#id_reply_pk').val('');
-    $('#id_reply_fk').val('');
+    $('#id_reply_pk').val('0');
+    $('#id_reply_fk').val('0');
     $('#form-comment').appendTo($('#wrap-form-comment'));
     $('#cancel_reply').hide();
 }
@@ -26,6 +26,10 @@ function comment_submit(event){
     }
     var url = "/admin/comments/add";
 	var object_pk = $("#id_object_pk").val();
+    var object_pk_type = $("#id_object_pk_type").val();
+    if (!object_pk_type) {
+        object_pk_type = 0
+    }
     var reply_pk = $('#id_reply_pk').val();
     var reply_fk = $('#id_reply_fk').val();
     var comment_content = $("#comment_content").val();
@@ -38,6 +42,7 @@ function comment_submit(event){
 			type:'POST',
 			data:{
 				'object_pk': object_pk,
+                'object_pk_type': object_pk_type,
                 'reply_pk': reply_pk,
                 'reply_fk': reply_fk,
                 'comment_content': comment_content,
@@ -59,8 +64,8 @@ function comment_submit(event){
                         $('#cancel_reply').hide();
 						$("#wrap-comments-list").html($(data).find("#comments-list"));
                         $(".comments_length").html($(data).find(".comments_length p"));
-                        $("#id_reply_pk").val('');
-                        $("#id_reply_fk").val('');
+                        $("#id_reply_pk").val('0');
+                        $("#id_reply_fk").val('0');
 					}
 				});
 			},300),

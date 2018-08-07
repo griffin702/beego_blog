@@ -16,6 +16,7 @@ type Comments struct {
 	Submittime        time.Time `orm:"auto_now_add;type(datetime);index"`
 	Ipaddress         string    `orm:"null"`
 	Is_removed        int8      `orm:"index"`     //0-正常，1-删除
+	Obj_pk_type       int64     `orm:"index"`     //0-文章评论，1-友链评论
 }
 
 func (m *Comments) TableName() string {
@@ -61,7 +62,7 @@ func (m *Comments) Query() orm.QuerySeter {
 
 func (m *Comments) Return_PkName(key int64) (string, error) {
 	var reply_pk Comments
-	err := reply_pk.Query().Filter("Id", key).RelatedSel().Limit(1).One(&reply_pk)
+	err := reply_pk.Query().Filter("Id", key).RelatedSel("user").Limit(1).One(&reply_pk)
 	if err != nil {
 		return "",err
 	}
@@ -70,7 +71,7 @@ func (m *Comments) Return_PkName(key int64) (string, error) {
 
 func (m *Comments) Return_PkContent(key int64) (string, error) {
 	var reply_pk Comments
-	err := reply_pk.Query().Filter("Id", key).RelatedSel().Limit(1).One(&reply_pk)
+	err := reply_pk.Query().Filter("Id", key).RelatedSel("user").Limit(1).One(&reply_pk)
 	if err != nil {
 		return "",err
 	}

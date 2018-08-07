@@ -222,18 +222,18 @@ func (this *MainController) Links() {
 		Commentlist     []*models.Comments
 	}
 	var commentlistmap []CommentlistMap
-	count, _ := comment.Query().Filter("obj_pk", -1).Filter("reply_pk", 0).Filter("is_removed", 0).Count()
-	comment.Query().Filter("obj_pk", -1).Filter("reply_pk", 0).Filter("is_removed", 0).OrderBy("-submittime").Limit(this.pagesize, (this.page-1)*this.pagesize).RelatedSel("User").All(&commentlist0)
+	count, _ := comment.Query().Filter("obj_pk_type", 1).Filter("reply_pk", 0).Filter("is_removed", 0).Count()
+	comment.Query().Filter("obj_pk_type", 1).Filter("reply_pk", 0).Filter("is_removed", 0).OrderBy("-submittime").Limit(this.pagesize, (this.page-1)*this.pagesize).RelatedSel("user").All(&commentlist0)
 	for _, v := range commentlist0 {
-		comment.Query().Filter("reply_fk", v.Id).Filter("is_removed", 0).OrderBy("submittime").RelatedSel("User").All(&commentlist)
+		comment.Query().Filter("reply_fk", v.Id).Filter("is_removed", 0).OrderBy("submittime").RelatedSel("user").All(&commentlist)
 		var item = CommentlistMap{}
 		item.Commentlist0 = v
 		item.Commentlist = commentlist
 		commentlistmap = append(commentlistmap, item)
 		commentlist = []*models.Comments{}
 	}
-	commentlength, _ = comment.Query().Filter("obj_pk", -1).Filter("is_removed", 0).Count()
-	commentuser, _ = comment.Query().Filter("obj_pk", -1).Filter("is_removed", 0).GroupBy("User").Count()
+	commentlength, _ = comment.Query().Filter("obj_pk_type", 1).Filter("is_removed", 0).Count()
+	commentuser, _ = comment.Query().Filter("obj_pk_type", 1).Filter("is_removed", 0).GroupBy("User").Count()
 	this.Data["commentlistmap"] = commentlistmap
 	this.Data["commentlength"] = commentlength
 	this.Data["commentuser"] = commentuser

@@ -45,6 +45,7 @@ func (this *CommentsController) Add() {
 		if this.Ctx.Request.Method == "POST" {
 			var comment models.Comments
 			blogid, _ := strconv.Atoi(strings.TrimSpace(this.GetString("object_pk")))
+			object_pk_type, _ := strconv.Atoi(strings.TrimSpace(this.GetString("object_pk_type")))
 			replypk := strings.TrimSpace(this.GetString("reply_pk"))
 			replyfk, _ := strconv.Atoi(strings.TrimSpace(this.GetString("reply_fk")))
 			comment_content := strings.TrimSpace(this.GetString("comment_content"))
@@ -59,6 +60,7 @@ func (this *CommentsController) Add() {
 					user.Query().Filter("id", this.userid).Limit(1).One(&user)
 					comment.User = &models.User{Id: this.userid}
 					comment.Obj_pk = &models.Post{Id: int64(blogid)}
+					comment.Obj_pk_type = int64(object_pk_type)
 					replypk_to_int, _ := strconv.Atoi(replypk)
 					comment.Reply_pk = int64(replypk_to_int)
 					comment.Reply_fk = int64(replyfk)
