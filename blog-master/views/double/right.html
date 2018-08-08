@@ -25,10 +25,6 @@
                 <span>
                 {{$v.User.Username}}{{ if eq $v.User.Id 1 }}
                     <span class="btn btn-info btn-xs">官方</span>{{end}}
-                {{if ne $v.Reply_pk 0}} 对 {{ $v.Return_PkName $v.Reply_pk }}{{$v.Reply_pk}}
-                        {{$reply_pk_userid := $v.Return_PkId $v.Reply_pk}}
-                {{ if eq $reply_pk_userid 1}}
-                    <span class="btn btn-info btn-xs">官方</span>{{end}}{{end}} 说：
                 </span>
                 <a href="{{$v.Obj_pk.Link}}#comment-{{$v.Id}}" title="{{$v.Comment}}" style="display: block">
                 {{$v.Return_limit $v.Comment}}</a>

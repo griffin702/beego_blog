@@ -167,6 +167,38 @@ $(document).ready(function(){
             }
         });
     });
+    //处理评论回复超过3条则隐藏
+    $('.comment_parent').each(function () {
+        var num = $(this).children('.comment_child').length;
+        $(this).find('.comment_child').each(function () {
+            if (num > 3) {
+                $(this).addClass('hidden');
+            }
+            if (num == 3) {
+                var more = $("<div class='comment_child col-lg-11 col-md-11 col-sm-11 col-xs-11 column'><button class='btn btn-info open-more'>展开过往回复>></button></div>");
+                $(this).parent().append(more);
+            }
+            num--;
+        });
+    });
+    $("#wy-delegate-all").on("click", "#comments-list .comment_parent button.open-more", function (event) {
+        $(this).parent().siblings().removeClass('hidden');
+        var close_more = $("<button class='btn btn-info close-more'><<收起过往回复</button>");
+        $(this).parent().append(close_more);
+        $(this).remove();
+    });
+    $("#wy-delegate-all").on("click", "#comments-list .comment_parent button.close-more", function (event) {
+        var num = $(this).parent().siblings(".comment_child").length;
+        $(this).parent().siblings(".comment_child").each(function () {
+            if (num > 3) {
+                $(this).addClass('hidden');
+            }
+            num--;
+        });
+        var more = $("<button class='btn btn-info open-more'>展开过往回复>></button>");
+        $(this).parent().append(more);
+        $(this).remove();
+    });
 });
 
 function ajax_Main(type, data, url, timewait){
