@@ -69,6 +69,15 @@ func (m *Comments) Return_PkName(key int64) (string, error) {
 	return reply_pk.User.Username, nil
 }
 
+func (m *Comments) Return_PkId(key int64) (int64, error) {
+	var reply_pk Comments
+	err := reply_pk.Query().Filter("Id", key).RelatedSel("user").Limit(1).One(&reply_pk)
+	if err != nil {
+		return 0,err
+	}
+	return reply_pk.User.Id, nil
+}
+
 func (m *Comments) Return_PkContent(key int64) (string, error) {
 	var reply_pk Comments
 	err := reply_pk.Query().Filter("Id", key).RelatedSel("user").Limit(1).One(&reply_pk)
@@ -78,10 +87,10 @@ func (m *Comments) Return_PkContent(key int64) (string, error) {
 	return reply_pk.Comment, nil
 }
 
-func (m *Comments) Return_8(key string) (string) {
+func (m *Comments) Return_limit(key string) (string) {
 	data := []rune(m.Comment)
-	if len(data) > 8 {
-		return string(data[:8])+"..."
+	if len(data) > 10 {
+		return string(data[:10])+"..."
 	}
 	return m.Comment
 }

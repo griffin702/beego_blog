@@ -103,8 +103,10 @@
                                 <a href="#" data-comment-id="{{ $v.Id }}"
                                      data-parent-id="{{ $item.Commentlist0.Id }}" class="comment_reply_link">回复</a>
                             </small>{{end}}
-                        </h4>
-                        <small class="comment-quote">引用 网友 {{ $v.Return_PkName $v.Reply_pk }}：{{ $v.Return_PkContent $v.Reply_pk }}</small>
+                        </h4>{{$reply_pk_userid := $v.Return_PkId $v.Reply_pk}}
+                        <small class="comment-quote">
+                        {{ if eq $reply_pk_userid 1}}引用 官方 {{else}}引用 网友 {{end}}
+                        {{ $v.Return_PkName $v.Reply_pk }}：{{ $v.Return_PkContent $v.Reply_pk }}</small>
                         <p>{{ $v.Comment }}</p>
                     </div>
                 </div>
