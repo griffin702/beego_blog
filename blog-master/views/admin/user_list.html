@@ -10,6 +10,7 @@
 			<tr>
 				<th>ID</th>
 				<th>用户名</th>
+                <th>昵称</th>
 				<th>邮箱</th>
 				<th>最后登录</th>
 				<th>登录IP</th>
@@ -23,6 +24,7 @@
 				<tr>
 					<td>{{$v.Id}}</td>
 					<td>{{$v.Username}}</td>
+                    <td>{{$v.Nickname}}</td>
 					<td>{{$v.Email}}</td>
 					<td>{{date $v.Lastlogin "Y-m-d H:i:s"}}</td>
 					<td>{{$v.Lastip}}</td>

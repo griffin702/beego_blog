@@ -24,6 +24,13 @@
 					{{date .user.Lastlogin "Y-m-d H:i:s"}} ({{.user.Lastip}})
 				</td>
 			</tr>
+            <tr>
+                <th>昵称：</th>
+                <td>
+                    <input type="text" name="nickname" value="{{.user.Nickname}}" class="form-control" />
+                    <span class="text-error">{{.errmsg.nickname}}</span>
+                </td>
+            </tr>
 			<tr>
 				<th>当前密码：</th>
 				<td>

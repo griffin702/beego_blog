@@ -52,31 +52,41 @@ func (this *AccountController) Register() {
 	input := make(map[string]string)
 	errmsg := make(map[string]string)
 	if this.Ctx.Request.Method == "POST" && this.GetString("dosubmit") == "yes" {
-		username := strings.TrimSpace(this.GetString("username"))
-		password := strings.TrimSpace(this.GetString("password"))
+		username1 := strings.TrimSpace(this.GetString("username1"))
+		password1 := strings.TrimSpace(this.GetString("password1"))
 		password2 := strings.TrimSpace(this.GetString("password2"))
 		email := strings.TrimSpace(this.GetString("email"))
-		input["username"] = username
-		input["password"] = password
+		nickname := strings.TrimSpace(this.GetString("nickname"))
+		input["username1"] = username1
+		input["password1"] = password1
 		input["password2"] = password2
 		input["email"] = email
+		input["nickname"] = nickname
 		valid := validation.Validation{}
-		if v := valid.Required(username, "username"); !v.Ok {
+		if v := valid.Required(username1, "username"); !v.Ok {
 			errmsg["username"] = "请输入用户名"
-		} else if v := valid.MaxSize(username, 15, "username"); !v.Ok {
+		} else if v := valid.MaxSize(username1, 15, "username"); !v.Ok {
 			errmsg["username"] = "用户名长度不能大于15个字符"
-		} else {
-			user := models.User{}
-			if err := user.Query().Filter("username", username).One(&user); err == nil {
-				errmsg["username"] = fmt.Sprintf("用户名:%s 已被注册", username)
-			}
 		}
-		if v := valid.Required(password, "password"); !v.Ok {
+		user := models.User{Username:username1}
+		if err := user.Read(); err == nil {
+			errmsg["username"] = fmt.Sprintf("用户名:%s 已被注册", username1)
+		}
+		if v := valid.Required(nickname, "nickname"); !v.Ok {
+			errmsg["nickname"] = "请输入昵称"
+		} else if v := valid.MaxSize(nickname, 15, "nickname"); !v.Ok {
+			errmsg["nickname"] = "昵称长度不能大于15个字符"
+		}
+		user1 := models.User{Nickname:nickname}
+		if err := user1.Read(); err == nil {
+			errmsg["nickname"] = fmt.Sprintf("昵称:%s 已被使用", nickname)
+		}
+		if v := valid.Required(password1, "password"); !v.Ok {
 			errmsg["password"] = "请输入密码"
 		}
 		if v := valid.Required(password2, "password2"); !v.Ok {
 			errmsg["password2"] = "请再次输入密码"
-		} else if password != password2 {
+		} else if password1 != password2 {
 			errmsg["password2"] = "两次输入的密码不一致"
 		}
 		if v := valid.Required(email, "email"); !v.Ok {
@@ -86,12 +96,13 @@ func (this *AccountController) Register() {
 		}
 		if len(errmsg) == 0 {
 			var user models.User
-			user.Username = username
-			user.Password = models.Md5([]byte(password))
+			user.Username = username1
+			user.Password = models.Md5([]byte(password1))
 			user.Email = email
 			user.Active = int8(1)
 			user.Lastip = this.getClientIp()
 			user.Avator = "/static/upload/default/user-default-60x60.png"
+			user.Nickname = nickname
 			if err := user.Insert(); err != nil {
 				this.showmsg(err.Error())
 			} else {
@@ -122,7 +133,23 @@ func (this *AccountController) Profile() {
 		password := strings.TrimSpace(this.GetString("password"))
 		newpassword := strings.TrimSpace(this.GetString("newpassword"))
 		newpassword2 := strings.TrimSpace(this.GetString("newpassword2"))
+		nickname := strings.TrimSpace(this.GetString("nickname"))
 		updated := false
+		valid := validation.Validation{}
+		if v := valid.Required(nickname, "nickname"); !v.Ok {
+			errmsg["nickname"] = "请输入昵称"
+		} else if v := valid.MaxSize(nickname, 15, "nickname"); !v.Ok {
+			errmsg["nickname"] = "昵称长度不能大于15个字符"
+		}
+		user1 := models.User{Nickname:nickname}
+		if err := user1.Read(); err == nil {
+			errmsg["nickname"] = fmt.Sprintf("昵称:%s 已被使用", nickname)
+		}
+		if newpassword == "" && nickname != user.Nickname && len(errmsg) == 0 {
+			user.Nickname = nickname
+			user.Update("nickname")
+			updated = true
+		}
 		if newpassword != "" {
 			if password == "" || models.Md5([]byte(password)) != user.Password {
 				errmsg["password"] = "当前密码错误"
@@ -132,8 +159,9 @@ func (this *AccountController) Profile() {
 				errmsg["newpassword2"] = "两次输入的密码不一致"
 			}
 			if len(errmsg) == 0 {
+				user.Nickname = nickname
 				user.Password = models.Md5([]byte(newpassword))
-				user.Update("password")
+				user.Update("password", "nickname")
 				updated = true
 			}
 		}

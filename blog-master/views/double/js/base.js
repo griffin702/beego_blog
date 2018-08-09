@@ -133,16 +133,18 @@ $(document).ready(function(){
     });
     $('#wy-register-submit').on("click",function(evt){
         evt.preventDefault();
-        var username = $('input[name=username]').val(),
-            password = $('input[name=password]').val(),
+        var username1 = $('input[name=username1]').val(),
+            password1 = $('input[name=password1]').val(),
             password2 = $('input[name=password2]').val(),
+            nickname = $('input[name=nickname]').val(),
             email = $('input[name=email]').val(),
             dosubmit = $('input[name=dosubmit]').val();
         var data = {
                 'dosubmit': dosubmit,
-                'username': username,
-                'password': password,
+                'username1': username1,
+                'password1': password1,
                 'password2': password2,
+                'nickname': nickname,
                 'email': email
             };
         $.ajax({
@@ -158,7 +160,7 @@ $(document).ready(function(){
                     $('input[name=password]').val('');
                     $('input[name=password2]').val('');
                     $('input[name=email]').val('');
-                    alert("账号："+username+"注册成功,请使用该账号登录!")
+                    alert("账号："+username1+"注册成功,请使用该账号登录!")
                     $('.relogin').click();
                 }
             },
@@ -168,19 +170,7 @@ $(document).ready(function(){
         });
     });
     //处理评论回复超过3条则隐藏
-    $('.comment_parent').each(function () {
-        var num = $(this).children('.comment_child').length;
-        $(this).find('.comment_child').each(function () {
-            if (num > 3) {
-                $(this).addClass('hidden');
-            }
-            if (num == 3) {
-                var more = $("<div class='comment_child col-lg-11 col-md-11 col-sm-11 col-xs-11 column'><button class='btn btn-info open-more'>展开过往回复>></button></div>");
-                $(this).parent().append(more);
-            }
-            num--;
-        });
-    });
+    initcommentslist();
     $("#wy-delegate-all").on("click", "#comments-list .comment_parent button.open-more", function (event) {
         $(this).parent().siblings().removeClass('hidden');
         var close_more = $("<button class='btn btn-info close-more'><<收起过往回复</button>");
@@ -199,6 +189,32 @@ $(document).ready(function(){
         $(this).parent().append(more);
         $(this).remove();
     });
+    if(location.hash){
+        var target = $(location.hash);
+        if(target.length===1){
+            var top = target.offset().top-60;
+            if(top > 0){
+                $('html,body').animate({scrollTop:top}, 800);
+            }
+            target.css('color','red');
+        }
+    }
+    $("ul.newcomment li").find('a:last').on("click", function(event){
+        var thispath = $(this).attr('href');
+        if (thispath.split('#')[0] === window.location.pathname) {
+            var target = $('#'+thispath.split('#')[1]);
+            if(target.length===1){
+                event.preventDefault();
+                var top = target.offset().top-82;
+                if(top > 0){
+                    $('html,body').animate({scrollTop:top}, 300);
+                }
+                $('.comment_parent .media-body').css('color','');
+                location.hash = '#'+thispath.split('#')[1];
+                target.css('color','red');
+            }
+        }
+    });
 });
 
 function ajax_Main(type, data, url, timewait){
@@ -209,11 +225,32 @@ function ajax_Main(type, data, url, timewait){
         cache:true,
         dataType:"html",
         success: function(data){
+            var has_form = $('#wrap-form-comment').children('#form-comment').length;
+            if (has_form === 0) {
+                $('#form-comment').appendTo($('#wrap-form-comment'));
+                $('#cancel_reply').hide();
+            }
             $("#wrap-comments-list").html($(data).find("#comments-list"));
-            $(window).scrollTop(400);
+            initcommentslist();
         },
         error: function(){
             alert("false");
         }
     })}, timewait);
+}
+
+function initcommentslist() {
+    $('.comment_parent').each(function() {
+        var num = $(this).children('.comment_child').length;
+        $(this).find('.comment_child').each(function () {
+            if (num > 3) {
+                $(this).addClass('hidden');
+            }
+            if (num === 3) {
+                var more = $("<div class='comment_child col-lg-11 col-md-11 col-sm-11 col-xs-11 column'><button class='btn btn-info open-more'>展开过往回复>></button></div>");
+                $(this).parent().append(more);
+            }
+            num--;
+        });
+    });
 }

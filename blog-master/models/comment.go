@@ -66,7 +66,7 @@ func (m *Comments) Return_PkName(key int64) (string, error) {
 	if err != nil {
 		return "",err
 	}
-	return reply_pk.User.Username, nil
+	return reply_pk.User.Nickname, nil
 }
 
 func (m *Comments) Return_PkId(key int64) (int64, error) {

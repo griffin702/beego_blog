@@ -174,7 +174,7 @@ func (this *MainController) Show() {
 	this.Data["commentuser"] = commentuser
 	pager := models.NewPager(
 		int64(this.page), int64(count),
-		int64(this.pagesize), "/article/%d/page/%d#wrap-form-comment", post.Id)
+		int64(this.pagesize), "/article/%d/page/%d#comments-head", post.Id)
 	this.Data["pagebar"] = pager.ToString()
 	this.Data["pagenum"] = this.page
 	this.Data["totalpage"] = pager.Totalpage
@@ -239,7 +239,7 @@ func (this *MainController) Links() {
 	this.Data["commentuser"] = commentuser
 	pager := models.NewPager(
 		int64(this.page), int64(count),
-		int64(this.pagesize), "/links%d.html#wrap-form-comment")
+		int64(this.pagesize), "/links%d.html#comments-head")
 	this.Data["pagebar"] = pager.ToString()
 	this.Data["pagenum"] = this.page
 	this.Data["totalpage"] = pager.Totalpage

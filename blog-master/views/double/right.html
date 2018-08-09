@@ -23,7 +23,7 @@
                     <img class="media-object" src="{{ $v.User.Avator }}" height="40" width="40" alt="">
                 </a>
                 <span>
-                {{$v.User.Username}}{{ if eq $v.User.Id 1 }}
+                {{$v.User.Nickname}}{{ if eq $v.User.Id 1 }}
                     <span class="btn btn-info btn-xs">官方</span>{{end}}
                 </span>
                 <a href="{{$v.Obj_pk.Link}}#comment-{{$v.Id}}" title="{{$v.Comment}}" style="display: block">

@@ -10,6 +10,7 @@ type User struct {
 	Id         int64
 	Username   string        `json:"username" orm:"unique;size(15);index"`
 	Password   string        `orm:"size(32)"`
+	Nickname   string        `json:"nickname" orm:"size(15);index"`
 	Email      string        `json:"email" orm:"size(50);index"`
 	Lastlogin  time.Time     `json:"lastlogin" orm:"auto_now_add;type(datetime);index"`
 	Logincount int64         `orm:"index"`

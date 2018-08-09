@@ -62,19 +62,8 @@ function comment_submit(event){
 					success: function(data){
                         $('#form-comment').appendTo($('#wrap-form-comment'));
                         $('#cancel_reply').hide();
-                        var fk = $("#comment-" + reply_fk);
-                        if (reply_fk > 0) {
-                            var newcomment = $(data).find("#comment-" + reply_fk).siblings(".comment_child:last");
-                            var fk_length = fk.siblings(".comment_child").length;
-                            if (fk_length > 3) {
-                                fk.siblings(".comment_child:last").before(newcomment);
-                            } else {
-                                fk.parent().append(newcomment);
-                            }
-                        } else {
-                            $("#comments-list").prepend($(data).find(".comments_one:first"));
-                        }
-						// $("#wrap-comments-list").html($(data).find("#comments-list"));
+						$("#wrap-comments-list").html($(data).find("#comments-list"));
+                        initcommentslist();
                         $(".comments_length").html($(data).find(".comments_length p"));
                         $("#id_reply_pk").val('0');
                         $("#id_reply_fk").val('0');

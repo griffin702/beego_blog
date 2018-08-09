@@ -44,6 +44,7 @@ func (this *UserController) Add() {
 		password2 := strings.TrimSpace(this.GetString("password2"))
 		email := strings.TrimSpace(this.GetString("email"))
 		avator := strings.TrimSpace(this.GetString("avator"))
+		nickname := strings.TrimSpace(this.GetString("nickname"))
 		if avator == "" {
 			avator = "/static/upload/default/user-default-60x60.png"
 		}
@@ -56,49 +57,49 @@ func (this *UserController) Add() {
 			this.GetString("permission6") + "|" +
 			this.GetString("permission7"))
 		active, _ := this.GetInt64("active")
-
 		input["username"] = username
 		input["password"] = password
 		input["password2"] = password2
 		input["permissionlist"] = permissionlist
 		input["email"] = email
 		input["avator"] = avator
-
 		valid := validation.Validation{}
-
 		if v := valid.Required(username, "username"); !v.Ok {
 			errmsg["username"] = "请输入用户名"
 		} else if v := valid.MaxSize(username, 15, "username"); !v.Ok {
 			errmsg["username"] = "用户名长度不能大于15个字符"
 		}
-
 		user := models.User{Username: username}
 		if err := user.Read(); err == nil {
 			errmsg["username"] = fmt.Sprintf("用户名:%s 已被注册", username)
 		}
-
+		if v := valid.Required(nickname, "nickname"); !v.Ok {
+			errmsg["nickname"] = "请输入昵称"
+		} else if v := valid.MaxSize(nickname, 15, "nickname"); !v.Ok {
+			errmsg["nickname"] = "昵称长度不能大于15个字符"
+		}
+		user1 := models.User{Nickname:nickname}
+		if err := user1.Read(); err == nil {
+			errmsg["nickname"] = fmt.Sprintf("昵称:%s 已被使用", nickname)
+		}
 		if v := valid.Required(password, "password"); !v.Ok {
 			errmsg["password"] = "请输入密码"
 		}
-
 		if v := valid.Required(password2, "password2"); !v.Ok {
 			errmsg["password2"] = "请再次输入密码"
 		} else if password != password2 {
 			errmsg["password2"] = "两次输入的密码不一致"
 		}
-
 		if v := valid.Required(email, "email"); !v.Ok {
 			errmsg["email"] = "请输入email地址"
 		} else if v := valid.Email(email, "email"); !v.Ok {
 			errmsg["email"] = "Email无效"
 		}
-
 		if active > 0 {
 			active = 1
 		} else {
 			active = 0
 		}
-
 		if len(errmsg) == 0 {
 			var user models.User
 			user.Username = username
@@ -107,14 +108,13 @@ func (this *UserController) Add() {
 			user.Email = email
 			user.Avator = avator
 			user.Active = int8(active)
+			user.Nickname = nickname
 			if err := user.Insert(); err != nil {
 				this.showmsg(err.Error())
 			}
 			this.Redirect("/admin/user/list", 302)
 		}
-
 	}
-
 	this.Data["input"] = input
 	this.Data["errmsg"] = errmsg
 	this.display()
@@ -134,6 +134,7 @@ func (this *UserController) Edit() {
 		password2 := strings.TrimSpace(this.GetString("password2"))
 		email := strings.TrimSpace(this.GetString("email"))
 		avator := strings.TrimSpace(this.GetString("avator"))
+		nickname := strings.TrimSpace(this.GetString("nickname"))
 		if avator == "" {
 			avator = "/static/upload/default/user-default-60x60.png"
 		}
@@ -150,7 +151,15 @@ func (this *UserController) Edit() {
 				this.GetString("permission7"))
 		active, _ := this.GetInt64("active")
 		valid := validation.Validation{}
-
+		if v := valid.Required(nickname, "nickname"); !v.Ok {
+			errmsg["nickname"] = "请输入昵称"
+		} else if v := valid.MaxSize(nickname, 15, "nickname"); !v.Ok {
+			errmsg["nickname"] = "昵称长度不能大于15个字符"
+		}
+		user1 := models.User{Nickname:nickname}
+		if err := user1.Read(); err == nil {
+			errmsg["nickname"] = fmt.Sprintf("昵称:%s 已被使用", nickname)
+		}
 		if password != "" {
 			if v := valid.Required(password2, "password2"); !v.Ok {
 				errmsg["password2"] = "请再次输入密码"
@@ -179,6 +188,7 @@ func (this *UserController) Edit() {
 				user.Permission = permissionlist
 			}
 			user.Avator = avator
+			user.Nickname = nickname
 			user.Update()
 			this.Redirect("/admin/user/list", 302)
 		}

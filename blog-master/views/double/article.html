@@ -9,7 +9,7 @@
         <h2 class="c_titile">{{str2html .post.ColorTitle}}</h2>
         <p class="box_c">
             <span class="glyphicon glyphicon-time"></span>{{date .post.Posttime "y-m-j H:i:s"}}
-            <span class="glyphicon glyphicon-user"></span>{{.post.User.Username}}
+            <span class="glyphicon glyphicon-user"></span>{{.post.User.Nickname}}
             <span class="glyphicon glyphicon-eye-open"></span>{{.post.Views}}
         </p>
         <ul class="infos">
@@ -63,7 +63,7 @@
     </p>
 {{end}}
     <!-- Comments List -->
-    <div class="comments_length col-lg-12 col-md-12 col-sm-12 col-xs-12 column">
+    <div id="comments-head" class="comments_length col-lg-12 col-md-12 col-sm-12 col-xs-12 column">
         <p>{{.commentlength}} 条评论 {{.commentuser}} 人参与
             {{ if gt .totalpage 1 }}<span class="pagenum">({{.pagenum}}/{{.totalpage}})</span>{{ end }}
         </p>
@@ -77,7 +77,7 @@
                         <img class="media-object" src="{{ $item.Commentlist0.User.Avator }}" height="45" width="45" alt="">
                     </a>
                     <div class="media-body" id="comment-{{ $item.Commentlist0.Id }}">
-                        <h4 class="media-heading">{{ $item.Commentlist0.User.Username }}
+                        <h6 class="media-heading">{{ $item.Commentlist0.User.Nickname }}
                         {{ if eq $item.Commentlist0.User.Id 1 }}
                             <span class="btn btn-info btn-xs">官方</span>{{end}}
                             <small>{{date $item.Commentlist0.Submittime "y-m-d H:i"}}</small>
@@ -85,7 +85,7 @@
                                 <a href="#" data-comment-id="{{ $item.Commentlist0.Id }}"
                                      data-parent-id="{{ $item.Commentlist0.Id }}" class="comment_reply_link">回复</a>
                             </small>{{end}}
-                        </h4>
+                        </h6>
                         <p>{{ $item.Commentlist0.Comment }}</p>
                     </div>
                 {{range $k, $v := $item.Commentlist}}
@@ -94,7 +94,7 @@
                             <img class="media-object" src="{{ $v.User.Avator }}" height="30" width="30" alt="">
                         </a>
                         <div class="media-body" id="comment-{{ $v.Id }}">
-                            <h4 class="media-heading">{{ $v.User.Username }}
+                            <h6 class="media-heading">{{ $v.User.Nickname }}
                             {{ if eq $v.User.Id 1 }}
                                 <span class="btn btn-info btn-xs">官方</span>{{end}}
                                 <small>{{date $v.Submittime "y-m-d H:i"}}</small>
@@ -102,7 +102,7 @@
                                     <a href="#" data-comment-id="{{ $v.Id }}"
                                          data-parent-id="{{ $item.Commentlist0.Id }}" class="comment_reply_link">回复</a>
                                 </small>{{end}}
-                            </h4>{{$reply_pk_userid := $v.Return_PkId $v.Reply_pk}}
+                            </h6>{{$reply_pk_userid := $v.Return_PkId $v.Reply_pk}}
                             <small class="comment-quote">
                             {{ if eq $reply_pk_userid 1}}引用 官方 {{else}}引用 网友 {{end}}
                             {{ $v.Return_PkName $v.Reply_pk }}：{{ $v.Return_PkContent $v.Reply_pk }}</small>

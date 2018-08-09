@@ -83,7 +83,7 @@ func (this *baseController) auth() {
 		}
 	}
 	if this.userid == 0 && this.actionName != "login" && this.actionName != "register" {
-		this.Redirect("/admin/login", 302)
+		this.Redirect("/", 302)
 	}
 }
 
