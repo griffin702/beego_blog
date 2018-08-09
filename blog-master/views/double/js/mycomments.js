@@ -52,24 +52,33 @@ function comment_submit(event){
 			url:url,
 			cache:true,
 			dataType:"html",
-			success: setTimeout(function(){
-				$.ajax({
-					type:'GET',
-					data:{},
-					url:location.pathname,
-					cache:true,
-					dataType:"html",
-					success: function(data){
-                        $('#form-comment').appendTo($('#wrap-form-comment'));
-                        $('#cancel_reply').hide();
-						$("#wrap-comments-list").html($(data).find("#comments-list"));
-                        initcommentslist();
-                        $(".comments_length").html($(data).find(".comments_length p"));
-                        $("#id_reply_pk").val('0');
-                        $("#id_reply_fk").val('0');
-					}
-				});
-			},300),
+			success: function(data){
+                var err = JSON.parse(data).err;
+                var msg = JSON.parse(data).msg;
+                if (err === "false") {
+                    alert('评论失败,原因:'+msg);
+                } else {
+                    alert('评论成功:'+msg);
+                    setTimeout(function () {
+                        $.ajax({
+                            type: 'GET',
+                            data: {},
+                            url: location.pathname,
+                            cache: true,
+                            dataType: "html",
+                            success: function (data) {
+                                $('#form-comment').appendTo($('#wrap-form-comment'));
+                                $('#cancel_reply').hide();
+                                $("#wrap-comments-list").html($(data).find("#comments-list"));
+                                initcommentslist();
+                                $(".comments_length").html($(data).find(".comments_length p"));
+                                $("#id_reply_pk").val('0');
+                                $("#id_reply_fk").val('0');
+                            }
+                        });
+                    },300);
+                }
+			},
 			error: function(){
 				alert("失败,评论过于频繁!");
 			}

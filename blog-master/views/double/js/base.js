@@ -192,7 +192,7 @@ $(document).ready(function(){
     if(location.hash){
         var target = $(location.hash);
         if(target.length===1){
-            var top = target.offset().top-60;
+            var top = target.offset().top-82;
             if(top > 0){
                 $('html,body').animate({scrollTop:top}, 800);
             }

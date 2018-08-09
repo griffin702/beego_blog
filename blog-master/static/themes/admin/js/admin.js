@@ -86,7 +86,7 @@ $(document).ready(function(){
         fullscreen:false,
         sourceMode:false,
         forcePtag:true,
-        html5Upload:false,
+        html5Upload:false
     });
     //处理上传
     var autoview = document.querySelector('#autoview');

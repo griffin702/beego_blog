@@ -3,6 +3,7 @@ package models
 import (
 	"github.com/astaxie/beego/orm"
 	"time"
+	"math"
 )
 
 //评论模型
@@ -89,9 +90,23 @@ func (m *Comments) Return_PkContent(key int64) (string, error) {
 
 func (m *Comments) Return_limit(key string) (string) {
 	data := []rune(m.Comment)
-	if len(data) > 10 {
-		return string(data[:10])+"..."
+	if len(data) > 25 {
+		return string(data[:25])+"..."
 	}
 	return m.Comment
 }
 
+//title换行显示
+func (m *Comments) Titleln() string {
+	data := []rune(m.Comment)
+	if len(data) > 20 {
+		for num := int(math.Floor(float64(len(data))/20)); num > 0; num-- {
+			copydata := make([]rune,0)
+			copydata = append(copydata, data[:20*num]...)
+			copydata = append(copydata, []rune("\n")...)
+			data = append(copydata,data[20*num:]...)
+		}
+		return string(data)
+	}
+	return m.Comment
+}

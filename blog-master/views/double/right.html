@@ -22,11 +22,17 @@
                 <a class="pull-left">
                     <img class="media-object" src="{{ $v.User.Avator }}" height="40" width="40" alt="">
                 </a>
-                <span>
-                {{$v.User.Nickname}}{{ if eq $v.User.Id 1 }}
-                    <span class="btn btn-info btn-xs">官方</span>{{end}}
-                </span>
-                <a href="{{$v.Obj_pk.Link}}#comment-{{$v.Id}}" title="{{$v.Comment}}" style="display: block">
+                <div class="media-body">
+                    <h6 class="media-heading">
+                    {{$v.User.Nickname}}{{ if eq $v.User.Id 1 }}
+                        <button class="btn btn-info btn-xs">官方</button>{{end}}
+                    </h6>
+                </div>
+            {{if eq $v.Obj_pk_type 1}}
+                <a href="/links.html#comment-{{$v.Id}}" title="{{$v.Titleln}}">
+            {{else}}
+                <a href="{{$v.Obj_pk.Link}}#comment-{{$v.Id}}" title="{{$v.Titleln}}">
+            {{end}}
                 {{$v.Return_limit $v.Comment}}</a>
             </li>
         {{end}}

@@ -51,28 +51,45 @@ func (this *CommentsController) Add() {
 			comment_content := strings.TrimSpace(this.GetString("comment_content"))
 			security_hash := strings.TrimSpace(this.GetString("security_hash"))
 			timestamp := strings.TrimSpace(this.GetString("timestamp"))
+			Out := map[string]string{"err":"false","msg":"请求参数不合法"}
 			if comment_content != "" && security_hash != "" {
-				checkstr := models.Md5([]byte(replypk + timestamp + "@YO!r52w!D2*I%Ov"))
-				//println(security_hash,checkstr)
-				if checkstr == security_hash {
-					comment.Comment = comment_content
-					var user models.User
-					user.Query().Filter("id", this.userid).Limit(1).One(&user)
-					comment.User = &models.User{Id: this.userid}
-					comment.Obj_pk = &models.Post{Id: int64(blogid)}
-					comment.Obj_pk_type = int64(object_pk_type)
-					replypk_to_int, _ := strconv.Atoi(replypk)
-					comment.Reply_pk = int64(replypk_to_int)
-					comment.Reply_fk = int64(replyfk)
-					comment.Ipaddress = this.getClientIp()
-					comment.Submittime = this.getTime()
-					models.Cache.Delete("newcomments")
-					if err := comment.Insert(); err != nil {
-						this.showmsg(err.Error())
+				strcount := len([]rune(comment_content))
+				if strcount < 169 {
+					checkstr := models.Md5([]byte(replypk + timestamp + "@YO!r52w!D2*I%Ov"))
+					//println(security_hash,checkstr)
+					if checkstr == security_hash {
+						comment.Comment = comment_content
+						var user models.User
+						user.Query().Filter("id", this.userid).Limit(1).One(&user)
+						comment.User = &models.User{Id: this.userid}
+						comment.Obj_pk = &models.Post{Id: int64(blogid)}
+						comment.Obj_pk_type = int64(object_pk_type)
+						replypk_to_int, _ := strconv.Atoi(replypk)
+						comment.Reply_pk = int64(replypk_to_int)
+						comment.Reply_fk = int64(replyfk)
+						comment.Ipaddress = this.getClientIp()
+						comment.Submittime = this.getTime()
+						models.Cache.Delete("newcomments")
+						if err := comment.Insert(); err != nil {
+							//this.showmsg(err.Error())
+							Out["err"] = "false"
+							Out["msg"] = err.Error()
+						} else {
+							Out["err"] = "ture"
+							Out["msg"] = "感谢你的评论"
+						}
+					} else {
+						Out["err"] = "false"
+						Out["msg"] = "签名不合法,请您高抬贵手"
 					}
+				} else {
+					Out["err"] = "false"
+					Out["msg"] = "评论内容过长,最多168字符"
 				}
 			}
-			this.Redirect(this.Ctx.Request.Referer(), 302)
+			//this.Redirect(this.Ctx.Request.Referer(), 302)
+			this.Data["json"] = Out
+			this.ServeJSON()
 		} else {
 			this.Abort("404")
 		}
