@@ -32,7 +32,7 @@
                 <p>{{str2html $v.Content}}</p>
             </div>
         </div>
-        <span class="dateview col-lg-2 col-md-2 col-sm-2 col-xs-2 column">{{date $v.Posttime "y-m-j"}}</span>
+        <span class="dateview col-lg-2 col-md-2 col-sm-2 col-xs-2 column">{{date $v.Posttime "y-m-j H:i"}}</span>
     {{end}}
     </div>
     {{str2html .pagebar}}
