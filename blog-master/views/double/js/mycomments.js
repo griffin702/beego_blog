@@ -58,7 +58,6 @@ function comment_submit(event){
                 if (err === "false") {
                     alert('评论失败,原因:'+msg);
                 } else {
-                    alert('评论成功:'+msg);
                     setTimeout(function () {
                         $.ajax({
                             type: 'GET',
