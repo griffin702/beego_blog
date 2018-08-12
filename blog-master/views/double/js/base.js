@@ -121,13 +121,14 @@ $(document).ready(function(){
                 $('.alert-warning').remove();
                 $('#wy-login-form').prepend(msg);
                 if (!msg.html()) {
+                    alert("登录成功");
                     $('input[name=password]').val('');
                     $('input[name=remember]').val('');
-                    window.location.reload();
+                    setTimeout(window.location.reload(),800);
                 }
             },
-            error: function(msg){
-                alert(msg.html());
+            error: function(){
+                alert("登录失败");
             }
         });
     });
@@ -165,7 +166,7 @@ $(document).ready(function(){
                 }
             },
             error: function(){
-                alert("登录失败");
+                alert("注册失败");
             }
         });
     });
