@@ -126,8 +126,8 @@ $(document).ready(function(){
                     window.location.reload();
                 }
             },
-            error: function(){
-                alert("登录失败");
+            error: function(msg){
+                alert(msg);
             }
         });
     });
