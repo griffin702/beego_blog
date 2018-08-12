@@ -121,7 +121,6 @@ $(document).ready(function(){
                 $('.alert-warning').remove();
                 $('#wy-login-form').prepend(msg);
                 if (!msg.html()) {
-                    alert("登录成功");
                     $('input[name=password]').val('');
                     $('input[name=remember]').val('');
                     setTimeout(window.location.reload(),800);
