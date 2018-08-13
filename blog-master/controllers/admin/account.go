@@ -6,6 +6,7 @@ import (
 	"strings"
 	"github.com/astaxie/beego/validation"
 	"fmt"
+	"regexp"
 )
 
 type AccountController struct {
@@ -67,9 +68,12 @@ func (this *AccountController) Register() {
 			errmsg["username"] = "请输入用户名"
 		} else if v := valid.MaxSize(username1, 15, "username"); !v.Ok {
 			errmsg["username"] = "用户名长度不能大于15个字符"
+		} else if !checkUsername(username1) {
+			errmsg["username"] = "输入的用户名不符合要求(仅允许字母开头,并以字母、数字、-、_组成)"
 		}
-		user := models.User{Username:username1}
-		if err := user.Read(); err == nil {
+		var user models.User
+		err := user.Query().Filter("username", username1).One(&user)
+		if err == nil {
 			errmsg["username"] = fmt.Sprintf("用户名:%s 已被注册", username1)
 		}
 		if v := valid.Required(nickname, "nickname"); !v.Ok {
@@ -77,17 +81,21 @@ func (this *AccountController) Register() {
 		} else if v := valid.MaxSize(nickname, 15, "nickname"); !v.Ok {
 			errmsg["nickname"] = "昵称长度不能大于15个字符"
 		}
-		user1 := models.User{Nickname:nickname}
-		if err := user1.Read(); err == nil {
+		err = user.Query().Filter("nickname", nickname).One(&user)
+		if err == nil {
 			errmsg["nickname"] = fmt.Sprintf("昵称:%s 已被使用", nickname)
 		}
 		if v := valid.Required(password1, "password"); !v.Ok {
 			errmsg["password"] = "请输入密码"
+		} else if !checkPassword(password1) {
+			errmsg["password1"] = "输入的密码不符合要求(仅允许字母、数字和部分符号组成)"
 		}
 		if v := valid.Required(password2, "password2"); !v.Ok {
 			errmsg["password2"] = "请再次输入密码"
 		} else if password1 != password2 {
 			errmsg["password2"] = "两次输入的密码不一致"
+		} else if !checkPassword(password2) {
+			errmsg["password2"] = "输入的密码不符合要求(仅允许字母、数字和部分符号组成)"
 		}
 		if v := valid.Required(email, "email"); !v.Ok {
 			errmsg["email"] = "请输入email地址"
@@ -141,8 +149,9 @@ func (this *AccountController) Profile() {
 		} else if v := valid.MaxSize(nickname, 15, "nickname"); !v.Ok {
 			errmsg["nickname"] = "昵称长度不能大于15个字符"
 		}
-		user1 := models.User{Nickname:nickname}
-		if err := user1.Read(); err == nil {
+		var user1 models.User
+		err := user1.Query().Filter("nickname", nickname).One(&user)
+		if err == nil {
 			errmsg["nickname"] = fmt.Sprintf("昵称:%s 已被使用", nickname)
 		}
 		if newpassword == "" && nickname != user.Nickname && len(errmsg) == 0 {
@@ -170,4 +179,18 @@ func (this *AccountController) Profile() {
 	}
 	this.Data["user"] = user
 	this.display()
+}
+
+func checkUsername(username string) (b bool) {
+	if ok, _ := regexp.MatchString("^[a-zA-Z]([a-zA-Z0-9-_]{4,14})+$", username); !ok {
+		return false
+	}
+	return true
+}
+
+func checkPassword(password string) (b bool) {
+	if ok, _ := regexp.MatchString("^[a-zA-Z0-9[:punct:]]{4,19}$", password); !ok {
+		return false
+	}
+	return true
 }
