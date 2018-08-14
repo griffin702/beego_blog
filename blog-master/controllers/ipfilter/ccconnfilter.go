@@ -8,7 +8,7 @@ import (
 )
 
 const (
-	maxConn  = 10            //同IP最大异常访问数
+	maxConn  = 6            //同IP最大异常访问数
 	checkTimeReset = 120     //重置计数器间隔
 	checkTimeDiff = 7      //异常时间差
 )
