@@ -10,21 +10,22 @@ import (
 )
 
 type Post struct {
-	Id       int64
-	User     *User       `orm:"rel(fk);index"`
-	Title    string      `orm:"size(100);index"`
-	Color    string      `orm:"size(7);index"`
-	Urlname  string      `orm:"size(100);index"`
-	Urltype  int8        `orm:"index"`
-	Content  string      `orm:"type(text)"`
-	Tags     string      `orm:"size(100);index"`
-	Posttime time.Time   `orm:"auto_now_add;type(datetime);index"`
-	Views    int64       `orm:"index"`
-	Status   int8        `orm:"index"`
-	Updated  time.Time   `orm:"auto_now_add;type(datetime);index"`
-	Istop    int8        `orm:"index"`
-	Cover    string      `orm:"size(70);default(/static/upload/default/blog-default-0.png)"`
-	Comments []*Comments `orm:"reverse(many)"`
+	Id         int64
+	User       *User       `orm:"rel(fk);index"`
+	Title      string      `orm:"size(100);index"`
+	Color      string      `orm:"size(7);index"`
+	Urlname    string      `orm:"size(100);index"`
+	Urltype    int8        `orm:"index"`
+	Content    string      `orm:"type(text)"`
+	Content_md string      `orm:"type(text)"`
+	Tags       string      `orm:"size(100);index"`
+	Posttime   time.Time   `orm:"auto_now_add;type(datetime);index"`
+	Views      int64       `orm:"index"`
+	Status     int8        `orm:"index"`
+	Updated    time.Time   `orm:"auto_now_add;type(datetime);index"`
+	Istop      int8        `orm:"index"`
+	Cover      string      `orm:"size(70);default(/static/upload/default/blog-default-0.png)"`
+	Comments   []*Comments `orm:"reverse(many)"`
 }
 
 func (m *Post) TableName() string {
@@ -110,12 +111,23 @@ func (m *Post) TagsLink() string {
 
 //摘要
 func (m *Post) Excerpt() string {
+	//将HTML标签全转换成小写
+	re, _ := regexp.Compile("\\<[\\S\\s]+?\\>")
+	rep := re.ReplaceAllStringFunc(m.Content, strings.ToLower)
+	//保留hr标签转换为特殊标记
+	re, _ = regexp.Compile("\\<hr\\>")
+	rep = re.ReplaceAllString(rep, "_markdown_hr_")
+	//去除所有尖括号内的HTML代码，并换成换行符，不匹配<hr>
+	re, _ = regexp.Compile("\\<[\\S\\s]+?\\>")
+	rep = re.ReplaceAllString(rep, "")
+	//去除连续的换行符
+	re, _ = regexp.Compile("\\s{1,}")
+	rep = re.ReplaceAllString(rep, "")
 	//如果断定截取的断点可能会存在中文字符，则需要转为rune后再截取，否则可能会截成乱码
-	re, _ := regexp.Compile("<img.+/>")
-	rep := re.ReplaceAllString(m.Content, "")
 	data := []rune(rep)
-	if i := strings.Index(m.Content, "<hr />"); i != -1 {
-		return m.Content[:i]
+	fmt.Println(strings.Index(rep, "_markdown_hr_"))
+	if i := strings.Index(rep, "_markdown_hr_"); i != -1 {
+		return rep[:i]
 	}else if i = -1; len(data) > 62 {
 		return string(data[:62])+"..."
 	}

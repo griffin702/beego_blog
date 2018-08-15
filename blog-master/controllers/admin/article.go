@@ -114,13 +114,14 @@ func (this *ArticleController) Edit() {
 func (this *ArticleController) Save() {
 	var (
 		id      int64  = 0
-		title   string = strings.TrimSpace(this.GetString("title"))
-		content string = this.GetString("content")
-		tags    string = strings.TrimSpace(this.GetString("tags"))
-		urlname string = strings.TrimSpace(this.GetString("urlname"))
-		color   string = strings.TrimSpace(this.GetString("color"))
-		cover   string = strings.TrimSpace(this.GetString("cover"))
-		timestr string = strings.TrimSpace(this.GetString("posttime"))
+		title          = strings.TrimSpace(this.GetString("title"))
+		content_md     = this.GetString("content-markdown-doc")
+		content        = this.GetString("content-html-code")
+		tags           = strings.TrimSpace(this.GetString("tags"))
+		urlname        = strings.TrimSpace(this.GetString("urlname"))
+		color          = strings.TrimSpace(this.GetString("color"))
+		cover          = strings.TrimSpace(this.GetString("cover"))
+		timestr        = strings.TrimSpace(this.GetString("posttime"))
 		status  int64  = 0
 		istop   int8   = 0
 		urltype int8   = 0
@@ -216,6 +217,7 @@ func (this *ArticleController) Save() {
 	post.Istop = istop
 	post.Cover = cover
 	post.Content = content
+	post.Content_md = content_md
 	post.Urlname = urlname
 	post.Urltype = urltype
 	post.Updated = this.getTime()

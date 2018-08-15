@@ -8,10 +8,11 @@ import (
 
 //心情表
 type Mood struct {
-	Id       int64
-	Content  string    `orm:"type(text)"`
-	Cover    string    `orm:"size(70);default(/static/upload/default/blog-default-0.png)"`
-	Posttime time.Time `orm:"type(datetime);index"`
+	Id          int64
+	Content     string    `orm:"type(text)"`
+	Content_md  string    `orm:"type(text)"`
+	Cover       string    `orm:"size(70);default(/static/upload/default/blog-default-0.png)"`
+	Posttime    time.Time `orm:"type(datetime);index"`
 }
 
 func (m *Mood) TableName() string {

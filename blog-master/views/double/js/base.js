@@ -215,6 +215,12 @@ $(document).ready(function(){
             }
         }
     });
+    $("pre").each(function () {
+        var lang = $(this).children("code").attr("class");
+        if (lang) {
+            $(this).addClass("prettyprint linenums " + lang);
+        }
+    });
 });
 
 function ajax_Main(type, data, url, timewait){

@@ -72,7 +72,9 @@
 				<tr>
 					<th>内容:</th>
 					<td>
-						<textarea id="content" name="content">{{str2html .post.Content}}</textarea>
+                        <div id="content">
+						    <textarea style="display:none;">{{str2html .post.Content_md}}</textarea>
+                        </div>
 					</td>
 				</tr>
 			</tbody>

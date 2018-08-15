@@ -35,11 +35,12 @@ func (this *MoodController) List() {
 //发表说说
 func (this *MoodController) Add() {
 	if this.Ctx.Request.Method == "POST" {
-		content := strings.TrimSpace(this.GetString("content"))
+		content_md := strings.TrimSpace(this.GetString("moodcontent-markdown-doc"))
+		content := strings.TrimSpace(this.GetString("moodcontent-html-code"))
 		cover := strings.TrimSpace(this.GetString("cover"))
-
 		var mood models.Mood
 		mood.Content = content
+		mood.Content_md = content_md
 		mood.Cover = cover
 		mood.Posttime, _ = time.Parse("2006-01-02 15:04:05", time.Now().Format("2006-01-02 15:04:05"))
 		if err := mood.Insert(); err != nil {

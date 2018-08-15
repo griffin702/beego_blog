@@ -36,57 +36,88 @@ $(document).ready(function(){
             a.parent().siblings().removeClass("active");
         }
     });
-    $('#content').xheditor({
-        plugins:{
-            Code:{c:'btnCode',t:'插入代码',h:1,e:function(){
-                    var _this=this;
-                    var htmlCode='<div><select id="xheCodeType"><option value="go">Go</option><option value="py">Python</option><option value="html">HTML/XML</option><option value="js">Javascript</option><option value="css">CSS</option><option value="php">PHP</option><option value="java">Java</option><option value="pl">Perl</option><option value="rb">Ruby</option><option value="cs">C#</option><option value="c">C++/C</option><option value="vb">VB/ASP</option><option value="">其它</option></select></div><div><textarea id="xheCodeValue" wrap="soft" spellcheck="false" style="width:300px;height:100px;" /></div><div style="text-align:right;"><input type="button" id="xheSave" value="确定" /></div>';
-                    var jCode=$(htmlCode),jType=$('#xheCodeType',jCode),jValue=$('#xheCodeValue',jCode),jSave=$('#xheSave',jCode);
-                    jSave.click(function(){
-                        _this.loadBookmark();
-                        _this.pasteHTML('<pre class="prettyprint lang-'+jType.val()+'">'+_this.domEncode(jValue.val())+'</pre>');
-                        _this.hidePanel();
-                        return false;
-                    });
-                    _this.saveBookmark();
-                    _this.showDialog(jCode);
-                }}
-        },
-        tools:'Cut,Copy,Paste,Pastetext,|,' +
-        'Blocktag,Fontface,FontSize,Bold,Italic,Underline,Strikethrough,FontColor,BackColor,SelectAll,Removeformat,|,' +
-        'Align,List,Outdent,Indent,|,Link,Unlink,Anchor,Img,Flash,Media,Hr,Code,Emot,Table,|,Source,Preview,Print,Fullscreen',
-        skin:'default',
-        showBlocktag:false,
-        internalScript:false,
-        internalStyle:false,
-        cleanPaste:3,
-        width:600,
-        height:500,
-        loadCSS:'/static/xheditor/css/base.css',
-        fullscreen:false,
-        sourceMode:false,
-        forcePtag:true,
-        html5Upload:false,
-        upMultiple:1,
-        upImgUrl:"/admin/upload",
-        upImgExt:"jpg,jpeg,gif,png"
-    });
-    $('#moodcontent').xheditor({
-        tools:'Cut,Copy,Paste,Pastetext,|,' +
-        'Blocktag,Fontface,FontSize,Bold,Italic,Underline,Strikethrough,FontColor,BackColor,SelectAll,Removeformat,|,' +
-        'Align,List,Outdent,Indent,Emot,Table,|,Source,Preview,Print,Fullscreen',
-        skin:'default',
-        showBlocktag:false,
-        internalScript:false,
-        internalStyle:false,
-        cleanPaste:3,
-        width:600,
-        height:500,
-        loadCSS:'/static/xheditor/css/base.css',
-        fullscreen:false,
-        sourceMode:false,
-        forcePtag:true,
-        html5Upload:false
+    var is_watch,mdEditor1,mdEditor2;
+    if ($(window).width()<772){is_watch=false}else{is_watch=true}
+    $(function() {
+        if ($("#content").length > 0) {
+            mdEditor1 = editormd("content", {
+                width: "100%",
+                height: 680,
+                path: '/static/markdown/lib/',
+                toolbarIcons : function() {
+                    return ["undo", "redo", "|",
+                        "bold", "del", "italic", "quote", "ucwords", "uppercase", "lowercase", "|",
+                        "list-ul", "list-ol", "hr", "|",
+                        "link", "image", "code", "code-block", "table", "datetime", "emoji", "html-entities", "|",
+                        "goto-line", "watch", "preview", "fullscreen", "|",
+                        "help", "info"]
+                },
+                theme: "dark",
+                previewTheme: "dark",
+                editorTheme: "pastel-on-dark",
+                markdown: '',
+                codeFold: true,
+                //syncScrolling : false,
+                saveHTMLToTextarea: true,    // 保存 HTML 到 Textarea
+                searchReplace: true,
+                watch: is_watch,                // 关闭实时预览
+                htmlDecode: "style,script,iframe|on*",            // 开启 HTML 标签解析，为了安全性，默认不开启
+                //toolbar  : false,             //关闭工具栏
+                //previewCodeHighlight : false, // 关闭预览 HTML 的代码块高亮，默认开启
+                emoji: true,
+                taskList: true,
+                tocm: true,                  // Using [TOCM]
+                // tex : true,                   // 开启科学公式TeX语言支持，默认关闭
+                flowChart: true,             // 开启流程图支持，默认关闭
+                // sequenceDiagram : true,       // 开启时序/序列图支持，默认关闭,
+                //dialogLockScreen : false,   // 设置弹出层对话框不锁屏，全局通用，默认为true
+                //dialogShowMask : false,     // 设置弹出层对话框显示透明遮罩层，全局通用，默认为true
+                //dialogDraggable : false,    // 设置弹出层对话框不可拖动，全局通用，默认为true
+                //dialogMaskOpacity : 0.4,    // 设置透明遮罩层的透明度，全局通用，默认值为0.1
+                //dialogMaskBgColor : "#000", // 设置透明遮罩层的背景颜色，全局通用，默认为#fff
+                imageUpload: true,
+                imageFormats: ["jpg", "jpeg", "gif", "png"],
+                imageUploadURL: "/admin/upload",
+                onload: function () {
+                    //console.log('onload', this);
+                    //this.fullscreen();
+                    //this.unwatch();
+                    //this.watch().fullscreen();
+                    //this.width("100%");
+                    //this.height(480);
+                    //this.resize("100%", 640);
+                },
+            });
+        }
+        if ($("#moodcontent").length > 0) {
+            mdEditor2 = editormd("moodcontent", {
+                width: "100%",
+                height: 800,
+                path: '/static/markdown/lib/',
+                toolbarIcons : function() {
+                    return ["undo", "redo", "|",
+                        "bold", "del", "italic", "quote", "ucwords", "uppercase", "lowercase", "|",
+                        "list-ul", "list-ol", "hr", "|",
+                        "link", "code", "code-block", "table", "datetime", "emoji", "html-entities", "|",
+                        "goto-line", "watch", "preview", "fullscreen", "|",
+                        "help", "info"]
+                },
+                theme: "dark",
+                previewTheme: "dark",
+                editorTheme: "pastel-on-dark",
+                markdown: '',
+                codeFold: true,
+                saveHTMLToTextarea: true,
+                searchReplace: true,
+                watch: is_watch,
+                htmlDecode: "style,script,iframe|on*",
+                emoji: true,
+                taskList: true,
+                tocm: true,
+                flowChart: true,
+                imageUpload: false,
+            });
+        }
     });
     //处理上传
     var autoview = document.querySelector('#autoview');
@@ -117,7 +148,7 @@ $(document).ready(function(){
             var lastsrc = $('#picture').val();
             upurl = upurl + '&lastsrc=' + lastsrc;
         }
-        formData.append('filedata', dataURLtoFile(autoview.src, autoview.name));
+        formData.append('editormd-image-file', dataURLtoFile(autoview.src, autoview.name));
         $.ajax({
             url: upurl,
             method: 'POST',
@@ -126,11 +157,11 @@ $(document).ready(function(){
             processData: false,
             cache: false,
             success: function(data) {
-                var err = JSON.parse(JSON.stringify(data)).err;
-                if (err !== '') {
-                    alert(err);
+                var ret = JSON.parse(JSON.stringify(data));
+                if (!ret.success) {
+                    alert(ret.message);
                 } else {
-                    $('#picture').val(JSON.parse(JSON.stringify(data)).msg);
+                    $('#picture').val(ret.url);
                     if (uptype === 3) {
                         ajax_Main("GET", {}, '/admin/photo/list?albumid='+albumid, 500);
                     }

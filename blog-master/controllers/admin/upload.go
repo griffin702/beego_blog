@@ -83,7 +83,8 @@ func (this *FileuploadController) Insert(albumid int64, desc, url string) {
 }
 
 func (this *FileuploadController) Upload() {
-	f, h, err := this.GetFile("filedata")
+	f, h, err := this.GetFile("editormd-image-file")
+	dialog_id := this.GetString("guid")
 	if f != nil {
 		defer  f.Close()
 	}
@@ -91,9 +92,10 @@ func (this *FileuploadController) Upload() {
 	if utype == "" {
 		utype = "1"
 	}
-	Out := map[string]string{"err":"","msg":""}
+	Out := map[string]interface{}{"success":"","message":"","url":""}
 	if err != nil {
-		Out["err"] = "no file"
+		Out["success"] = 0
+		Out["message"] = "no file"
 	} else {
 		ext := filetool.Ext(h.Filename)
 		fi := &FileInfo{
@@ -101,58 +103,73 @@ func (this *FileuploadController) Upload() {
 			Type: ext,
 		}
 		if !fi.ValidateType() {
-			Out["err"] = "invalid file type"
+			Out["success"] = 0
+			Out["message"] = "invalid file type"
 		}
 		if sizeInterface, ok := f.(Sizer); ok {
 			fi.Size = sizeInterface.Size()
 		}
 		if !fi.ValidateSize() {
-			Out["err"] = fi.Error
+			Out["success"] = 0
+			Out["message"] = fi.Error
 		}
-		if Out["err"] == "" {
+		if Out["message"] == "" {
 			index, _ := strconv.Atoi(utype)
 			timenow := time.Now().UnixNano()
 			fileSaveName := fmt.Sprintf("%s/%s/%s", LOCAL_FILE_DIR, typemap[index], time.Now().Format("20060102"))
 			imgPath := fmt.Sprintf("%s/%d%s", fileSaveName, timenow, ext)
 			filetool.InsureDir(fileSaveName)
 			if index == 1 {//上传类型1：文章上传，只保存大图
-				err = this.SaveToFile("filedata", imgPath)
+				err = this.SaveToFile("editormd-image-file", imgPath)
 				if err != nil {
-					Out["err"] = err.Error()
+					Out["success"] = 0
+					Out["message"] = err.Error()
 				} else {
-					Out["msg"] = "/" + imgPath
+					Out["success"] = 1
+					Out["message"] = "上传成功"
+					Out["url"] = "/" + imgPath
+					Out["dialog_id"] = dialog_id
 				}
 			} else if index == 2 {//上传类型2：头像、封面等上传，只保存小图
 				w, _ := strconv.Atoi(this.GetString("w"))
 				h, _ := strconv.Atoi(this.GetString("h"))
 				err = createSmallPic(f, imgPath, w, h, ext)
 				if err != nil {
-					Out["err"] = err.Error()
+					Out["success"] = 0
+					Out["message"] = err.Error()
 				} else {
 					//保存成功，则删除旧资源
 					lastsrc := this.GetString("lastsrc")
 					if lastsrc != "" && !this.Isdefaultsrc(lastsrc) {
 						os.Remove("."+lastsrc)
 					}
-					Out["msg"] = "/" + imgPath
+					Out["success"] = 1
+					Out["message"] = "上传成功"
+					Out["url"] = "/" + imgPath
+					Out["dialog_id"] = dialog_id
 				}
 			} else if index == 3 {//上传类型3：照片上传，同时保存大图小图
-				err = this.SaveToFile("filedata", imgPath)
+				err = this.SaveToFile("editormd-image-file", imgPath)
 				if err != nil {
-					Out["err"] = err.Error()
+					Out["success"] = 0
+					Out["message"] = err.Error()
 				} else {
-					Out["msg"] = "/" + imgPath
+					Out["success"] = 1
+					Out["message"] = "上传成功"
+					Out["url"] = "/" + imgPath
+					Out["dialog_id"] = dialog_id
 				}
 				imgPathsmall := fmt.Sprintf("%s/%d_small%s", fileSaveName, timenow, ext)
 				w, _ := strconv.Atoi(this.GetString("w"))
 				h, _ := strconv.Atoi(this.GetString("h"))
 				err = createSmallPic(f, imgPathsmall, w, h, ext)
 				if err != nil {
-					Out["err"] = err.Error()
+					Out["success"] = 0
+					Out["message"] = err.Error()
 				}
 				albumid, err := this.GetInt64("albumid")
 				if err == nil {
-					this.Insert(albumid, fi.Name, Out["msg"])
+					this.Insert(albumid, fi.Name, Out["url"].(string))
 				}
 			}
 		}
