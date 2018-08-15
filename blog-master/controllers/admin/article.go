@@ -221,7 +221,7 @@ func (this *ArticleController) Save() {
 	post.Urlname = urlname
 	post.Urltype = urltype
 	post.Updated = this.getTime()
-	post.Update("tags", "status", "title", "color", "cover", "istop", "content", "urlname", "urltype", "updated")
+	post.Update("tags", "status", "title", "color", "cover", "istop", "content", "content_md", "urlname", "urltype", "updated")
 
 RD:
 	this.Redirect("/admin/article/list", 302)

@@ -125,7 +125,6 @@ func (m *Post) Excerpt() string {
 	rep = re.ReplaceAllString(rep, "")
 	//如果断定截取的断点可能会存在中文字符，则需要转为rune后再截取，否则可能会截成乱码
 	data := []rune(rep)
-	fmt.Println(strings.Index(rep, "_markdown_hr_"))
 	if i := strings.Index(rep, "_markdown_hr_"); i != -1 {
 		return rep[:i]
 	}else if i = -1; len(data) > 62 {
