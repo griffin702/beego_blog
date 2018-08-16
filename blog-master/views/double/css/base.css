@@ -50,7 +50,7 @@ h1.t_nav p { margin: 0; font-size: 12px; }
     h1.t_nav p { float: left; line-height: 20px; padding: 5px 5px; min-width: 200px; }
 }
 h1.t_nav p span { vertical-align:text-top; font-size: 14px; color:#999; }
-h1.t_nav { border-bottom: #F1F1F1 1px solid; font-size: 12px; font-weight: normal; line-height: 40px; height: 40px; margin: 0; }
+h1.t_nav { border-bottom: #F1F1F1 1px solid; font-size: 12px; font-weight: normal; line-height: 40px; height: 40px; margin: 10px 0; }
 a.n1, a.n2 { width: 100px; display: block; text-align: center; color: #fff; float: left }
 .n1 { background: #5EA51B; }
 .n2 { background: #8BBF5D; }
@@ -58,7 +58,7 @@ a.n1, a.n2 { width: 100px; display: block; text-align: center; color: #fff; floa
 /*右边栏样式*/
 .right-bar { padding: 0 10px!important; }
 .right-bar ul { list-style: none }
-.news h3 { font-size: 14px; background: url(../images/r_title_bg.jpg) repeat-x center ; margin-top: 0; }
+.news h3 { font-size: 14px; background: url(../images/r_title_bg.jpg) repeat-x center ; margin: 0; }
 .news h3 p { background: #fff; width: 70px }
 .news h3 span { color: #65b020 }
 .news h3.ph span { color: #37ccca; }
