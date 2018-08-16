@@ -102,9 +102,9 @@ $(document).ready(function(){
                         "goto-line", "watch", "preview", "fullscreen", "|",
                         "help", "info"]
                 },
-                theme: "dark",
-                previewTheme: "dark",
-                editorTheme: "pastel-on-dark",
+                theme: "default",
+                previewTheme: "default",
+                editorTheme: "mdn-like",
                 markdown: '',
                 codeFold: true,
                 saveHTMLToTextarea: true,
