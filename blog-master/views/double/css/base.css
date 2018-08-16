@@ -90,7 +90,7 @@ aside .rnav ul li a:hover { background: rgba(255,255,255,0.2); -webkit-transform
 .link-friends span .sitename{display:block;padding:0;}
 .link-friends span span{display:block}
 .link-friends span:hover img{transform:rotate(360deg);-webkit-transform:rotate(360deg);}
-.link-friends-body {padding: 20px 15px}
+.link-friends-body {padding: 20px 15px;background: url(../images/r_line.jpg) repeat-y right;}
 
 /*翻页样式*/
 /*.page{ margin:20px 0 0 0; text-align:center; width:100%;overflow: hidden;}*/
