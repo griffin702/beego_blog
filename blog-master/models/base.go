@@ -8,9 +8,19 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 	"net/url"
 	"strings"
+	"net/http"
+	"io/ioutil"
+	"time"
+	"regexp"
 )
 
 func init() {
+	go func() {
+		for {
+			time.Sleep(time.Duration(time.Second.Nanoseconds() * 10800))
+			Cache.Delete("weather")
+		}
+	}()
 	dbhost := beego.AppConfig.String("dbhost")
 	dbport := beego.AppConfig.String("dbport")
 	dbuser := beego.AppConfig.String("dbuser")
@@ -58,6 +68,53 @@ func GetOptions() map[string]string {
 	}
 	v := Cache.Get("options")
 	return v.(map[string]string)
+}
+
+//获取天气
+func GetWeather() (string) {
+	if !Cache.IsExist("weather") {
+		resp, err := http.Get("http://tianqiapi.com/api.php?style=td&skin=pitaya")
+		defer resp.Body.Close()
+		if err == nil {
+			weatherbody, _ := ioutil.ReadAll(resp.Body)
+			re := regexp.MustCompile("<body>(?s:(.*?))</body>")
+			result := re.FindAllString(string(weatherbody), -1)
+			if i := strings.Index(result[0], "pitaya/."); i == -1 && len(result) > 0 {
+				//返回内容正确才插入缓存
+				rep := "http://tianqiapi.com/static/skin/pitaya"
+				ret := strings.Replace(result[0], "./static/skin/pitaya", rep, -1)
+				Cache.Put("weather", ret)
+			} else {//默认必须插入空值到缓存，否则会一直重复获取影响访问速度，该任务交给计时器处理
+				Cache.Put("weather", "")
+			}
+		} else {
+			Cache.Put("weather", "")
+		}
+	}
+	v := Cache.Get("weather")
+	if v.(string) == "" {
+		//当缓存的天气为空时,触发1次创建计时器,每10秒获取一次天气,直到获取正确为止
+		Cache.Put("weather", "正在获取天气")//为了只创建1次，必须修改空值
+		go func() {
+			for {
+				time.Sleep(time.Duration(time.Second.Nanoseconds() * 10))
+				resp, err := http.Get("http://tianqiapi.com/api.php?style=td&skin=pitaya")
+				if err == nil {
+					weatherbody, _ := ioutil.ReadAll(resp.Body)
+					re := regexp.MustCompile("<body>(?s:(.*?))</body>")
+					result := re.FindAllString(string(weatherbody), -1)
+					if i := strings.Index(result[0], "pitaya/."); i == -1 && len(result) > 0 {
+						rep := "http://tianqiapi.com/static/skin/pitaya"
+						ret := strings.Replace(result[0], "./static/skin/pitaya", rep, -1)
+						Cache.Put("weather", ret)
+						resp.Body.Close()
+						break
+					}
+				}
+			}
+		}()
+	}
+	return v.(string)
 }
 
 func GetLatestBlog() []*Post {

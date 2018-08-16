@@ -394,3 +394,29 @@ ul.infos p img { display: block;margin: auto; max-width:100%;}
         background: #dddddd;
     }
 }
+.weather {
+    width: 300px;
+    font-size: 12px;
+}
+.weather em {
+    font-family: "Hiragino Sans GB","Microsoft YaHei","\5FAE\8F6F\96C5\9ED1",arial,Tahoma,SimSun,sans-serif!important;
+    font-style: normal;
+    display: inline-block;
+}
+.weather img {
+    margin: -2px 5px 0 0;
+    width: 16px;
+    height: 16px;
+    vertical-align: middle;
+}
+.weather .zl {
+    margin: 0;
+    padding: 1px 2px;
+    display: inline-block;
+    border-radius: 0;
+    line-height: 16px;
+    color: #fff;
+}
+.weather .liang {
+    background-color: #73d538;
+}

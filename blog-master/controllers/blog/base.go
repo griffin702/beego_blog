@@ -17,6 +17,7 @@ type baseController struct {
 	clientip          string
 	allowconn         bool
 	allowconnmsg      string
+	weather           string
 }
 
 func (this *baseController) Prepare() {
@@ -29,8 +30,10 @@ func (this *baseController) Prepare() {
 	}
 	this.Data["IsLogin"] = this.IsLogin()
 	this.options = models.GetOptions()
+	this.weather = models.GetWeather()
 	this.right = "right.html"
 	this.Data["options"] = this.options
+	this.Data["weather"] = this.weather
 	this.Data["latestblog"] = models.GetLatestBlog()
 	this.Data["hotblog"] = models.GetHotBlog()
 	this.Data["newcomments"] = models.GetNewComments()
