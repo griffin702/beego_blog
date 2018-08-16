@@ -134,8 +134,8 @@ func (m *Post) Excerpt() string {
 }
 
 func (m *Post) Del_Excerpt() string {
-	if i := strings.Index(m.Content, "<hr />"); i != -1 {
-		x := len("<hr />")
+	if i := strings.Index(m.Content, "<hr>"); i != -1 {
+		x := len("<hr>")
 		return m.Content[i+x:]
 	}
 	return m.Content
