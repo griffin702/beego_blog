@@ -1,7 +1,7 @@
 /*base*/
 body{ font-family:"微软雅黑",serif; }
 img { border: 0; }
-ul { list-style: none; }
+
 a:link, a:visited, a:hover, a:focus { text-decoration: none!important; }
 .navbar-nav .active a { color: #f04a40 !important; }
 a span { font-size: 10px; }
