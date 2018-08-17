@@ -144,7 +144,7 @@ $(document).ready(function(){
     });
     $('#uploadimg').on('click', function() {
         var formData = new FormData();
-        if (uptype === 2) {
+        if (uptype === 2 || (uptype === 3 && albumid === 0)) {
             var lastsrc = $('#picture').val();
             upurl = upurl + '&lastsrc=' + lastsrc;
         }
@@ -162,7 +162,7 @@ $(document).ready(function(){
                     alert(ret.message);
                 } else {
                     $('#picture').val(ret.url);
-                    if (uptype === 3) {
+                    if (uptype === 3 && albumid > 0) {
                         ajax_Main("GET", {}, '/admin/photo/list?albumid='+albumid, 500);
                     }
                 }

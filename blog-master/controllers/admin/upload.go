@@ -14,6 +14,7 @@ import (
 	"image"
 	"image/gif"
 	"blog-master/models"
+	"strings"
 )
 
 type FileuploadController struct {
@@ -149,6 +150,7 @@ func (this *FileuploadController) Upload() {
 					Out["dialog_id"] = dialog_id
 				}
 			} else if index == 3 {//上传类型3：照片上传，同时保存大图小图
+				lastsrc := this.GetString("lastsrc")
 				err = this.SaveToFile("editormd-image-file", imgPath)
 				if err != nil {
 					Out["success"] = 0
@@ -166,6 +168,12 @@ func (this *FileuploadController) Upload() {
 				if err != nil {
 					Out["success"] = 0
 					Out["message"] = err.Error()
+				} else {
+					//保存成功，则删除旧资源
+					if lastsrc != "" && !this.Isdefaultsrc(lastsrc) {
+						os.Remove("."+lastsrc)
+						os.Remove("."+ChangetoSmall(lastsrc))
+					}
 				}
 				albumid, err := this.GetInt64("albumid")
 				if err == nil {
@@ -224,4 +232,13 @@ func createSmallPic(file io.Reader, fileSmall string, w, h int, ext string) erro
 		return gif.Encode(out, m, nil)
 	}
 	return err
+}
+
+func ChangetoSmall(src string) string {
+	arr1 := strings.Split(src, "/")
+	filename := arr1[len(arr1)-1]
+	arr2 := strings.Split(filename, ".")
+	ext := "." + arr2[len(arr2)-1]
+	small := strings.Replace(src, ext, "_small"+ext, 1)
+	return small
 }
