@@ -16,7 +16,6 @@ pre.prettyprint {
     border: 1px solid #e8e8e8!important;
     border-left: 5px solid #CCC!important;
     /*padding: 9.5px!important;*/
-    margin: 10px!important;
     border-radius: 0!important;
 }
 pre.prettyprint ol {
