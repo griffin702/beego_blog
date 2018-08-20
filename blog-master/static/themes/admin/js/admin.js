@@ -130,27 +130,54 @@ $(document).ready(function(){
             uptype = 2
         }
         var reader = new FileReader();
-        var upwidth = autoview.width;
-        var upheight = autoview.height;
-        upurl = '/admin/upload/?type=' + uptype + '&w=' + upwidth + '&h=' + upheight;
-        if (albumid) {
-            upurl = upurl + '&albumid=' + albumid
-        }
+        var oldwidth = autoview.width;
+        var oldheight = autoview.height;
         reader.readAsDataURL(file);
         reader.onload = function () {
+            var image = new Image();
+            image.onload = function () {
+                var upwidth = image.width;
+                var upheight = image.height;
+                var max_w = 150;
+                var max_h = 150;
+                var prop;
+                if (upwidth < upheight && upheight > max_h) {
+                    prop = max_h/upheight;
+                    upheight = max_h;
+                    upwidth = upwidth * prop;
+                } else if (upwidth >= upheight && upwidth > max_w) {
+                    prop = max_w/upwidth;
+                    upwidth = max_w;
+                    upheight = upheight * prop;
+                }
+                if (uptype === 3) {
+                    autoview.width = upwidth;
+                    autoview.height = upheight;
+                    upurl = '/admin/upload/?type=' + uptype + '&w=' + upwidth + '&h=' + upheight;
+                } else {
+                    upurl = '/admin/upload/?type=' + uptype + '&w=' + oldwidth + '&h=' + oldheight;
+                }
+            };
+            image.src = this.result;
             autoview.src = this.result;
             autoview.name = file.name;
         };
+        if (albumid) {
+            upurl = upurl + '&albumid=' + albumid
+        }
     });
     $('#uploadimg').on('click', function() {
         var formData = new FormData();
+        var newupurl;
         if (uptype === 2 || (uptype === 3 && albumid === 0)) {
             var lastsrc = $('#picture').val();
-            upurl = upurl + '&lastsrc=' + lastsrc;
+            newupurl = upurl + '&lastsrc=' + lastsrc;
+        } else {
+            newupurl = upurl;
         }
         formData.append('editormd-image-file', dataURLtoFile(autoview.src, autoview.name));
         $.ajax({
-            url: upurl,
+            url: newupurl,
             method: 'POST',
             data: formData,
             contentType: false,
