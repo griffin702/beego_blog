@@ -19,7 +19,7 @@
 							<ul id="auto-loop" class="gallery list-unstyled">
 								{{range $k, $v := .list}}
 									<li data-desc="{{$v.Des}}">
-									  <img src="{{$v.ChangetoSmall}}" />
+									  <img src="{{$v.ChangetoSmall}}" width="190" height="135" />
 									  <a href="/admin/photo/cover?cover={{$v.ChangetoSmall}}&albumid={{$v.Albumid}}">设为封面</a>
 									  <a href="/admin/photo/delete?id={{$v.Id}}&albumid={{$v.Albumid}}" onclick="return del_confirm()">删除</a>
 									</li>

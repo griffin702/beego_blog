@@ -138,8 +138,8 @@ $(document).ready(function(){
             image.onload = function () {
                 var upwidth = image.width;
                 var upheight = image.height;
-                var max_w = 150;
-                var max_h = 150;
+                var max_w = 200;
+                var max_h = 200;
                 var prop;
                 if (upwidth < upheight && upheight > max_h) {
                     prop = max_h/upheight;
@@ -154,6 +154,9 @@ $(document).ready(function(){
                     autoview.width = upwidth;
                     autoview.height = upheight;
                     upurl = '/admin/upload/?type=' + uptype + '&w=' + upwidth + '&h=' + upheight;
+                    if (albumid) {
+                        upurl = upurl + '&albumid=' + albumid
+                    }
                 } else {
                     upurl = '/admin/upload/?type=' + uptype + '&w=' + oldwidth + '&h=' + oldheight;
                 }
@@ -162,9 +165,6 @@ $(document).ready(function(){
             autoview.src = this.result;
             autoview.name = file.name;
         };
-        if (albumid) {
-            upurl = upurl + '&albumid=' + albumid
-        }
     });
     $('#uploadimg').on('click', function() {
         var formData = new FormData();
