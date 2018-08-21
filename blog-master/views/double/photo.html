@@ -22,7 +22,7 @@
         {{range $k, $v := .list}}
             <li data-desc="{{$v.Des}}" data-src="{{$v.Url}}" class="col-lg-2 col-md-2 col-sm-6 col-xs-6 column">
                 <a href="#" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 column">
-                    <img src="{{$v.ChangetoSmall}}" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 column" width="190" height="135" />
+                    <img src="{{$v.ChangetoSmall}}" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 column" />
                     <span class="col-lg-12 col-md-12 col-sm-12 col-xs-12 column" title="{{$v.Des}}">{{$v.LongNameAlter}}</span>
                 </a>
             </li>

@@ -153,7 +153,8 @@ $(document).ready(function(){
                 if (uptype === 3) {
                     autoview.width = upwidth;
                     autoview.height = upheight;
-                    upurl = '/admin/upload/?type=' + uptype + '&w=' + upwidth + '&h=' + upheight;
+                    // upurl = '/admin/upload/?type=' + uptype + '&w=' + upwidth + '&h=' + upheight;
+                    upurl = '/admin/upload/?type=' + uptype + '&w=' + image.width + '&h=' + image.height;
                     if (albumid) {
                         upurl = upurl + '&albumid=' + albumid
                     }

@@ -15,6 +15,7 @@ import (
 	"image/gif"
 	"blog-master/models"
 	"strings"
+	"errors"
 )
 
 type FileuploadController struct {
@@ -134,7 +135,7 @@ func (this *FileuploadController) Upload() {
 			} else if index == 2 {//上传类型2：头像、封面等上传，只保存小图
 				w, _ := strconv.Atoi(this.GetString("w"))
 				h, _ := strconv.Atoi(this.GetString("h"))
-				err = createSmallPic(f, imgPath, w, h, ext)
+				err = createSmallPic_scale(f, imgPath, w, h, 100)
 				if err != nil {
 					Out["success"] = 0
 					Out["message"] = err.Error()
@@ -164,7 +165,8 @@ func (this *FileuploadController) Upload() {
 				imgPathsmall := fmt.Sprintf("%s/%d_small%s", fileSaveName, timenow, ext)
 				w, _ := strconv.Atoi(this.GetString("w"))
 				h, _ := strconv.Atoi(this.GetString("h"))
-				err = createSmallPic(f, imgPathsmall, w, h, ext)
+				//err = createSmallPic(f, imgPathsmall, w, h, ext)
+				err = createSmallPic_clip(f, imgPathsmall, w, h, 100)
 				if err != nil {
 					Out["success"] = 0
 					Out["message"] = err.Error()
@@ -232,6 +234,102 @@ func createSmallPic(file io.Reader, fileSmall string, w, h int, ext string) erro
 		return gif.Encode(out, m, nil)
 	}
 	return err
+}
+
+/*
+* 图片裁剪
+* 入参:
+* 规则:如果精度为0则精度保持不变
+*
+* 返回:error
+ */
+func createSmallPic_clip(in io.Reader, fileSmall string, w, h, quality int) error {
+	x0 := 0
+	x1 := 190
+	y0 := 0
+	y1 := 135
+	sh := h*190/w
+	sw := w*135/h
+	origin, fm, err := image.Decode(in)
+	if err != nil {
+		return err
+	}
+	if sh > 135 {
+		origin = resize.Resize(uint(190), uint(sh), origin, resize.Lanczos3)
+		y0 = (sh - 135) / 4
+		y1 = y0 + 135
+	} else {
+		origin = resize.Resize(uint(sw), uint(135), origin, resize.Lanczos3)
+		x0 = (sw - 190) / 4
+		x1 = x0 + 190
+	}
+	out, err := os.Create(fileSmall)
+	if err != nil {
+		return err
+	}
+	switch fm {
+	case "jpeg":
+		img := origin.(*image.YCbCr)
+		subImg := img.SubImage(image.Rect(x0, y0, x1, y1)).(*image.YCbCr)
+		return jpeg.Encode(out, subImg, &jpeg.Options{quality})
+	case "png":
+		switch origin.(type) {
+		case *image.NRGBA:
+			img := origin.(*image.NRGBA)
+			subImg := img.SubImage(image.Rect(x0, y0, x1, y1)).(*image.NRGBA)
+			return png.Encode(out, subImg)
+		case *image.RGBA:
+			img := origin.(*image.RGBA)
+			subImg := img.SubImage(image.Rect(x0, y0, x1, y1)).(*image.RGBA)
+			return png.Encode(out, subImg)
+		}
+	case "gif":
+		img := origin.(*image.Paletted)
+		subImg := img.SubImage(image.Rect(x0, y0, x1, y1)).(*image.Paletted)
+		return gif.Encode(out, subImg, &gif.Options{})
+	default:
+		return errors.New("ERROR FORMAT")
+	}
+	return nil
+}
+
+/*
+* 缩略图生成
+* 入参:
+* 规则: 如果width 或 hight其中有一个为0，则大小不变 如果精度为0则精度保持不变
+* 矩形坐标系起点是左上
+* 返回:error
+ */
+func createSmallPic_scale(in io.Reader, fileSmall string, width, height, quality int) error {
+	origin, fm, err := image.Decode(in)
+	if err != nil {
+		return err
+	}
+	if width == 0 || height == 0 {
+		width = origin.Bounds().Max.X
+		height = origin.Bounds().Max.Y
+	}
+	if quality == 0 {
+		quality = 100
+	}
+	canvas := resize.Thumbnail(uint(width), uint(height), origin, resize.Lanczos3)
+	out, err := os.Create(fileSmall)
+	if err != nil {
+		return err
+	}
+	//return jpeg.Encode(out, canvas, &jpeg.Options{quality})
+
+	switch fm {
+	case "jpeg":
+		return jpeg.Encode(out, canvas, &jpeg.Options{quality})
+	case "png":
+		return png.Encode(out, canvas)
+	case "gif":
+		return gif.Encode(out, canvas, &gif.Options{})
+	default:
+		return errors.New("ERROR FORMAT")
+	}
+	return nil
 }
 
 func ChangetoSmall(src string) string {
