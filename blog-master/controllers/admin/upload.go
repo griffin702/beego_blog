@@ -165,8 +165,22 @@ func (this *FileuploadController) Upload() {
 				imgPathsmall := fmt.Sprintf("%s/%d_small%s", fileSaveName, timenow, ext)
 				w, _ := strconv.Atoi(this.GetString("w"))
 				h, _ := strconv.Atoi(this.GetString("h"))
-				//err = createSmallPic(f, imgPathsmall, w, h, ext)
-				err = createSmallPic_clip(f, imgPathsmall, w, h, 100)
+				albumid, _ := this.GetInt64("albumid")
+				if albumid == 0 {
+					max_w := 200
+					max_h := 200
+					var sw, sh int
+					if w < h && h > max_h {
+						sh = max_h
+						sw = w * max_h/h
+					} else if w >= h && w > max_w {
+						sw = max_w
+						sh = h * max_w/w
+					}
+					err = createSmallPic_scale(f, imgPathsmall, sw, sh, 100)
+				} else {
+					err = createSmallPic_clip(f, imgPathsmall, w, h, 100)
+				}
 				if err != nil {
 					Out["success"] = 0
 					Out["message"] = err.Error()
@@ -177,8 +191,7 @@ func (this *FileuploadController) Upload() {
 						os.Remove("."+ChangetoSmall(lastsrc))
 					}
 				}
-				albumid, err := this.GetInt64("albumid")
-				if err == nil {
+				if albumid > 0 {
 					this.Insert(albumid, fi.Name, Out["url"].(string))
 				}
 			}
@@ -188,58 +201,10 @@ func (this *FileuploadController) Upload() {
 	this.ServeJSON()
 }
 
-func createSmallPic(file io.Reader, fileSmall string, w, h int, ext string) error {
-	// decode jpeg into image.Image
-	var img image.Image
-	var err error
-	switch ext {
-	case ".jpeg":
-		img, err = jpeg.Decode(file)
-	case ".jpg":
-		img, err = jpeg.Decode(file)
-	case ".png":
-		img, err = png.Decode(file)
-	case ".gif":
-		img, err = gif.Decode(file)
-	}
-	if err != nil {
-		return err
-	}
-	//如果指定宽高比原图宽高还大，则按原图宽高保存
-	//b := img.Bounds()
-	//if w > b.Dx() {
-	//	w = b.Dx()
-	//}
-	//if h > b.Dy() {
-	//	h = b.Dy()
-	//}
-	// resize to width 1000 using Lanczos resampling
-	// and preserve aspect ratio
-	m := resize.Resize(uint(w), uint(h), img, resize.Lanczos3)
-
-	out, err := os.Create(fileSmall)
-	if err != nil {
-		return err
-	}
-	defer out.Close()
-
-	switch ext {
-	case ".jpeg":
-		return jpeg.Encode(out, m, nil)
-	case ".jpg":
-		return jpeg.Encode(out, m, nil)
-	case ".png":
-		return png.Encode(out, m)
-	case ".gif":
-		return gif.Encode(out, m, nil)
-	}
-	return err
-}
-
 /*
 * 图片裁剪
-* 入参:
-* 规则:如果精度为0则精度保持不变
+* 入参:1、file，2、输出路径，3、原图width，4、原图height，5、精度
+* 规则:照片生成缩略图尺寸为190*135，先进行缩小，再进行平均裁剪
 *
 * 返回:error
  */
@@ -260,7 +225,7 @@ func createSmallPic_clip(in io.Reader, fileSmall string, w, h, quality int) erro
 		y1 = y0 + 135
 	} else {
 		origin = resize.Resize(uint(sw), uint(135), origin, resize.Lanczos3)
-		x0 = (sw - 190) / 4
+		x0 = (sw - 190) / 2
 		x1 = x0 + 190
 	}
 	out, err := os.Create(fileSmall)
@@ -295,9 +260,9 @@ func createSmallPic_clip(in io.Reader, fileSmall string, w, h, quality int) erro
 
 /*
 * 缩略图生成
-* 入参:
-* 规则: 如果width 或 hight其中有一个为0，则大小不变 如果精度为0则精度保持不变
-* 矩形坐标系起点是左上
+* 入参:1、file，2、输出路径，3、输出width，4、输出height，5、精度
+* 规则: width,height是想要生成的尺寸
+*
 * 返回:error
  */
 func createSmallPic_scale(in io.Reader, fileSmall string, width, height, quality int) error {
@@ -317,8 +282,6 @@ func createSmallPic_scale(in io.Reader, fileSmall string, width, height, quality
 	if err != nil {
 		return err
 	}
-	//return jpeg.Encode(out, canvas, &jpeg.Options{quality})
-
 	switch fm {
 	case "jpeg":
 		return jpeg.Encode(out, canvas, &jpeg.Options{quality})
