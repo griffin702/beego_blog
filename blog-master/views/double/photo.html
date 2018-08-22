@@ -20,10 +20,10 @@
 <div class="photolist col-lg-12 col-md-12 col-sm-12 col-xs-12 column">
     <ul id="auto-loop" class="gallery list-unstyled col-lg-12 col-md-12 col-sm-12 col-xs-12 column">
         {{range $k, $v := .list}}
-            <li data-desc="{{$v.Des}}" data-src="{{$v.Url}}" class="col-lg-2 col-md-2 col-sm-6 col-xs-6 column">
+            <li data-desc="IMG_{{$v.Id}}" data-src="{{$v.Url}}" class="col-lg-2 col-md-2 col-sm-6 col-xs-6 column">
                 <a href="#" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 column">
                     <img src="{{$v.ChangetoSmall}}" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 column" />
-                    <span class="col-lg-12 col-md-12 col-sm-12 col-xs-12 column" title="{{$v.Des}}">{{$v.LongNameAlter}}</span>
+                    <span class="col-lg-12 col-md-12 col-sm-12 col-xs-12 column" title="IMG_{{$v.Id}}">IMG_{{$v.Id}}</span>
                 </a>
             </li>
         {{end}}
