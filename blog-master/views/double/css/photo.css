@@ -588,24 +588,24 @@ ul.gallery li {
 	display: block;
 	float: left;
 }
-ul.gallery li a {
+.photolist ul.gallery li a {
 	padding: 8px;
     -webkit-transition:all .1s linear;
     -moz-transition:all .1s linear;
     -o-transition:all .1s linear;
     transition:all .1s linear;
 }
-ul.gallery li a:hover {
+.photolist ul.gallery li a:hover {
     -webkit-transform:scale(1.05);
     -moz-transform:scale(1.05);
     -o-transform:scale(1.05);
     transform:scale(1.05);
 }
-ul.gallery li a img {
+.photolist ul.gallery li a img {
 	border-radius: 8px 8px 0 0;
 	padding: 0;
 }
-ul.gallery li a span {
+.photolist ul.gallery li a span {
 	border-radius: 0 0 8px 8px;
 	padding: 0;
 	line-height:30px;
@@ -614,19 +614,33 @@ ul.gallery li a span {
 	font-size:12px;
 	background-color: #E8E8E8;
 	max-height: 30px;
+	color: #9b9b9b;
 }
-.albumlist .gallery li a span {
-	border: #c3c3c3 2px solid;
+.albumlist ul.gallery li a {
+	padding: 8px;
+}
+.albumlist ul.gallery li a img {
+	padding: 0;
+}
+.albumlist ul.gallery li a span {
+	border-radius: 0 0 8px 8px;
+	padding: 0;
+	line-height:35px;
+	text-align:center;
+	float:left;
+	font-size:12px;
+	background-color: #E8E8E8;
+	max-height: 35px;
+	border: #E8E8E8 5px solid;
 	border-top: 0;
-    font-size: 14px;
-    font-weight:700;
-    color: #5b4fee;
+	font-weight:700;
+	color: #9b9b9b;
 }
 
 .box1 {
     height:130px;
-    border-radius: 8px 8px 0 0;
-    border: #c3c3c3 2px solid;
+    border: #E8E8E8 5px solid;
+	border-radius: 8px 8px 0 0;
     border-bottom: 0;
     background-size:100% 100%!important;
 }
