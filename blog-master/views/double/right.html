@@ -20,7 +20,7 @@
         {{range $k,$v := .newcomments}}
             <li>
                 <a class="pull-left">
-                    <img class="media-object" src="{{ $v.User.Avator }}" height="40" width="40" alt="">
+                    <img class="media-object" src="{{ $v.User.Avator }}" height="36" width="36" alt="">
                 </a>
                 <div class="media-body">
                     <h6 class="media-heading">
@@ -29,11 +29,10 @@
                     </h6>
                 </div>
             {{if eq $v.Obj_pk_type 1}}
-                <a href="/links.html#comment-{{$v.Id}}" title="{{$v.Titleln}}">
+                <a href="/links.html#comment-{{$v.Id}}" title="{{$v.Titleln}}">{{$v.Return_limit $v.Comment}}</a>
             {{else}}
-                <a href="{{$v.Obj_pk.Link}}#comment-{{$v.Id}}" title="{{$v.Titleln}}">
+                <a href="{{$v.Obj_pk.Link}}#comment-{{$v.Id}}" title="{{$v.Titleln}}">{{$v.Return_limit $v.Comment}}</a>
             {{end}}
-                {{$v.Return_limit $v.Comment}}</a>
             </li>
         {{end}}
         </ul>
@@ -44,7 +43,7 @@
         {{range $k,$v := .links}}
             <span>
                 <a rel="link" href="{{$v.Url}}" title="{{$v.Sitename}}" target="_blank">
-                <img alt='' src='{{$v.Siteavator}}' class='wyavater' height='36' width='36' title="{{$v.Sitedesc}}" />
+                <img alt='' src='{{$v.Siteavator}}' class='wyavater' height='40' width='40' title="{{$v.Sitedesc}}" />
                 <span class="sitename">{{$v.Sitename}}</span>
                 </a>
 		    </span>
