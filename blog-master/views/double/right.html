@@ -27,12 +27,12 @@
                     {{$v.User.Nickname}}{{ if eq $v.User.Id 1 }}
                         <button class="btn btn-info btn-xs">官方</button>{{end}}
                     </h6>
+                {{if eq $v.Obj_pk_type 1}}
+                    <a href="/links.html#comment-{{$v.Id}}" title="{{$v.Titleln}}">{{$v.Return_limit $v.Comment}}</a>
+                {{else}}
+                    <a href="{{$v.Obj_pk.Link}}#comment-{{$v.Id}}" title="{{$v.Titleln}}">{{$v.Return_limit $v.Comment}}</a>
+                {{end}}
                 </div>
-            {{if eq $v.Obj_pk_type 1}}
-                <a href="/links.html#comment-{{$v.Id}}" title="{{$v.Titleln}}">{{$v.Return_limit $v.Comment}}</a>
-            {{else}}
-                <a href="{{$v.Obj_pk.Link}}#comment-{{$v.Id}}" title="{{$v.Titleln}}">{{$v.Return_limit $v.Comment}}</a>
-            {{end}}
             </li>
         {{end}}
         </ul>
