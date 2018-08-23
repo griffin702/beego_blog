@@ -13,6 +13,9 @@ $(document).ready(function(){
             if (location.pathname.indexOf('/article') > -1) {
                 a.parent().addClass("active");
                 a.parent().siblings().removeClass("active");
+            } else if (location.pathname.indexOf('/category') > -1) {
+                a.parent().addClass("active");
+                a.parent().siblings().removeClass("active");
             }
         }
     });
