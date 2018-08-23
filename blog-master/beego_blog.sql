@@ -235,12 +235,12 @@ CREATE TABLE `tb_tag` (
 DROP TABLE IF EXISTS `tb_tag_post`;
 CREATE TABLE `tb_tag_post` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `tagid` bigint(20) NOT NULL DEFAULT '0',
+  `tag_id` bigint(20) NOT NULL DEFAULT '0',
   `postid` bigint(20) NOT NULL DEFAULT '0',
   `poststatus` tinyint(4) NOT NULL DEFAULT '0',
   `posttime` datetime NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `tb_tag_post_tagid` (`tagid`),
+  KEY `tb_tag_post_tag_id` (`tag_id`),
   KEY `tb_tag_post_postid` (`postid`),
   KEY `tb_tag_post_poststatus` (`poststatus`),
   KEY `tb_tag_post_posttime` (`posttime`)

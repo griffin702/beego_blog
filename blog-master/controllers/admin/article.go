@@ -206,7 +206,7 @@ func (this *ArticleController) Save() {
 				tag.Count += 1
 				tag.Update("Count")
 			}
-			tp := models.TagPost{Tagid: tag.Id, Postid: post.Id, Poststatus: int8(status), Posttime: this.getTime()}
+			tp := models.TagPost{Tag: &tag, Postid: post.Id, Poststatus: int8(status), Posttime: this.getTime()}
 			tp.Insert()
 		}
 		post.Tags = "," + strings.Join(addtags, ",") + ","

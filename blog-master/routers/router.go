@@ -16,6 +16,8 @@ func init() {
 	beego.Router("/article/:urlname(.+)", &blog.MainController{}, "*:Show") //别名访问文章
 	beego.Router("/article/:id:int/page/:page:int", &blog.MainController{}, "*:Show")
 
+	beego.Router("/category.html", &blog.MainController{}, "*:CategoryList")
+	beego.Router("/category:page:int.html", &blog.MainController{}, "*:CategoryList")
 	beego.Router("/category/:name(.+?)", &blog.MainController{}, "*:Category")
 	beego.Router("/category/:name(.+?)/page/:page:int", &blog.MainController{}, "*:Category")
 

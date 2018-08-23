@@ -143,7 +143,7 @@ func (this *MainController) Show() {
 	this.Data["post"] = post
 	this.Data["pre"] = pre
 	this.Data["next"] = next
-	this.Data["smalltitle"] = "文章内容"
+	this.Data["smalltitle"] = "返回列表"
 	if urlname == "about.html" {
 		this.Data["smalltitle"] = "关于我"
 	}
@@ -182,6 +182,16 @@ func (this *MainController) Show() {
 	this.display("article")
 }
 
+//分类页
+func (this *MainController) CategoryList() {
+	var tags []*models.Tag
+	var tag models.Tag
+	tag.Query().All(&tags)
+	this.Data["tags"] = tags
+	this.setHeadMetas("归类归档")
+	this.display("tags")
+}
+
 //分类查看
 func (this *MainController) Category() {
 	var list []*models.Post
@@ -192,7 +202,7 @@ func (this *MainController) Category() {
 	if tag.Read("Name") != nil {
 		this.Abort("404")
 	}
-	query := tagpost.Query().Filter("tagid", tag.Id).Filter("poststatus", 0)
+	query := tagpost.Query().Filter("Tag", tag.Id).RelatedSel().Filter("poststatus", 0)
 	count, _ := query.Count()
 	if count > 0 {
 		var tp []*models.TagPost
@@ -201,13 +211,13 @@ func (this *MainController) Category() {
 		for _, v := range tp {
 			pids = append(pids, v.Postid)
 		}
-		new(models.Post).Query().Filter("id__in", pids).All(&list)
+		new(models.Post).Query().Filter("id__in", pids).RelatedSel().All(&list)
 	}
 	this.Data["tag"] = tag
 	this.Data["list"] = list
 	this.Data["pagebar"] = models.NewPager(int64(this.page), int64(count), int64(this.pagesize), "/category/"+tag.Name+"/page/%d").ToString()
 	this.setHeadMetas(tag.Name, tag.Name, tag.Name)
-	this.display("life")
+	this.display("category")
 }
 
 //分类查看

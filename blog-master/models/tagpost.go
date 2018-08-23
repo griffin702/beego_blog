@@ -8,7 +8,7 @@ import (
 //标签内容关系表
 type TagPost struct {
 	Id         int64
-	Tagid      int64       `orm:"index"`
+	Tag        *Tag        `orm:"rel(fk);index"`
 	Postid     int64       `orm:"index"`
 	Poststatus int8        `orm:"index"`
 	Posttime   time.Time   `auto_now_add;orm:"index"`

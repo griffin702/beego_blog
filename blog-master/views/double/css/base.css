@@ -91,6 +91,11 @@ aside .rnav ul li a:hover { background: rgba(255,255,255,0.2); -webkit-transform
 .link-friends span:hover img{transform:rotate(360deg);-webkit-transform:rotate(360deg);}
 .link-friends-body {padding: 20px 15px;background: url(../images/r_line.jpg) repeat-y right;}
 
+/*@tags*/
+.tags-body {padding: 20px 15px;background: url(../images/r_line.jpg) repeat-y right;}
+.tags-body a {padding: 10px 10px 10px 30px;margin: 5px}
+.tags-body a span {background-color: #aaaaaa!important;position: relative;top: 6px!important;right: -6px;}
+
 /*翻页样式*/
 /*.page{ margin:20px 0 0 0; text-align:center; width:100%;overflow: hidden;}*/
 /*.page a b {color: #999;}*/
