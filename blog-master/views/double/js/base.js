@@ -12,7 +12,7 @@ $(document).ready(function(){
         } else if (a.attr("href") === '/life.html' && location.pathname.indexOf('/article') > -1) {
             a.parent().addClass("active");
             a.parent().siblings().removeClass("active");
-        } else if (a.attr("href") === '/life.html' && location.pathname.indexOf('/category') > -1) {
+        } else if (a.attr("href") === '/category.html' && location.pathname.indexOf('/category') > -1) {
             a.parent().addClass("active");
             a.parent().siblings().removeClass("active");
         }
