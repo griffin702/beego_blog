@@ -1,16 +1,12 @@
-<script src="/static/js/lightGallery.min.js"></script>
+<script src="/static/lightgallery/js/picturefill.min.js"></script>
+<script src="/static/lightgallery/dist/js/lightgallery.js"></script>
+<script src="/static/lightgallery/js/lg-pager.js"></script>
+<script src="/static/lightgallery/js/lg-autoplay.js"></script>
+<script src="/static/lightgallery/js/lg-fullscreen.js"></script>
+<script src="/static/lightgallery/js/lg-zoom.js"></script>
+<script src="/static/lightgallery/js/lg-share.js"></script>
+<link rel="stylesheet" type="text/css" href="/static/lightgallery/dist/css/lightgallery.min.css">
 <link href="{{.root}}css/photo.css" rel="stylesheet">
-<script>
-    $(document).ready(function() {
-        $(".viewcover").lightGallery({
-            loop:true,
-            auto:true,
-            desc:true,
-            counter:true,
-            pause:3000
-        });
-    });
-</script>
 
 <div class="moodlist">
     <h1 class="t_nav">
@@ -23,11 +19,15 @@
         <div class="sy col-lg-8 col-md-8 col-sm-10 col-xs-10 column">
             <div class="bg">
             {{if $v.Cover }}
-                <ul class="viewcover gallery list-unstyled">
-                    <li data-src="{{$v.Cover}}">
-                        <img class="moodimg" src="{{$v.ChangetoSmall}}">
+                <ul id="lightgallery-{{$v.Id}}" class="list-unstyled">
+                    <li data-src="{{$v.Cover}}"
+                        data-sub-html="<div class='mooddesc'>{{$v.Content}}<h4>{{date $v.Posttime "y-m-j H:i"}}</h4></div>">
+                        <a href="#"><img class="moodimg" src="{{$v.ChangetoSmall}}"></a>
                     </li>
                 </ul>
+                <script>
+                    lightGallery(document.getElementById('lightgallery-{{$v.Id}}'));
+                </script>
             {{end}}
                 {{str2html $v.Content}}
             </div>
