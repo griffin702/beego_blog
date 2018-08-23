@@ -9,14 +9,12 @@ $(document).ready(function(){
         if (a.attr("href") === location.pathname) {
             a.parent().addClass("active");
             a.parent().siblings().removeClass("active");
-        } else if (a.attr("href") === '/life.html') {
-            if (location.pathname.indexOf('/article') > -1) {
-                a.parent().addClass("active");
-                a.parent().siblings().removeClass("active");
-            } else if (location.pathname.indexOf('/category') > -1) {
-                a.parent().addClass("active");
-                a.parent().siblings().removeClass("active");
-            }
+        } else if (a.attr("href") === '/life.html' && location.pathname.indexOf('/article') > -1) {
+            a.parent().addClass("active");
+            a.parent().siblings().removeClass("active");
+        } else if (a.attr("href") === '/life.html' && location.pathname.indexOf('/category') > -1) {
+            a.parent().addClass("active");
+            a.parent().siblings().removeClass("active");
         }
     });
     //处理分页ajax
