@@ -18,6 +18,7 @@ func (this *AccountController) Login() {
 	if this.GetString("dosubmit") == "yes" {
 		username := strings.TrimSpace(this.GetString("username"))
 		password := strings.TrimSpace(this.GetString("password"))
+		fmt.Println(password)
 		remember := this.GetString("remember")
 		if username != "" && password != "" {
 			var user models.User

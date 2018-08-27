@@ -18,8 +18,8 @@ func init() {
 
 	beego.Router("/category.html", &blog.MainController{}, "*:CategoryList")
 	beego.Router("/category:page:int.html", &blog.MainController{}, "*:CategoryList")
-	beego.Router("/category/:name(.+?)", &blog.MainController{}, "*:Category")
-	beego.Router("/category/:name(.+?)/page/:page:int", &blog.MainController{}, "*:Category")
+	beego.Router("/category/:cateid(.+?)", &blog.MainController{}, "*:Category")
+	beego.Router("/category/:cateid(.+?)/page/:page:int", &blog.MainController{}, "*:Category")
 
 	beego.Router("/life:page:int.html", &blog.MainController{}, "*:BlogList")
 	beego.Router("/life.html", &blog.MainController{}, "*:BlogList")

@@ -197,9 +197,10 @@ func (this *MainController) Category() {
 	var list []*models.Post
 	tagpost := new(models.TagPost)
 	tag := new(models.Tag)
-	tag.Name = this.Ctx.Input.Param(":name")
+	cateid, _ := strconv.Atoi(this.Ctx.Input.Param(":cateid"))
+	tag.Id = int64(cateid)
 
-	if tag.Read("Name") != nil {
+	if tag.Read("Id") != nil {
 		this.Abort("404")
 	}
 	query := tagpost.Query().Filter("Tag", tag.Id).RelatedSel().Filter("poststatus", 0)

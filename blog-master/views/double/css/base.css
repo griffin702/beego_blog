@@ -300,7 +300,7 @@ a.readmore { background: #fd8a61; color: #fff; padding: 5px 10px; float: right; 
 
 /*new*/
 .index_about { background: url(../images/r_line.jpg) repeat-y right; padding-left: 0!important; }
-.c_titile { font-size: 22px; margin: 20px 0; text-align: center }
+.c_titile { font-size: 22px; margin: 20px 0; text-align: center; text-shadow: #888888 0.08em 0.08em 0.16em }
 .box_c { border: #ccc 1px dashed; text-align: center; padding: 5px 0;color: #999;}
 .box_c span { margin: 0 5px; }
 .box_c span a{color: #099;}

@@ -104,6 +104,9 @@ func (m *Post) TagsLink() string {
 			buf.WriteString(", ")
 		}
 		tag := Tag{Name: v}
+		if tag.Read("Name") != nil {
+			return ""
+		}
 		buf.WriteString(tag.Link())
 	}
 	return buf.String()

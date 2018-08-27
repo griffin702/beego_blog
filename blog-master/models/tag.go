@@ -67,7 +67,7 @@ func (m *Tag) Query() orm.QuerySeter {
 
 //标签连接
 func (m *Tag) Link() string {
-	return fmt.Sprintf("<a class=\"category\" href=\"/category/%s\">%s</a>", Rawurlencode(m.Name), m.Name)
+	return fmt.Sprintf("<a class=\"category\" href=\"/category/%d\">%s</a>", m.Id, m.Name)
 }
 
 //更新统计

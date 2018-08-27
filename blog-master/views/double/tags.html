@@ -8,7 +8,7 @@
     <blockquote><p>归类</p></blockquote>
     <div class="tags">
     {{range $k, $v := .tags}}
-        <a href="/category/{{$v.Name}}" class="btn btn-default">
+        <a href="/category/{{$v.Id}}" class="btn btn-default">
             <div style="color: {{$v.RangeColor}};">{{$v.Name}}<span class="badge">{{$v.Count}}</span></div>
         </a>
     {{end}}
