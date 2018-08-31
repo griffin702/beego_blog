@@ -18,7 +18,6 @@ func (this *AccountController) Login() {
 	if this.GetString("dosubmit") == "yes" {
 		username := strings.TrimSpace(this.GetString("username"))
 		password := strings.TrimSpace(this.GetString("password"))
-		fmt.Println(password)
 		remember := this.GetString("remember")
 		if username != "" && password != "" {
 			var user models.User
@@ -151,8 +150,8 @@ func (this *AccountController) Profile() {
 			errmsg["nickname"] = "昵称长度不能大于15个字符"
 		}
 		var user1 models.User
-		err := user1.Query().Filter("nickname", nickname).One(&user)
-		if err == nil {
+		err := user1.Query().Filter("nickname", nickname).One(&user1)
+		if err == nil && user1.Id != user.Id {
 			errmsg["nickname"] = fmt.Sprintf("昵称:%s 已被使用", nickname)
 		}
 		if newpassword == "" && nickname != user.Nickname && len(errmsg) == 0 {
