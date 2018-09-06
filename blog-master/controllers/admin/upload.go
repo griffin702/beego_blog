@@ -277,7 +277,7 @@ func createSmallPic_scale(in io.Reader, fileSmall string, width, height, quality
 	if quality == 0 {
 		quality = 100
 	}
-	canvas := resize.Thumbnail(uint(width), uint(height), origin, resize.Lanczos3)
+	canvas := resize.Resize(uint(width), uint(height), origin, resize.Lanczos3)
 	out, err := os.Create(fileSmall)
 	if err != nil {
 		return err
