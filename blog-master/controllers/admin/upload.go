@@ -122,7 +122,8 @@ func (this *FileuploadController) Upload() {
 			imgPath := fmt.Sprintf("%s/%d%s", fileSaveName, timenow, ext)
 			filetool.InsureDir(fileSaveName)
 			if index == 1 {//上传类型1：文章上传，只保存大图
-				err = this.SaveToFile("editormd-image-file", imgPath)
+				//err = this.SaveToFile("editormd-image-file", imgPath)
+				err = createSmallPic_scale(f, imgPath, 0, 0, 88)
 				if err != nil {
 					Out["success"] = 0
 					Out["message"] = err.Error()
@@ -135,7 +136,7 @@ func (this *FileuploadController) Upload() {
 			} else if index == 2 {//上传类型2：头像、封面等上传，只保存小图
 				w, _ := strconv.Atoi(this.GetString("w"))
 				h, _ := strconv.Atoi(this.GetString("h"))
-				err = createSmallPic_scale(f, imgPath, w, h, 100)
+				err = createSmallPic_scale(f, imgPath, w, h, 88)
 				if err != nil {
 					Out["success"] = 0
 					Out["message"] = err.Error()
@@ -152,7 +153,8 @@ func (this *FileuploadController) Upload() {
 				}
 			} else if index == 3 {//上传类型3：照片上传，同时保存大图小图
 				lastsrc := this.GetString("lastsrc")
-				err = this.SaveToFile("editormd-image-file", imgPath)
+				//err = this.SaveToFile("editormd-image-file", imgPath)
+				err = createSmallPic_scale(f, imgPath, 0, 0, 88)
 				if err != nil {
 					Out["success"] = 0
 					Out["message"] = err.Error()
@@ -177,9 +179,9 @@ func (this *FileuploadController) Upload() {
 						sw = max_w
 						sh = h * max_w/w
 					}
-					err = createSmallPic_scale(f, imgPathsmall, sw, sh, 100)
+					err = createSmallPic_scale(f, imgPathsmall, sw, sh, 88)
 				} else {
-					err = createSmallPic_clip(f, imgPathsmall, w, h, 100)
+					err = createSmallPic_clip(f, imgPathsmall, w, h, 88)
 				}
 				if err != nil {
 					Out["success"] = 0
@@ -273,6 +275,14 @@ func createSmallPic_scale(in io.Reader, fileSmall string, width, height, quality
 	if width == 0 || height == 0 {
 		width = origin.Bounds().Max.X
 		height = origin.Bounds().Max.Y
+		if width > height && height > 720 {
+			width = width*720/height
+			height = 720
+		}
+		if width <= height && width > 720 {
+			height = height*720/width
+			width = 720
+		}
 	}
 	if quality == 0 {
 		quality = 100
