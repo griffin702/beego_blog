@@ -138,8 +138,11 @@ func (this *UserController) Edit() {
 		if avator == "" {
 			avator = "/static/upload/default/user-default-60x60.png"
 		}
-		if avator != lastavator && !this.Isdefaultsrc(lastavator) {
-			os.Remove("."+lastavator)
+		if avator != lastavator {
+			models.Cache.Delete("newcomments")
+			if !this.Isdefaultsrc(lastavator) {
+				os.Remove("." + lastavator)
+			}
 		}
 		permissionlist := strings.TrimSpace(
 			this.GetString("permission1") + "|" +

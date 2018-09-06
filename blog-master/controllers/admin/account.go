@@ -7,6 +7,7 @@ import (
 	"github.com/astaxie/beego/validation"
 	"fmt"
 	"regexp"
+	"os"
 )
 
 type AccountController struct {
@@ -136,12 +137,23 @@ func (this *AccountController) Profile() {
 	if err := user.Read(); err != nil {
 		this.showmsg(err.Error())
 	}
+	lastavator := user.Avator
 	if this.Ctx.Request.Method == "POST" {
 		errmsg := make(map[string]string)
 		password := strings.TrimSpace(this.GetString("password"))
 		newpassword := strings.TrimSpace(this.GetString("newpassword"))
 		newpassword2 := strings.TrimSpace(this.GetString("newpassword2"))
+		avator := strings.TrimSpace(this.GetString("avator"))
 		nickname := strings.TrimSpace(this.GetString("nickname"))
+		if avator == "" {
+			avator = "/static/upload/default/user-default-60x60.png"
+		}
+		if avator != lastavator {
+			models.Cache.Delete("newcomments")
+			if !this.Isdefaultsrc(lastavator) {
+				os.Remove("." + lastavator)
+			}
+		}
 		updated := false
 		valid := validation.Validation{}
 		if v := valid.Required(nickname, "nickname"); !v.Ok {
@@ -154,9 +166,14 @@ func (this *AccountController) Profile() {
 		if err == nil && user1.Id != user.Id {
 			errmsg["nickname"] = fmt.Sprintf("昵称:%s 已被使用", nickname)
 		}
-		if newpassword == "" && nickname != user.Nickname && len(errmsg) == 0 {
+		if nickname != user.Nickname && len(errmsg) == 0 {
 			user.Nickname = nickname
 			user.Update("nickname")
+			updated = true
+		}
+		if avator != user.Avator && len(errmsg) == 0 {
+			user.Avator = avator
+			user.Update("avator")
 			updated = true
 		}
 		if newpassword != "" {
@@ -168,9 +185,8 @@ func (this *AccountController) Profile() {
 				errmsg["newpassword2"] = "两次输入的密码不一致"
 			}
 			if len(errmsg) == 0 {
-				user.Nickname = nickname
 				user.Password = models.Md5([]byte(newpassword))
-				user.Update("password", "nickname")
+				user.Update("password")
 				updated = true
 			}
 		}
