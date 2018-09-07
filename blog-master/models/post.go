@@ -175,6 +175,7 @@ func AddImgStr(str string) string {
 	script := "<script>lightGallery(document.getElementById('lightgallery-" + filename + "'));</script>"
 	newstr := "<ul id=\"lightgallery-" + filename +
 		"\" class=\"gallery list-unstyled\"><li data-src=\"" + src +
-		"\"><a href=\"#\">" + str + "</a></li></ul>" + script
+		"\" class=\"col-lg-12 col-md-12 col-sm-12 col-xs-12 column\"><a href=\"#\">" + str +
+		"</a></li></ul>" + script
 	return newstr
 }
