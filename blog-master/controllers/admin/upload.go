@@ -30,6 +30,7 @@ const (
 	LOCAL_FILE_DIR    = "static/upload"
 	MIN_FILE_SIZE     = 1       // bytes
 	MAX_FILE_SIZE     = 10000000 // bytes
+	MAX_WIDTH_HEIGHT  = 1280
 	IMAGE_TYPES       = "(jpg|gif|p?jpeg|(x-)?png)"
 )
 
@@ -90,19 +91,24 @@ func (this *FileuploadController) Upload() {
 	if f != nil {
 		defer  f.Close()
 	}
+	rwidth, rheight, fm, err := RetRealWHEXT(f)
+	f, h, err = this.GetFile("editormd-image-file")
+	Out := map[string]interface{}{"success":"","message":"","url":""}
+	if err != nil {
+		Out["success"] = 0
+		Out["message"] = err
+	}
 	utype := this.GetString("type")
 	if utype == "" {
 		utype = "1"
 	}
-	Out := map[string]interface{}{"success":"","message":"","url":""}
 	if err != nil {
 		Out["success"] = 0
 		Out["message"] = "no file"
 	} else {
-		ext := filetool.Ext(h.Filename)
 		fi := &FileInfo{
 			Name: h.Filename,
-			Type: ext,
+			Type: fm,
 		}
 		if !fi.ValidateType() {
 			Out["success"] = 0
@@ -119,18 +125,26 @@ func (this *FileuploadController) Upload() {
 			index, _ := strconv.Atoi(utype)
 			timenow := time.Now().UnixNano()
 			fileSaveName := fmt.Sprintf("%s/%s/%s", LOCAL_FILE_DIR, typemap[index], time.Now().Format("20060102"))
-			imgPath := fmt.Sprintf("%s/%d%s", fileSaveName, timenow, ext)
+			imgPath := fmt.Sprintf("%s/%d.%s", fileSaveName, timenow, fm)
 			filetool.InsureDir(fileSaveName)
-			if index == 1 {//上传类型1：文章上传，只保存大图
+			if index == 1 {//上传类型1：文章上传的图片，默认显示像素最大为
 				//err = this.SaveToFile("editormd-image-file", imgPath)
 				err = createSmallPic_scale(f, imgPath, 0, 0, 88)
+				if err != nil {
+					Out["success"] = 0
+					Out["message"] = err.Error()
+				}
+				sw, sh := RetMaxWH(rwidth, rheight, 720)
+				small := ChangetoSmall(imgPath)
+				f, _, _ = this.GetFile("editormd-image-file")
+				err = createSmallPic_scale(f, small, sw, sh, 88)
 				if err != nil {
 					Out["success"] = 0
 					Out["message"] = err.Error()
 				} else {
 					Out["success"] = 1
 					Out["message"] = "上传成功"
-					Out["url"] = "/" + imgPath
+					Out["url"] = "/" + small
 					Out["dialog_id"] = dialog_id
 				}
 			} else if index == 2 {//上传类型2：头像、封面等上传，只保存小图
@@ -164,24 +178,13 @@ func (this *FileuploadController) Upload() {
 					Out["url"] = "/" + imgPath
 					Out["dialog_id"] = dialog_id
 				}
-				imgPathsmall := fmt.Sprintf("%s/%d_small%s", fileSaveName, timenow, ext)
-				w, _ := strconv.Atoi(this.GetString("w"))
-				h, _ := strconv.Atoi(this.GetString("h"))
 				albumid, _ := this.GetInt64("albumid")
+				f, _, _ = this.GetFile("editormd-image-file")
 				if albumid == 0 {
-					max_w := 200
-					max_h := 200
-					var sw, sh int
-					if w < h && h > max_h {
-						sh = max_h
-						sw = w * max_h/h
-					} else if w >= h && w > max_w {
-						sw = max_w
-						sh = h * max_w/w
-					}
-					err = createSmallPic_scale(f, imgPathsmall, sw, sh, 88)
+					sw, sh := RetMaxWH(rwidth, rheight, 200)
+					err = createSmallPic_scale(f, ChangetoSmall(imgPath), sw, sh, 88)
 				} else {
-					err = createSmallPic_clip(f, imgPathsmall, w, h, 88)
+					err = createSmallPic_clip(f, ChangetoSmall(imgPath), rwidth, rheight, 88)
 				}
 				if err != nil {
 					Out["success"] = 0
@@ -275,13 +278,14 @@ func createSmallPic_scale(in io.Reader, fileSmall string, width, height, quality
 	if width == 0 || height == 0 {
 		width = origin.Bounds().Max.X
 		height = origin.Bounds().Max.Y
-		if width > height && height > 720 {
-			width = width*720/height
-			height = 720
-		}
-		if width <= height && width > 720 {
-			height = height*720/width
-			width = 720
+		//限制保存原图的长宽最大允许像素
+		maxnum := MAX_WIDTH_HEIGHT
+		if width < height && height > maxnum {
+			width = width*maxnum/height
+			height = maxnum
+		} else if width >= height && width > maxnum {
+			height = height*maxnum/width
+			width = maxnum
 		}
 	}
 	if quality == 0 {
@@ -312,4 +316,29 @@ func ChangetoSmall(src string) string {
 	ext := "." + arr2[len(arr2)-1]
 	small := strings.Replace(src, ext, "_small"+ext, 1)
 	return small
+}
+
+func RetMaxWH(w, h, max int) (int,int) {
+	var sw, sh int
+	if w < h && h > max {
+		sh = max
+		sw = w * max/h
+	} else if w >= h && w > max {
+		sw = max
+		sh = h * max/w
+	} else {
+		sw = w
+		sh = h
+	}
+	return sw, sh
+}
+
+func RetRealWHEXT(in io.Reader) (int, int, string, error) {
+	origin, fm, err := image.Decode(in)
+	if err != nil {
+		return 0, 0, "", err
+	}
+	w := origin.Bounds().Max.X
+	h := origin.Bounds().Max.Y
+	return w, h, fm, err
 }

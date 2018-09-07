@@ -308,7 +308,7 @@ ul.infos { line-height: 28px; padding: 0 5px 0 5px; }
 ul.infos p { margin-bottom: 5px; text-indent: 2em; }
 ul.infos p img { display: block;margin: auto; max-width:100%;}
 
-.keybq { line-height: 30px; height: 30px; padding-left: 15px; border: 1px solid #F0F0F0; background-color: #f0f0f0; }
+.keybq { line-height: 30px; height: 30px; border: 1px solid #F0F0F0; background-color: #f0f0f0; }
 .keybq span, .keybq a { color: #099; padding: 0 5px; }
 .bdsharebuttonbox { padding: 5px 15px!important; }
 .bdsharebuttonbox span { float: left!important; margin-top: 9px; }

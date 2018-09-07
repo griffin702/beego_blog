@@ -1,3 +1,12 @@
+<script src="/static/lightgallery/js/picturefill.min.js"></script>
+<script src="/static/lightgallery/dist/js/lightgallery.js"></script>
+<script src="/static/lightgallery/js/lg-pager.js"></script>
+<script src="/static/lightgallery/js/lg-autoplay.js"></script>
+<script src="/static/lightgallery/js/lg-fullscreen.js"></script>
+<script src="/static/lightgallery/js/lg-zoom.js"></script>
+<link rel="stylesheet" type="text/css" href="/static/lightgallery/dist/css/lightgallery.min.css">
+<link href="{{.root}}css/photo.css" rel="stylesheet">
+
 <h1 class="t_nav">
 	<a href="/" class="n1">网站首页</a>
 	<a href="/life.html" class="n2">{{.smalltitle}}</a>
@@ -12,10 +21,10 @@
             <span class="glyphicon glyphicon-user"></span>{{.post.User.Nickname}}
             <span class="glyphicon glyphicon-eye-open"></span>{{.post.Views}}
         </p>
-        <ul class="infos">
+        <ul class="infos col-lg-12 col-md-12 col-sm-12 col-xs-12 column">
             {{str2html .post.Content}}
         </ul>
-        <div class="keybq">
+        <div class="keybq col-lg-12 col-md-12 col-sm-12 col-xs-12 column">
             <p><span class="glyphicon glyphicon-tag"></span><span>关键字词</span>[{{str2html .post.TagsLink}}]</p>
         </div>
         <div class="bdsharebuttonbox bdshare-button-style0-24">

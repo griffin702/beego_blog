@@ -117,10 +117,10 @@ func (m *Post) Excerpt() string {
 	//将HTML标签全转换成小写
 	re, _ := regexp.Compile("\\<[\\S\\s]+?\\>")
 	rep := re.ReplaceAllStringFunc(m.Content, strings.ToLower)
-	//保留hr标签转换为特殊标记
+	//将hr标签转换为特殊标记
 	re, _ = regexp.Compile("\\<hr\\>")
 	rep = re.ReplaceAllString(rep, "_markdown_hr_")
-	//去除所有尖括号内的HTML代码，并换成换行符，不匹配<hr>
+	//去除所有尖括号内的HTML代码
 	re, _ = regexp.Compile("\\<[\\S\\s]+?\\>")
 	rep = re.ReplaceAllString(rep, "")
 	//去除连续的换行符
@@ -137,11 +137,13 @@ func (m *Post) Excerpt() string {
 }
 
 func (m *Post) Del_Excerpt() string {
-	if i := strings.Index(m.Content, "<hr>"); i != -1 {
+	re, _ := regexp.Compile("\\<img[\\S\\s]+?\\>")
+	rep := re.ReplaceAllStringFunc(m.Content, AddImgStr)
+	if i := strings.Index(rep, "<hr>"); i != -1 {
 		x := len("<hr>")
-		return m.Content[i+x:]
+		return rep[i+x:]
 	}
-	return m.Content
+	return rep
 }
 
 func (post *Post) GetPreAndNext() (pre, next *Post) {
@@ -156,4 +158,23 @@ func (post *Post) GetPreAndNext() (pre, next *Post) {
 		next = nil
 	}
 	return
+}
+
+func AddImgStr(str string) string {
+	src := ""
+	re := regexp.MustCompile(`src="(.*?)"`)
+	result := re.FindAllStringSubmatch(str, -1)
+	if len(result) > 0 {
+		src = result[0][1]
+	}
+	src = strings.Replace(src, "_small", "", -1)
+	arr1 := strings.Split(src, "/")
+	filename := arr1[len(arr1)-1]
+	arr2 := strings.Split(filename, ".")
+	filename = arr2[0]
+	script := "<script>lightGallery(document.getElementById('lightgallery-" + filename + "'));</script>"
+	newstr := "<ul id=\"lightgallery-" + filename +
+		"\" class=\"gallery list-unstyled\"><li data-src=\"" + src +
+		"\"><a href=\"#\">" + str + "</a></li></ul>" + script
+	return newstr
 }
