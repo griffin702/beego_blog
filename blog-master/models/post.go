@@ -162,6 +162,10 @@ func (post *Post) GetPreAndNext() (pre, next *Post) {
 
 func AddImgStr(str string) string {
 	src := ""
+	//判断是否是emoji表情，如是则直接返回不作任何处理
+	if i := strings.Index(str, "class=\"emoji\""); i != -1 {
+		return str
+	}
 	re := regexp.MustCompile(`src="(.*?)"`)
 	result := re.FindAllStringSubmatch(str, -1)
 	if len(result) > 0 {
@@ -175,7 +179,7 @@ func AddImgStr(str string) string {
 	script := "<script>lightGallery(document.getElementById('lightgallery-" + filename + "'));</script>"
 	newstr := "<ul id=\"lightgallery-" + filename +
 		"\" class=\"gallery list-unstyled\"><li data-src=\"" + src +
-		"\" class=\"col-lg-12 col-md-12 col-sm-12 col-xs-12 column\"><a href=\"#\">" + str +
+		"\"><a href=\"#\">" + str +
 		"</a></li></ul>" + script
 	return newstr
 }

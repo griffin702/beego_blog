@@ -27,6 +27,7 @@ a.n1, a.n2 { width: 100px; display: block; text-align: center; color: #fff; floa
 ul.gallery {
 	list-style: none outside none;
 	padding: 0;
+	display: inline-block;
 }
 ul.gallery li {
 	padding: 0;
