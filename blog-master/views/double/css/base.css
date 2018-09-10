@@ -6,7 +6,7 @@ a:link, a:visited, a:hover, a:focus { text-decoration: none!important; }
 a span { font-size: 10px; }
 .btn-xs {
     padding: 0 3px!important;
-    line-height: 1.5!important;
+    line-height: 1.4!important;
     vertical-align:bottom!important;
     border: 0!important;
 }
