@@ -26,6 +26,64 @@ function dataURLtoFile(dataurl, filename) {//将base64转换为文件
     return new File([u8arr], filename, {type:mime});
 }
 
+function bindUploadFile() {
+    $("#filevideo").bind("change", function(){
+        var file = this.files[0];
+        var uptype = $(this).data('uptype');
+        var upurl = '/admin/uploadfile/?type=' + uptype;
+        var formData = new FormData();
+        formData.append('filemedia', file);
+        $.ajax({
+            url: upurl,
+            method: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            cache: false,
+            success: function(data) {
+                var ret = JSON.parse(JSON.stringify(data));
+                alert(ret.message);
+                var num = Math.floor(Math.random() * 9.9);
+                var str = "<video controls=\"\" preload=\"none\" " +
+                    "poster=\"/static/upload/default/blog-default-" + num + ".png" + "\">" +
+                    "<source src=\"" + ret.url + "\" type=\"video/mp4\"></video>\n";
+                mdEditor.cm.replaceSelection(str);
+                formData = new FormData();
+            },
+            error: function () {
+                alert("false");
+                formData = new FormData();
+            }
+        });
+    });
+    $("#fileaudio").bind("change", function(){
+        var file = this.files[0];
+        var uptype = $(this).data('uptype');
+        var upurl = '/admin/uploadfile/?type=' + uptype;
+        var formData = new FormData();
+        formData.append('filemedia', file);
+        $.ajax({
+            url: upurl,
+            method: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            cache: false,
+            success: function(data) {
+                var ret = JSON.parse(JSON.stringify(data));
+                alert(ret.message);
+                var str = "<audio controls=\"\" preload=\"none\"><source src=\"" + ret.url + "\"></audio>\n";
+                mdEditor.cm.replaceSelection(str);
+                formData = new FormData();
+            },
+            error: function () {
+                alert("false");
+                formData = new FormData();
+            }
+        });
+    });
+}
+
 $(document).ready(function(){
     //修复导航栏active不自动切换
     $("ul.nav.navbar-nav").find("li").each(function(){
@@ -40,17 +98,24 @@ $(document).ready(function(){
     if ($(window).width()<772){is_watch=false}else{is_watch=true}
     $(function() {
         if ($("#content").length > 0) {
-            mdEditor1 = editormd("content", {
+            mdEditor = editormd("content", {
                 width: "100%",
                 height: 680,
                 path: '/static/markdown/lib/',
                 toolbarIcons : function() {
-                    return ["undo", "redo", "|",
-                        "bold", "del", "italic", "quote", "ucwords", "uppercase", "lowercase", "|",
-                        "list-ul", "list-ol", "hr", "|",
-                        "link", "image", "code", "code-block", "table", "datetime", "emoji", "html-entities", "|",
-                        "goto-line", "watch", "preview", "fullscreen", "|",
-                        "help", "info"]
+                    return ["undo", "redo", "emoji", "bold", "del", "italic", "quote",
+                        "ucwords", "uppercase", "lowercase", "list-ul", "list-ol", "hr",
+                        "link", "image", "fileaudio", "filevideo", "code", "code-block",
+                        "table", "datetime", "html-entities", "|", "goto-line", "watch",
+                        "preview", "fullscreen", "help", "info"]
+                },
+                toolbarCustomIcons: {
+                    filevideo: "<div class=\"editormd-file-input\">" +
+                    "<input id=\"filevideo\" type=\"file\" accept=\".mp4\" data-uptype=\"4\" />" +
+                    "<input type=\"submit\" value=\"上传视频\"></div>",
+                    fileaudio: "<div class=\"editormd-file-input\">" +
+                    "<input id=\"fileaudio\" type=\"file\" accept=\".mp3\" data-uptype=\"5\" />" +
+                    "<input type=\"submit\" value=\"上传音频\"></div>",
                 },
                 theme: "default",
                 previewTheme: "default",
@@ -86,21 +151,29 @@ $(document).ready(function(){
                     //this.width("100%");
                     //this.height(480);
                     //this.resize("100%", 640);
+                    bindUploadFile();
                 },
             });
         }
         if ($("#moodcontent").length > 0) {
-            mdEditor2 = editormd("moodcontent", {
+            mdEditor = editormd("moodcontent", {
                 width: "100%",
                 height: 800,
                 path: '/static/markdown/lib/',
                 toolbarIcons : function() {
-                    return ["undo", "redo", "|",
-                        "bold", "del", "italic", "quote", "ucwords", "uppercase", "lowercase", "|",
-                        "list-ul", "list-ol", "hr", "|",
-                        "link", "code", "code-block", "table", "datetime", "emoji", "html-entities", "|",
-                        "goto-line", "watch", "preview", "fullscreen", "|",
-                        "help", "info"]
+                    return ["undo", "redo", "emoji", "bold", "del", "italic", "quote",
+                        "ucwords", "uppercase","lowercase", "list-ul", "list-ol", "hr",
+                        "link", "fileaudio", "filevideo", "code", "code-block", "table",
+                        "datetime", "html-entities", "|", "goto-line", "watch", "preview",
+                        "fullscreen", "help", "info"]
+                },
+                toolbarCustomIcons: {
+                    filevideo: "<div class=\"editormd-file-input\">" +
+                    "<input id=\"filevideo\" type=\"file\" accept=\".mp4\" data-uptype=\"4\" />" +
+                    "<input type=\"submit\" value=\"上传视频\"></div>",
+                    fileaudio: "<div class=\"editormd-file-input\">" +
+                    "<input id=\"fileaudio\" type=\"file\" accept=\".mp3\" data-uptype=\"5\" />" +
+                    "<input type=\"submit\" value=\"上传音频\"></div>",
                 },
                 theme: "default",
                 previewTheme: "default",
@@ -116,10 +189,13 @@ $(document).ready(function(){
                 tocm: true,
                 flowChart: true,
                 imageUpload: false,
+                onload : function(){
+                    bindUploadFile();
+                }
             });
         }
     });
-    //处理上传
+    //处理图片上传
     var autoview = document.querySelector('#autoview');
     var uptype, upurl, albumid;
     $('#newcover').on('change', function() {

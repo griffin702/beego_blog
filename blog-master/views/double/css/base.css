@@ -326,7 +326,7 @@ ul.infos p img.emoji { max-width: 30px; vertical-align: text-bottom; }
 .comment_parent .media-body p { max-width: 800px }
 .comment_child { padding:10px 0!important; float: right!important; }
 .media-object { border-radius:20%; }
-.pull-left { padding: 0 10px 0 5px; }
+.pull-left { padding: 3px 10px 3px 5px; }
 .reply_btn { border-left: 2px solid #777; padding-left: 5px; }
 .comment-quote { border-left: 3px solid #9ce8f8; padding-left: 10px; color: #afafaf; }
 .pagenum { color: #999; font-size: 10px; }
@@ -399,4 +399,9 @@ ul.infos p img.emoji { max-width: 30px; vertical-align: text-bottom; }
     #to_down:hover, #to_top:hover, #wechat_btn:hover {
         background: #dddddd;
     }
+}
+
+video {
+    max-width: 600px;
+    max-height: 600px;
 }

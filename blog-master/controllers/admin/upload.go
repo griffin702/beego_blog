@@ -35,7 +35,7 @@ const (
 )
 
 var (
-	typemap = map[int]string{1:"bigpic",2:"smallpic",3:"bigsmallpic"}
+	typemap = map[int]string{1:"bigpic",2:"smallpic",3:"bigsmallpic",4:"media/mp4",5:"media/mp3"}
 	acceptFileTypes = regexp.MustCompile(IMAGE_TYPES)
 )
 
@@ -86,25 +86,25 @@ func (this *FileuploadController) Insert(albumid int64, desc, url string) {
 }
 
 func (this *FileuploadController) Upload() {
+	Out := map[string]interface{}{"success":"","message":"","url":""}
 	f, h, err := this.GetFile("editormd-image-file")
+	if err != nil {
+		Out["success"] = 0
+		Out["message"] = err
+	}
 	dialog_id := this.GetString("guid")
 	if f != nil {
 		defer  f.Close()
 	}
 	rwidth, rheight, fm, err := RetRealWHEXT(f)
 	f, h, err = this.GetFile("editormd-image-file")
-	Out := map[string]interface{}{"success":"","message":"","url":""}
-	if err != nil {
-		Out["success"] = 0
-		Out["message"] = err
-	}
 	utype := this.GetString("type")
 	if utype == "" {
 		utype = "1"
 	}
 	if err != nil {
 		Out["success"] = 0
-		Out["message"] = "no file"
+		Out["message"] = err
 	} else {
 		fi := &FileInfo{
 			Name: h.Filename,
@@ -200,6 +200,47 @@ func (this *FileuploadController) Upload() {
 					this.Insert(albumid, fi.Name, Out["url"].(string))
 				}
 			}
+		}
+	}
+	this.Data["json"] = Out
+	this.ServeJSON()
+}
+
+func (this *FileuploadController) UploadFile() {
+	Out := map[string]interface{}{"success":"","message":"","url":""}
+	utype := this.GetString("type")
+	if utype == "" {
+		Out["success"] = 0
+		Out["message"] = "非法请求"
+	}
+	_, h, err := this.GetFile("filemedia")
+	if err != nil {
+		Out["success"] = 0
+		Out["message"] = err
+	}
+	ext := strings.Split(h.Filename, ".")[1]
+	index, _ := strconv.Atoi(utype)
+	if index == 4 && ext != "mp4" {
+		Out["success"] = 0
+		Out["message"] = "仅允许上传格式：MP4"
+	}
+	if index == 5 && ext != "mp3" {
+		Out["success"] = 0
+		Out["message"] = "仅允许上传格式：MP3"
+	}
+	if Out["message"] == "" {
+		timenow := time.Now().UnixNano()
+		fileSaveName := fmt.Sprintf("%s/%s/%s", LOCAL_FILE_DIR, typemap[index], time.Now().Format("20060102"))
+		mediaPath := fmt.Sprintf("%s/%d.%s", fileSaveName, timenow, ext)
+		filetool.InsureDir(fileSaveName)
+		err = this.SaveToFile("filemedia", mediaPath)
+		if err != nil {
+			Out["success"] = 0
+			Out["message"] = err.Error()
+		} else {
+			Out["success"] = 1
+			Out["message"] = "上传成功"
+			Out["url"] = "/" + mediaPath
 		}
 	}
 	this.Data["json"] = Out

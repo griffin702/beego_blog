@@ -94,4 +94,5 @@ func init() {
 
 	//独立fileupload
 	beego.Router("/admin/upload", &admin.FileuploadController{}, "*:Upload")
+	beego.Router("/admin/uploadfile", &admin.FileuploadController{}, "*:UploadFile")
 }
