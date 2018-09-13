@@ -401,7 +401,15 @@ ul.infos p img.emoji { max-width: 30px; vertical-align: text-bottom; }
     }
 }
 
-video {
-    max-width: 600px;
-    max-height: 600px;
+@media (min-width: 992px) {
+    video {
+        max-width: 600px;
+        max-height: 600px;
+    }
+}
+@media (max-width: 991px) {
+    video {
+        max-width: 360px;
+        max-height: 360px;
+    }
 }
