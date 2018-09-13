@@ -16,6 +16,8 @@ import (
 	"blog-master/models"
 	"strings"
 	"errors"
+	"bytes"
+	"os/exec"
 )
 
 type FileuploadController struct {
@@ -232,6 +234,7 @@ func (this *FileuploadController) UploadFile() {
 		timenow := time.Now().UnixNano()
 		fileSaveName := fmt.Sprintf("%s/%s/%s", LOCAL_FILE_DIR, typemap[index], time.Now().Format("20060102"))
 		mediaPath := fmt.Sprintf("%s/%d.%s", fileSaveName, timenow, ext)
+		mediajpgPath := fmt.Sprintf("%s/%d.jpg", fileSaveName, timenow)
 		filetool.InsureDir(fileSaveName)
 		err = this.SaveToFile("filemedia", mediaPath)
 		if err != nil {
@@ -241,6 +244,10 @@ func (this *FileuploadController) UploadFile() {
 			Out["success"] = 1
 			Out["message"] = "上传成功"
 			Out["url"] = "/" + mediaPath
+			if err := GetFrame(mediaPath,mediajpgPath); err != nil {
+				fmt.Println(err)
+			}
+			Out["jpgurl"] = "/" + mediajpgPath
 		}
 	}
 	this.Data["json"] = Out
@@ -382,4 +389,14 @@ func RetRealWHEXT(in io.Reader) (int, int, string, error) {
 	w := origin.Bounds().Max.X
 	h := origin.Bounds().Max.Y
 	return w, h, fm, err
+}
+
+func GetFrame(filename string, mediajpgPath string) *bytes.Buffer {
+	cmd := exec.Command("ffmpeg", "-i", filename, "-y", "-f", "image2", "-t", "0.001", mediajpgPath)
+	buf := new(bytes.Buffer)
+	cmd.Stdout = buf
+	if err := cmd.Run(); err != nil {
+		fmt.Println(err)
+	}
+	return buf
 }

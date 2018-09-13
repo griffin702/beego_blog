@@ -45,7 +45,7 @@ function bindUploadFile() {
                 alert(ret.message);
                 var num = Math.floor(Math.random() * 9.9);
                 var str = "<video controls=\"\" preload=\"none\" " +
-                    "poster=\"/static/upload/default/blog-default-" + num + ".png" + "\">" +
+                    "poster=\"" + ret.jpgurl + "\">" +
                     "<source src=\"" + ret.url + "\" type=\"video/mp4\"></video>\n";
                 mdEditor.cm.replaceSelection(str);
                 formData = new FormData();
