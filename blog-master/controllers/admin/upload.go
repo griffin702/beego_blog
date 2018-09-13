@@ -244,10 +244,12 @@ func (this *FileuploadController) UploadFile() {
 			Out["success"] = 1
 			Out["message"] = "上传成功"
 			Out["url"] = "/" + mediaPath
-			if err := GetFrame(mediaPath,mediajpgPath); err != nil {
-				fmt.Println(err)
+			if index == 4 {
+				if err := GetFrame(mediaPath, mediajpgPath); err != nil {
+					fmt.Println(err)
+				}
+				Out["jpgurl"] = "/" + mediajpgPath
 			}
-			Out["jpgurl"] = "/" + mediajpgPath
 		}
 	}
 	this.Data["json"] = Out
