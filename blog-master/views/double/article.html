@@ -38,10 +38,10 @@
         </div>
         <div class="nextinfo">
         {{if .pre}}
-            <p>上一篇：<a href="{{.pre.Link}}">{{str2html .pre}}</a></p>
+            <p>上一篇：<a href="{{.pre.Link}}">{{str2html .pre.Title}}</a></p>
         {{end}}
         {{if .next}}
-            <p>下一篇：<a href="{{.next.Link}}">{{str2html .next}}</a></p>
+            <p>下一篇：<a href="{{.next.Link}}">{{str2html .next.Title}}</a></p>
         {{end}}
         </div>
     </div>
