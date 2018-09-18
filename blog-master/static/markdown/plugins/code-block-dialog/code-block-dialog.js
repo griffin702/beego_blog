@@ -17,41 +17,41 @@
     
 		// for CodeBlock dialog select
 		var codeLanguages = exports.codeLanguages = {
+            go            : ["Golang", "go"],
+            python        : ["Python", "python"],
+            javascript    : ["Javascript", "javascript"],
+            html          : ["HTML", "text/html"],
+            css           : ["CSS", "css"],
+			sql           : ["SQL", "sql"],
+            php           : ["PHP", "php"],
+            c             : ["C", "clike"],
+            cpp           : ["C++", "clike"],
+            markdown      : ["Markdown", "gfm"],
+            java          : ["Java", "clike"],
+            shell         : ["Shell", "shell"],
+            bash          : ["Bash/Bat", "shell"],
 			asp           : ["ASP", "vbscript"],
+            json          : ["JSON", "text/json"],
+            ruby          : ["Ruby", "ruby"],
+            lua           : ["Lua", "lua"],
+            perl          : ["Perl", "perl"],
+            "objective-c" : ["Objective-C", "clike"],
+            vb            : ["VB/VBScript", "vb"],
+            xml           : ["XML", "text/xml"],
 			actionscript  : ["ActionScript(3.0)/Flash/Flex", "clike"],
-			bash          : ["Bash/Bat", "shell"],
-			css           : ["CSS", "css"],
-			c             : ["C", "clike"],
-			cpp           : ["C++", "clike"],
 			csharp        : ["C#", "clike"],
 			coffeescript  : ["CoffeeScript", "coffeescript"],
 			d             : ["D", "d"],
 			dart          : ["Dart", "dart"],
 			delphi        : ["Delphi/Pascal", "pascal"],
 			erlang        : ["Erlang", "erlang"],
-			go            : ["Golang", "go"],
 			groovy        : ["Groovy", "groovy"],
-			html          : ["HTML", "text/html"],
-			java          : ["Java", "clike"],
-			json          : ["JSON", "text/json"],
-			javascript    : ["Javascript", "javascript"],
-			lua           : ["Lua", "lua"],
 			less          : ["LESS", "css"],
-			markdown      : ["Markdown", "gfm"],
-			"objective-c" : ["Objective-C", "clike"],
-			php           : ["PHP", "php"],
-			perl          : ["Perl", "perl"],
-			python        : ["Python", "python"],
 			r             : ["R", "r"],
 			rst           : ["reStructedText", "rst"],
-			ruby          : ["Ruby", "ruby"],
-			sql           : ["SQL", "sql"],
 			sass          : ["SASS/SCSS", "sass"],
-			shell         : ["Shell", "shell"],
 			scala         : ["Scala", "clike"],
 			swift         : ["Swift", "clike"],
-			vb            : ["VB/VBScript", "vb"],
-			xml           : ["XML", "text/xml"],
 			yaml          : ["YAML", "yaml"]
 		};
 
@@ -83,9 +83,10 @@
             else 
             {      
                 var dialogHTML = "<div class=\"" + classPrefix + "code-toolbar\">" +
-                                        dialogLang.selectLabel + "<select><option selected=\"selected\" value=\"\">" + dialogLang.selectDefaultText + "</option></select>" +
-                                    "</div>" +
-                                    "<textarea placeholder=\"coding now....\" style=\"display:none;\">" + selection + "</textarea>";
+					dialogLang.selectLabel + "<select><option selected=\"selected\" value=\"go\" mode=\"go\">" +
+					dialogLang.selectDefaultText + "(默认为Golang)" + "</option></select>" +
+					"</div>" + "<textarea placeholder=\"coding now....\" style=\"display:none;\">" +
+					selection + "</textarea>";
 
                 dialog = this.createDialog({
                     name   : dialogName,
