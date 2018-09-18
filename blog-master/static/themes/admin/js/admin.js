@@ -94,7 +94,7 @@ $(document).ready(function(){
             a.parent().siblings().removeClass("active");
         }
     });
-    var is_watch,mdEditor1,mdEditor2;
+    var is_watch;
     if ($(window).width()<772){is_watch=false}else{is_watch=true}
     $(function() {
         if ($("#content").length > 0) {
@@ -110,12 +110,12 @@ $(document).ready(function(){
                         "preview", "fullscreen", "help", "info"]
                 },
                 toolbarCustomIcons: {
-                    filevideo: "<div class=\"editormd-file-input\">" +
+                    filevideo: "<div class=\"editormd-file-input2\">" +
                     "<input id=\"filevideo\" type=\"file\" accept=\".mp4\" data-uptype=\"4\" />" +
-                    "<input type=\"submit\" value=\"上传视频\"></div>",
-                    fileaudio: "<div class=\"editormd-file-input\">" +
+                    "<input type=\"submit\" value=\"视频\"></div>",
+                    fileaudio: "<div class=\"editormd-file-input2\">" +
                     "<input id=\"fileaudio\" type=\"file\" accept=\".mp3\" data-uptype=\"5\" />" +
-                    "<input type=\"submit\" value=\"上传音频\"></div>",
+                    "<input type=\"submit\" value=\"音频\"></div>",
                 },
                 theme: "default",
                 previewTheme: "default",
@@ -168,12 +168,12 @@ $(document).ready(function(){
                         "fullscreen", "help", "info"]
                 },
                 toolbarCustomIcons: {
-                    filevideo: "<div class=\"editormd-file-input\">" +
+                    filevideo: "<div class=\"editormd-file-input2\">" +
                     "<input id=\"filevideo\" type=\"file\" accept=\".mp4\" data-uptype=\"4\" />" +
-                    "<input type=\"submit\" value=\"上传视频\"></div>",
-                    fileaudio: "<div class=\"editormd-file-input\">" +
+                    "<input type=\"submit\" value=\"视频\"></div>",
+                    fileaudio: "<div class=\"editormd-file-input2\">" +
                     "<input id=\"fileaudio\" type=\"file\" accept=\".mp3\" data-uptype=\"5\" />" +
-                    "<input type=\"submit\" value=\"上传音频\"></div>",
+                    "<input type=\"submit\" value=\"音频\"></div>",
                 },
                 theme: "default",
                 previewTheme: "default",
