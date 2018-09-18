@@ -84,7 +84,7 @@
             {      
                 var dialogHTML = "<div class=\"" + classPrefix + "code-toolbar\">" +
 					dialogLang.selectLabel + "<select><option selected=\"selected\" value=\"go\" mode=\"go\">" +
-					dialogLang.selectDefaultText + "(默认为Golang)" + "</option></select>" +
+					dialogLang.selectDefaultText + "<span>(默认为Golang)</span>" + "</option></select>" +
 					"</div>" + "<textarea placeholder=\"coding now....\" style=\"display:none;\">" +
 					selection + "</textarea>";
 
