@@ -149,7 +149,7 @@ func (m *Post) Del_Excerpt() string {
 func (post *Post) GetPreAndNext() (pre, next *Post) {
 	pre = new(Post)
 	next = new(Post)
-	err := new(Post).Query().Filter("id__lt", post.Id).Filter("status", 0).Filter("urltype", 0).Limit(1).One(pre)
+	err := new(Post).Query().Filter("id__lt", post.Id).Filter("status", 0).Filter("urltype", 0).OrderBy("-id").Limit(1).One(pre)
 	if err == orm.ErrNoRows {
 		pre = nil
 	}
