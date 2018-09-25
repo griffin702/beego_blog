@@ -216,32 +216,20 @@ $(document).ready(function(){
             }
         }
     });
-    $("pre").each(function () {
-        var lang = $(this).children("code").attr("class");
-        if (lang) {
-            $(this).addClass("prettyprint linenums " + lang);
+    //利用lightgallery处理文章页图片点击显示大图
+    $("#mdinfos img").each(function (index) {
+        var is_emoji = $(this).hasClass('emoji');
+        if (!is_emoji) {
+            var smallsrc = $(this).attr('src');
+            var src = smallsrc.replace(/_small/, "");
+            var lightgallery = "<ul id=\"lightgallery-"+index+"\" class=\"list-unstyled\">" +
+                "<li data-src=\""+src+"\"><a href=\"#\">" +
+                "<img src=\""+smallsrc+"\"></a></li></ul>" +
+                "<script>lightGallery(document.getElementById('lightgallery-"+index+"'));</script>";
+            var parent = $(this).parent();
+            $(this).remove();
+            parent.append(lightgallery);
         }
-    });
-    //点击图片放大
-    $("#wy-delegate-all").on("click", ".infos img", function () {
-        var img_content = $(this).attr("src");
-        img_content = img_content.replace(/_small/, "");
-        $(".article_all").append(
-            "<div class='bg-img'>"
-            + "<div class='tra-img'>"
-            + "<img src='" + img_content + "' class='zoom-out'>"
-            + "</div></div>"
-        );
-        $(".bg-img").animate({
-            width: "100%",
-            height: "100%",
-            top: "0",
-            left: "0",
-        }, "fast")
-    });
-    //点击外层区域页面图片隐藏
-    $(document).on("click", ".bg-img", function () {
-        $(this).remove();
     });
 });
 

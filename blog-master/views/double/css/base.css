@@ -319,39 +319,6 @@ a.readmore { background: #fd8a61; color: #fff; padding: 5px 10px; float: right; 
 .infos p { margin-bottom: 5px; }
 .infos p img.emoji { max-width: 30px; vertical-align: text-bottom; }
 
-/*处理文章img点击放大效果*/
-.bg-img{
-    position: fixed;
-    background-color: rgba(24, 24, 24, 0.9);
-    z-index:9999;
-    width: 0;
-    height: 0;
-    top: -20%;
-    left: -20%;
-}
-.tra-img{
-    text-align:center;position:relative;top:50%;
-    -webkit-transform:translateY(-50%);
-    -moz-transform:translateY(-50%);
-    -o-transform:translateY(-50%);
-    -ms-transform:translateY(-50%);
-    transform:translateY(-50%);
-}
-.tra-img img {
-    max-width:100%;
-}
-.infos img {
-    max-width:100%;
-    cursor: -moz-zoom-in;
-    cursor: -webkit-zoom-in;
-    cursor: zoom-in;
-}
-.zoom-out{
-    cursor: -moz-zoom-out;
-    cursor: -webkit-zoom-out;
-    cursor: zoom-out;
-}
-
 .keybq { line-height: 30px; height: 30px; border: 1px solid #F0F0F0; background-color: #f0f0f0; }
 .keybq span, .keybq a { color: #099; padding: 0 5px; }
 .bdsharebuttonbox { padding: 5px 15px!important; }
