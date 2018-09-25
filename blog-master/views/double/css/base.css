@@ -317,6 +317,7 @@ a.readmore { background: #fd8a61; color: #fff; padding: 5px 10px; float: right; 
 .box_c span a{color: #099;}
 .infos { line-height: 28px; padding: 0 5px 0 5px; }
 .infos p { margin-bottom: 5px; }
+.infos p img { max-width: 100%; }
 .infos p img.emoji { max-width: 30px; vertical-align: text-bottom; }
 
 .keybq { line-height: 30px; height: 30px; border: 1px solid #F0F0F0; background-color: #f0f0f0; }
