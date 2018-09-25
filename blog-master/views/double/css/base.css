@@ -22,8 +22,16 @@ pre.prettyprint ol {
     padding-left: 2.5em;
 }
 pre.prettyprint ol.linenums li {
+    min-width: 600px;
     list-style-type: decimal;
 }
+pre.prettyprint ol.linenums li code {
+    word-break: break-all;
+    white-space: pre;
+    overflow: auto;
+    overflow-y: hidden;
+}
+
 h6.media-heading {
     color: #00a9e0;
 }
@@ -237,8 +245,11 @@ a.readmore { background: #fd8a61; color: #fff; padding: 5px 10px; float: right; 
     margin-right: 15px;
     max-width: 230px;
 }
-.sy .bg p {
+.sy .bg div {
     margin: 10px 0;
+}
+.sy .bg div audio {
+    max-width: 100%;
 }
 @media (max-width: 991px) {
     .sy .bg {
@@ -246,7 +257,7 @@ a.readmore { background: #fd8a61; color: #fff; padding: 5px 10px; float: right; 
         max-width: 100%;
         min-width: 50%;
     }
-    .sy .bg p {
+    .sy .bg div {
         display: inline-block;
     }
     .dateview {
@@ -305,9 +316,7 @@ a.readmore { background: #fd8a61; color: #fff; padding: 5px 10px; float: right; 
 .box_c span { margin: 0 5px; }
 .box_c span a{color: #099;}
 .infos { line-height: 28px; padding: 0 5px 0 5px; }
-.infos p { margin-bottom: 5px; text-indent: 2em; }
-.infos ul.gallery li { padding: 10px 20px;}
-.infos ul.gallery li a img { max-width:100%;}
+.infos p { margin-bottom: 5px; }
 .infos p img.emoji { max-width: 30px; vertical-align: text-bottom; }
 
 /*处理文章img点击放大效果*/
@@ -328,7 +337,11 @@ a.readmore { background: #fd8a61; color: #fff; padding: 5px 10px; float: right; 
     -ms-transform:translateY(-50%);
     transform:translateY(-50%);
 }
+.tra-img img {
+    max-width:100%;
+}
 .infos img {
+    max-width:100%;
     cursor: -moz-zoom-in;
     cursor: -webkit-zoom-in;
     cursor: zoom-in;

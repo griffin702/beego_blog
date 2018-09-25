@@ -226,7 +226,7 @@ $(document).ready(function(){
     $("#wy-delegate-all").on("click", ".infos img", function () {
         var img_content = $(this).attr("src");
         img_content = img_content.replace(/_small/, "");
-        $("body").append(
+        $(".article_all").append(
             "<div class='bg-img'>"
             + "<div class='tra-img'>"
             + "<img src='" + img_content + "' class='zoom-out'>"
