@@ -115,8 +115,7 @@ func (this *ArticleController) Save() {
 	var (
 		id      int64  = 0
 		title          = strings.TrimSpace(this.GetString("title"))
-		content_md     = this.GetString("content-markdown-doc")
-		content        = this.GetString("content-html-code")
+		content        = this.GetString("content-markdown-doc")//content-html-code
 		tags           = strings.TrimSpace(this.GetString("tags"))
 		urlname        = strings.TrimSpace(this.GetString("urlname"))
 		color          = strings.TrimSpace(this.GetString("color"))
@@ -217,11 +216,10 @@ func (this *ArticleController) Save() {
 	post.Istop = istop
 	post.Cover = cover
 	post.Content = content
-	post.Content_md = content_md
 	post.Urlname = urlname
 	post.Urltype = urltype
 	post.Updated = this.getTime()
-	post.Update("tags", "status", "title", "color", "cover", "istop", "content", "content_md", "urlname", "urltype", "updated")
+	post.Update("tags", "status", "title", "color", "cover", "istop", "content", "urlname", "urltype", "updated")
 
 RD:
 	this.Redirect("/admin/article/list", 302)

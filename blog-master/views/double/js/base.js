@@ -222,6 +222,27 @@ $(document).ready(function(){
             $(this).addClass("prettyprint linenums " + lang);
         }
     });
+    //点击图片放大
+    $("#wy-delegate-all").on("click", ".infos img", function () {
+        var img_content = $(this).attr("src");
+        img_content = img_content.replace(/_small/, "");
+        $("body").append(
+            "<div class='bg-img'>"
+            + "<div class='tra-img'>"
+            + "<img src='" + img_content + "' class='zoom-out'>"
+            + "</div></div>"
+        );
+        $(".bg-img").animate({
+            width: "100%",
+            height: "100%",
+            top: "0",
+            left: "0",
+        }, "fast")
+    });
+    //点击外层区域页面图片隐藏
+    $(document).on("click", ".bg-img", function () {
+        $(this).remove();
+    });
 });
 
 function ajax_Main(type, data, url, timewait){

@@ -17,7 +17,6 @@ type Post struct {
 	Urlname    string      `orm:"size(100);index"`
 	Urltype    int8        `orm:"index"`
 	Content    string      `orm:"type(text)"`
-	Content_md string      `orm:"type(text)"`
 	Tags       string      `orm:"size(100);index"`
 	Posttime   time.Time   `orm:"auto_now_add;type(datetime);index"`
 	Views      int64       `orm:"index"`
@@ -118,7 +117,7 @@ func (m *Post) Excerpt() string {
 	re, _ := regexp.Compile("\\<[\\S\\s]+?\\>")
 	rep := re.ReplaceAllStringFunc(m.Content, strings.ToLower)
 	//将hr标签转换为特殊标记
-	re, _ = regexp.Compile("\\<hr\\>")
+	re, _ = regexp.Compile("------------")
 	rep = re.ReplaceAllString(rep, "_markdown_hr_")
 	//去除所有尖括号内的HTML代码
 	re, _ = regexp.Compile("\\<[\\S\\s]+?\\>")
@@ -129,21 +128,19 @@ func (m *Post) Excerpt() string {
 	//如果断定截取的断点可能会存在中文字符，则需要转为rune后再截取，否则可能会截成乱码
 	data := []rune(rep)
 	if i := strings.Index(rep, "_markdown_hr_"); i != -1 {
-		return rep[:i]
-	}else if i = -1; len(data) > 62 {
+		return rep[:i]+"..."
+	}else if i = -1; len(data) > 58 {
 		return string(data[:62])+"..."
 	}
 	return rep
 }
 
 func (m *Post) Del_Excerpt() string {
-	re, _ := regexp.Compile("\\<img[\\S\\s]+?\\>")
-	rep := re.ReplaceAllStringFunc(m.Content, AddImgStr)
-	if i := strings.Index(rep, "<hr>"); i != -1 {
-		x := len("<hr>")
-		return rep[i+x:]
+	if i := strings.Index(m.Content, "------------"); i != -1 {
+		x := len("------------")
+		return m.Content[i+x:]
 	}
-	return rep
+	return m.Content
 }
 
 func (post *Post) GetPreAndNext() (pre, next *Post) {
@@ -160,26 +157,3 @@ func (post *Post) GetPreAndNext() (pre, next *Post) {
 	return
 }
 
-func AddImgStr(str string) string {
-	src := ""
-	//判断是否是emoji表情，如是则直接返回不作任何处理
-	if i := strings.Index(str, "class=\"emoji\""); i != -1 {
-		return str
-	}
-	re := regexp.MustCompile(`src="(.*?)"`)
-	result := re.FindAllStringSubmatch(str, -1)
-	if len(result) > 0 {
-		src = result[0][1]
-	}
-	src = strings.Replace(src, "_small", "", -1)
-	arr1 := strings.Split(src, "/")
-	filename := arr1[len(arr1)-1]
-	arr2 := strings.Split(filename, ".")
-	filename = arr2[0]
-	script := "<script>lightGallery(document.getElementById('lightgallery-" + filename + "'));</script>"
-	newstr := "<ul id=\"lightgallery-" + filename +
-		"\" class=\"gallery list-unstyled\"><li data-src=\"" + src +
-		"\"><a href=\"#\">" + str +
-		"</a></li></ul>" + script
-	return newstr
-}

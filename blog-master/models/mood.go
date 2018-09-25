@@ -4,13 +4,13 @@ import (
 	"github.com/astaxie/beego/orm"
 	"time"
 	"strings"
+	"regexp"
 )
 
 //心情表
 type Mood struct {
 	Id          int64
 	Content     string    `orm:"type(text)"`
-	Content_md  string    `orm:"type(text)"`
 	Cover       string    `orm:"size(70);default(/static/upload/default/blog-default-0.png)"`
 	Posttime    time.Time `orm:"type(datetime);index"`
 }
@@ -58,4 +58,14 @@ func (m *Mood) ChangetoSmall() string {
 	ext := "." + arr2[len(arr2)-1]
 	small := strings.Replace(m.Cover, ext, "_small"+ext, 1)
 	return small
+}
+
+func (m *Mood) GetDesc() string {
+	//将HTML标签全转换成小写
+	re, _ := regexp.Compile("\\<[\\S\\s]+?\\>")
+	rep := re.ReplaceAllStringFunc(m.Content, strings.ToLower)
+	//去除所有尖括号内的HTML代码
+	re, _ = regexp.Compile("\\<[\\S\\s]+?\\>")
+	rep = re.ReplaceAllString(rep, "")
+	return rep
 }

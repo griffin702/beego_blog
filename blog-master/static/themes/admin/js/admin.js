@@ -187,7 +187,7 @@ $(document).ready(function(){
                 emoji: true,
                 taskList: true,
                 tocm: true,
-                flowChart: true,
+                flowChart: false,
                 imageUpload: false,
                 onload : function(){
                     bindUploadFile();
