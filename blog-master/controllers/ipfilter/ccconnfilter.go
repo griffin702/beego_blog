@@ -10,7 +10,7 @@ import (
 const (
 	maxConn  = 6            //同IP最大异常访问数
 	checkTimeReset = 120     //重置计数器间隔
-	checkTimeDiff = 7      //异常时间差
+	checkTimeDiff = 5      //异常时间差
 )
 
 //cc过滤
