@@ -16,7 +16,7 @@ func (this *MainController) Index() {
 	query := new(models.Post).Query().Filter("status", 0).Filter("urltype", 0)
 	count, _ := query.Count()
 	if count > 0 {
-		query.OrderBy("-istop", "-views").Limit(this.pagesize, (this.page-1)*this.pagesize).RelatedSel().All(&list)
+		query.OrderBy("-istop", "-posttime").Limit(this.pagesize, (this.page-1)*this.pagesize).RelatedSel().All(&list)
 	}
 	this.Data["list"] = list
 	this.Data["pagebar"] = models.NewPager(int64(this.page), int64(count), int64(this.pagesize), "/index%d.html").ToString()
