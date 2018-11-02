@@ -75,6 +75,9 @@ func (this *baseController) auth() {
 						this.permissionlist[permission.Name] = permission.Id
 					}
 				}
+				if _, ok := this.permissionlist["fileupload"]; !ok && user.Upcount > 0 {
+					this.permissionlist["fileupload"] = 0
+				}
 				this.permissionlist["index"] = 0
 				if this.actionName == "login" {
 					this.Redirect("/admin", 302)

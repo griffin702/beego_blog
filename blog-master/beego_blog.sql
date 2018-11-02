@@ -144,7 +144,7 @@ CREATE TABLE `tb_permission` (
 # Data for table "tb_permission"
 #
 
-INSERT INTO `tb_permission` VALUES (1,'user'),(2,'article'),(3,'album'),(4,'link'),(5,'mood'),(6,'tag'),(7,'system');
+INSERT INTO `tb_permission` VALUES (1,'user'),(2,'article'),(3,'album'),(4,'link'),(5,'mood'),(6,'tag'),(7,'system'),(8,'fileupload');
 
 #
 # Structure for table "tb_photo"
@@ -267,6 +267,7 @@ CREATE TABLE `tb_user` (
   `active` tinyint(4) NOT NULL DEFAULT '0',
   `permission` varchar(100) NOT NULL DEFAULT '',
   `avator` varchar(150) NOT NULL DEFAULT '/static/upload/default/user-default-60x60.png',
+  `upcount` bigint(20) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`),
   KEY `tb_user_nickname` (`nickname`),
@@ -281,4 +282,4 @@ CREATE TABLE `tb_user` (
 # Data for table "tb_user"
 #
 
-INSERT INTO `tb_user` VALUES (1,'admin','e10adc3949ba59abbe56e057f20f883e','云丶先生','117976509@qq.com','2018-07-12 12:55:55',0,'127.0.0.1','',1,'1|2|3|4|5|6|7','/static/upload/default/user-default-60x60.png');
+INSERT INTO `tb_user` VALUES (1,'admin','e10adc3949ba59abbe56e057f20f883e','云丶先生','117976509@qq.com','2018-07-12 12:55:55',0,'127.0.0.1','',1,'1|2|3|4|5|6|7|8','/static/upload/default/user-default-60x60.png',0);

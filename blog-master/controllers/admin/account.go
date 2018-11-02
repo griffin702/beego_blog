@@ -109,6 +109,7 @@ func (this *AccountController) Register() {
 			user.Password = models.Md5([]byte(password1))
 			user.Email = email
 			user.Active = int8(1)
+			user.Upcount = int64(3)
 			user.Lastip = this.getClientIp()
 			user.Avator = "/static/upload/default/user-default-60x60.png"
 			user.Nickname = nickname
@@ -150,6 +151,9 @@ func (this *AccountController) Profile() {
 		}
 		if avator != lastavator {
 			models.Cache.Delete("newcomments")
+			if user.Upcount > 0 {
+				user.Upcount--
+			}
 			if !this.Isdefaultsrc(lastavator) {
 				os.Remove("." + lastavator)
 			}
@@ -173,7 +177,7 @@ func (this *AccountController) Profile() {
 		}
 		if avator != user.Avator && len(errmsg) == 0 {
 			user.Avator = avator
-			user.Update("avator")
+			user.Update("avator", "upcount")
 			updated = true
 		}
 		if newpassword != "" {

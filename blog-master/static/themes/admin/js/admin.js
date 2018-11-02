@@ -259,7 +259,11 @@ $(document).ready(function(){
             success: function(data) {
                 var ret = JSON.parse(JSON.stringify(data));
                 if (!ret.success) {
-                    alert(ret.message);
+                    if (ret.success === undefined) {
+                        alert("不允许上传!");
+                    } else {
+                        alert(ret.message);
+                    }
                 } else {
                     $('#picture').val(ret.url);
                     if (uptype === 3 && albumid > 0) {

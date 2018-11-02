@@ -55,7 +55,8 @@ func (this *UserController) Add() {
 			this.GetString("permission4") + "|" +
 			this.GetString("permission5") + "|" +
 			this.GetString("permission6") + "|" +
-			this.GetString("permission7"))
+			this.GetString("permission7") + "|" +
+			this.GetString("permission8"))
 		active, _ := this.GetInt64("active")
 		input["username"] = username
 		input["password"] = password
@@ -108,6 +109,7 @@ func (this *UserController) Add() {
 			user.Email = email
 			user.Avator = avator
 			user.Active = int8(active)
+			user.Upcount = int64(3)
 			user.Nickname = nickname
 			if err := user.Insert(); err != nil {
 				this.showmsg(err.Error())
@@ -146,12 +148,13 @@ func (this *UserController) Edit() {
 		}
 		permissionlist := strings.TrimSpace(
 			this.GetString("permission1") + "|" +
-				this.GetString("permission2") + "|" +
-				this.GetString("permission3") + "|" +
-				this.GetString("permission4") + "|" +
-				this.GetString("permission5") + "|" +
-				this.GetString("permission6") + "|" +
-				this.GetString("permission7"))
+			this.GetString("permission2") + "|" +
+			this.GetString("permission3") + "|" +
+			this.GetString("permission4") + "|" +
+			this.GetString("permission5") + "|" +
+			this.GetString("permission6") + "|" +
+			this.GetString("permission7") + "|" +
+			this.GetString("permission8"))
 		active, _ := this.GetInt64("active")
 		valid := validation.Validation{}
 		if v := valid.Required(nickname, "nickname"); !v.Ok {
