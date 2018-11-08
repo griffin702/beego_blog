@@ -84,6 +84,7 @@ a.n1, a.n2 { width: 100px; display: block; text-align: center; color: #fff; floa
 .newcomment li span span {color: #fff; position: relative; top: 0;vertical-align: middle!important;}
 .newcomment { margin: 10px 0;padding-left: 0!important; }
 .newcomment li a:hover, .rank li a:hover { color: #F17B6B; }
+.newcomment li h6 span { color: #b8b8b8; }
 .paih li a:hover, .rank li a:hover { color: #F17B6B; }
 .paih { background: url(../images/ph.jpg) no-repeat left 8px; margin: 10px 0 }
 .paih li { line-height: 30px; height: 30px; overflow: hidden; padding-left: 10px; border-bottom: #CCC dotted 1px }

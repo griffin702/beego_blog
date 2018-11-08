@@ -4,6 +4,7 @@ import (
 	"github.com/astaxie/beego/orm"
 	"time"
 	"math"
+	"fmt"
 )
 
 //评论模型
@@ -109,4 +110,21 @@ func (m *Comments) Titleln() string {
 		return string(data)
 	}
 	return m.Comment
+}
+
+func (m *Comments) ShowSubTime() string {
+	sub := int(time.Since(m.Submittime).Minutes())
+	if sub <= 10 {
+		return "刚刚"
+	} else if sub > 10 && sub <= 60 {
+		return "10分钟前"
+	} else if sub > 60 && sub <= 1440 {
+		return fmt.Sprintf("%d小时前", sub/60)
+	} else if sub > 1440 && sub <= 43200 {
+		return fmt.Sprintf("%d天前", sub/1440)
+	} else if sub > 43200 && sub <= 525600 {
+		return fmt.Sprintf("%d个月前", sub/43200)
+	} else {
+		return fmt.Sprintf("%d年前", sub/525600)
+	}
 }
