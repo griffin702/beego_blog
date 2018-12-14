@@ -85,7 +85,7 @@ CREATE TABLE `tb_link` (
 # Data for table "tb_link"
 #
 
-INSERT INTO `tb_link` VALUES (1,'爱在发烧','/static/upload/smallpic/20180619/1529369471932023700.jpg','http://azfashao.com/','一个非常棒的站点，博主也很厉害',99),(2,'AN STUDIO','/static/upload/smallpic/20180621/1529576340049076300.jpg','shop59002320.taobao.com','外设韩国原单店铺',100);
+INSERT INTO `tb_link` VALUES (1,'爱在发烧','/static/upload/smallpic/20180619/1529369471932023700.jpg','http://azfashao.com/','一个非常棒的站点，博主也很厉害',99),(2,'AN STUDIO','/static/upload/smallpic/20180621/1529576340049076300.jpg','//shop59002320.taobao.com','外设韩国原单店铺',100);
 
 #
 # Structure for table "tb_mood"
