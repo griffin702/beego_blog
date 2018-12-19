@@ -88,13 +88,13 @@ func (this *baseController) getOption(name string) string {
 
 func (this *baseController) setHeadMetas(params ...string) {
 	title_buf := make([]string, 0, 3)
-	if len(params) == 0 && this.getOption("subtitle") != "" {
-		title_buf = append(title_buf, this.getOption("subtitle"))
+	if len(params) == 0 && this.getOption("sitename") != "" {
+		title_buf = append(title_buf, this.getOption("sitename"))
 	}
 	if len(params) > 0 {
 		title_buf = append(title_buf, params[0])
 	}
-	title_buf = append(title_buf, this.getOption("sitename"))
+	title_buf = append(title_buf, this.getOption("subtitle"))
 	this.Data["title"] = strings.Join(title_buf, " - ")
 
 	if len(params) > 1 {

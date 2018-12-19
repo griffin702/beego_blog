@@ -138,6 +138,7 @@ func (this *MainController) Show() {
 	post.Views++
 	post.Update("Views")
 	models.Cache.Delete("hotblog")
+	desc := post.Excerpt()
 	post.Content = post.Del_Excerpt()
 	pre, next := post.GetPreAndNext()
 	this.Data["post"] = post
@@ -178,7 +179,7 @@ func (this *MainController) Show() {
 	this.Data["pagebar"] = pager.ToString()
 	this.Data["pagenum"] = this.page
 	this.Data["totalpage"] = pager.Totalpage
-	this.setHeadMetas(post.Title, strings.Trim(post.Tags, ","), post.Title)
+	this.setHeadMetas(post.Title, strings.Trim(post.Tags, ","), desc)
 	this.display("article")
 }
 
@@ -217,7 +218,7 @@ func (this *MainController) Category() {
 	this.Data["tag"] = tag
 	this.Data["list"] = list
 	this.Data["pagebar"] = models.NewPager(int64(this.page), int64(count), int64(this.pagesize), "/category/"+tag.Name+"/page/%d").ToString()
-	this.setHeadMetas(tag.Name, tag.Name, tag.Name)
+	this.setHeadMetas("归类归档 - " + tag.Name)
 	this.display("category")
 }
 
