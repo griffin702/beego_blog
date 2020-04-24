@@ -1,0 +1,3 @@
+﻿"id","sitename","url","rank","siteavator","sitedesc"
+1,"爱在发烧","http://azfashao.com/",99,"/static/upload/default/user-default-60x60.png","一个非常棒的站点，博主也很厉害"
+2,"AN STUDIO","shop59002320.taobao.com",100,"/static/upload/default/user-default-60x60.png","外设韩国原单店铺"

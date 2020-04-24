@@ -1,0 +1,2 @@
+﻿"id","username","password","nickname","email","lastlogin","logincount","lastip","authkey","active","permission","avator","upcount"
+1,"admin","e10adc3949ba59abbe56e057f20f883e","云丶先生","117976509@qq.com",2018-07-12 12:55:55,0,"127.0.0.1","",1,"1|2|3|4|5|6|7","/static/upload/default/user-default-60x60.png",0

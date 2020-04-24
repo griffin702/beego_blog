@@ -1,0 +1,27 @@
+<link href="{{.root}}css/photo.css" rel="stylesheet">
+
+<h1 class="t_nav">
+    <a href="/" class="n1">网站首页</a>
+    <a href="/album.html" class="n2">光影瞬间</a>
+    <p><span class="glyphicon glyphicon-map-marker"></span> 每一个瞬间的摄影，都是无法复摹独一无二的</p>
+</h1>
+<div class="albumlist col-lg-12 col-md-12 col-sm-12 col-xs-12 column">
+    <ul class="gallery col-lg-12 col-md-12 col-sm-12 col-xs-12 column">
+        {{range $k, $v := .list}}
+            <li class="col-lg-2 col-md-2 col-sm-6 col-xs-6 column">
+                <a href="/photo{{$v.Id}}.html" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 column">
+                    <div class="box1 col-lg-12 col-md-12 col-sm-12 col-xs-12 column" style="background:url({{$v.Cover}});">
+                        <div class="box2-wrap">
+                            <div class="box2">{{$v.Photonum}}</div>
+                        </div>
+                    </div>
+                    <span class="col-lg-12 col-md-12 col-sm-12 col-xs-12 column" title="{{$v.Name}}">{{$v.LongNameAlter}}</span>
+                </a>
+            </li>
+       {{end}}
+    </ul>
+</div>
+{{str2html .pagebar}}
+{{/*<div class="comments">*/}}
+    {{/*<div class="ds-thread"></div>*/}}
+{{/*</div>*/}}

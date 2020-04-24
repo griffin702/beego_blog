@@ -1,0 +1,101 @@
+<h1 class="t_nav">
+    <a href="/" class="n1">网站首页</a>
+    <a href="/links.html" class="n2">友情链接</a>
+    <p><span class="glyphicon glyphicon-map-marker"></span> 人生贵知心，定交无暮早。</p>
+</h1>
+
+<div class="link-friends-body col-lg-9 col-md-9 col-sm-12 col-xs-12 column" id="wy-delegate-all">
+    <blockquote><p>请先做好本站链接再申请，发现没有链接到本站的一律删除不做通知！</p></blockquote>
+    <blockquote><p>中国好伙伴</p></blockquote>
+    <div class="link-friends">
+    {{range $k,$v := .links}}
+        <span>
+            <a rel="link" href="{{$v.Url}}" title="{{$v.Sitename}}" target="_blank">
+            <img alt='' src='{{$v.Siteavator}}' class='wyavater' height='40' width='40' title="{{$v.Sitedesc}}" />
+            <span class="sitename">{{$v.Sitename}}</span>
+            </a>
+        </span>
+    {{end}}
+    </div>
+    <script src="{{.root}}js/mycomments.js"></script>
+    <script src="{{.root}}js/md5.js"></script>
+    <!-- Comments Form -->{{$islogin := .IsLogin}}
+{{if .IsLogin}}
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 column" id="wrap-form-comment">
+        <div class="well" id="form-comment">
+            <h4>欢迎留下您的评论：</h4>
+            <form role="form" action="/admin/comments/add" method="post">
+                <input id="id_object_pk" type="hidden" name="object_pk" value="0" />
+                <input id="id_object_pk_type" type="hidden" name="object_pk_type" value="1" />
+                <input id="id_reply_pk" type="hidden" name="reply_pk" value="0" />
+                <input id="id_reply_fk" type="hidden" name="reply_fk" value="0" />
+                <textarea id="comment_content" class="comment_content form-control" name="comment_content"></textarea>
+                <button id="comment_submit" type="submit" class="btn btn-primary" data-islogin="{{.IsLogin}}">提交评论</button>
+                <button id="cancel_reply" type="button" class="btn btn-default">关闭</button>
+            </form>
+        </div>
+    </div>
+{{else}}
+    <p class="checklogin col-lg-12 col-md-12 col-sm-12 col-xs-12 column">
+        如需留言，请
+        <a href="#" data-toggle="modal" data-target="#wy-login-modal">
+            <span class="glyphicon glyphicon-log-in"></span> 登录</a>，没有账号？请
+        <a href="#" data-toggle="modal" data-target="#wy-register-modal">
+            <span class="glyphicon glyphicon-new-window"></span> 注册</a>
+    </p>
+{{end}}
+    <!-- Comments List -->
+    <div id="comments-head" class="comments_length col-lg-12 col-md-12 col-sm-12 col-xs-12 column">
+        <p>{{.commentlength}} 条评论 {{.commentuser}} 人参与
+        {{ if gt .totalpage 1 }}<span class="pagenum">({{.pagenum}}/{{.totalpage}})</span>{{ end }}
+        </p>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 column" id="wrap-comments-list">
+        <div id="comments-list">
+        {{range $key, $item := .commentlistmap}}
+            <div class="comments_one col-lg-12 col-md-12 col-sm-12 col-xs-12 column">
+                <div class="comment_parent col-lg-12 col-md-12 col-sm-12 col-xs-12 column">
+                    <a class="pull-left">
+                        <img class="media-object" src="{{ $item.Commentlist0.User.Avator }}" height="45" width="45" alt="">
+                    </a>
+                    <div class="media-body" id="comment-{{ $item.Commentlist0.Id }}">
+                        <h6 class="media-heading">{{ $item.Commentlist0.User.Nickname }}
+                            {{ if eq $item.Commentlist0.User.Id 1 }}
+                            <span class="btn btn-info btn-xs">官方</span>{{end}}
+                            <small>{{date $item.Commentlist0.Submittime "y-m-d H:i"}}</small>
+                        {{if $islogin}}<small class="reply_btn">
+                            <a href="#" data-comment-id="{{ $item.Commentlist0.Id }}"
+                               data-parent-id="{{ $item.Commentlist0.Id }}" class="comment_reply_link">回复</a>
+                        </small>{{end}}
+                        </h6>
+                        <p>{{ $item.Commentlist0.Comment }}</p>
+                    </div>
+                {{range $k, $v := $item.Commentlist}}
+                    <div class="comment_child col-lg-11 col-md-11 col-sm-11 col-xs-11 column">
+                        <a class="pull-left">
+                            <img class="media-object" src="{{ $v.User.Avator }}" height="30" width="30" alt="">
+                        </a>
+                        <div class="media-body" id="comment-{{ $v.Id }}">
+                            <h6 class="media-heading">{{ $v.User.Nickname }}
+                            {{ if eq $v.User.Id 1 }}
+                                <span class="btn btn-info btn-xs">官方</span>{{end}}
+                                <small>{{date $v.Submittime "y-m-d H:i"}}</small>
+                            {{if $islogin}}<small class="reply_btn">
+                                <a href="#" data-comment-id="{{ $v.Id }}"
+                                   data-parent-id="{{ $item.Commentlist0.Id }}" class="comment_reply_link">回复</a>
+                            </small>{{end}}
+                            </h6>{{$reply_pk_userid := $v.Return_PkId $v.Reply_pk}}
+                            <small class="comment-quote">
+                    {{ if eq $reply_pk_userid 1}}引用 官方 {{else}}引用 网友 {{end}}
+                    {{ $v.Return_PkName $v.Reply_pk }}：{{ $v.Return_PkContent $v.Reply_pk }}</small>
+                            <p>{{ $v.Comment }}</p>
+                        </div>
+                    </div>
+                {{end}}
+                </div>
+            </div>
+        {{end}}
+        {{str2html .pagebar}}
+        </div>
+    </div>
+</div>

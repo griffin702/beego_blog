@@ -1,0 +1,37 @@
+<fieldset>
+    <legend>编辑评论
+        <a class="btn btn-primary btn-xs" onclick="javascript:history.back();">
+            <span class="glyphicon glyphicon-share-alt"></span> 返回
+        </a>
+    </legend>
+    <form class="form-horizontal" method="post">
+        <input type="hidden" name="id" value="{{.comment.Id}}" />
+        <table class="table table-form">
+            <tbody>
+            <tr>
+                <th>评论内容</th>
+                <td><input class="span4 form-control" name="content" value="{{.comment.Comment}}" type="text" /></td>
+            </tr>
+            <tr>
+                <th>状态</th>
+                <td>
+                    <select name="is_removed" class="form-control" >
+                        <option value="0" {{if eq .comment.Is_removed 0}}selected{{end}}>正常</option>
+                        <option value="1" {{if eq .comment.Is_removed 1}}selected{{end}}>删除</option>
+                    </select>
+                </td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <th></th>
+                <td>
+                    <button type="submit" class="btn btn-primary"><i class="icon-ok"></i> 保存</button>
+                    <button type="button" class="btn btn-primary" onclick="javascript:history.back();">取消</button>
+                </td>
+            </tr>
+            </tfoot>
+        </table>
+    </form>
+
+</fieldset>

@@ -1,0 +1,83 @@
+<fieldset>
+	<legend>个人资料</legend>
+	{{if .updated}}
+	<div class="alert alert-success">修改成功！</div>
+	{{end}}
+	<form class="form-horizontal" method="post">
+	<table class="table table-form">
+		<tbody>
+			<tr>
+				<th class="width:150px;">帐号：</th>
+				<td>
+					<b>{{.user.Username}}</b>
+				</td>
+			</tr>
+			<tr>
+				<th>登录次数：</th>
+				<td>
+					{{.user.Logincount}}
+				</td>
+			</tr>
+			<tr>
+				<th>最后登录：</th>
+				<td>
+					{{date .user.Lastlogin "Y-m-d H:i:s"}} ({{.user.Lastip}})
+				</td>
+			</tr>
+            <tr>
+                <th>昵称：</th>
+                <td>
+                    <input type="text" name="nickname" value="{{.user.Nickname}}" class="form-control" />
+                    <span class="text-error">{{.errmsg.nickname}}</span>
+                </td>
+            </tr>
+            <tr>
+                <th>用户头像</th>
+                <td>
+                    <div class="input-group">
+                        <span class="input-group-addon">当前：</span>
+                        <input type="text" id="picture" name="avator" class="form-control" value="{{.user.Avator}}" />
+                    </div>
+                    <input type="file" id="newcover" name="newavator" />
+                    <img src="{{.user.Avator}}" id="autoview" class="img-rounded" width="60" height="60">
+                    <button type="button" id="uploadimg" class="btn btn-primary">上传</button>
+                    <div class="alert alert-warning">
+                        <strong>温馨提示：</strong>点击上传,保存后才能生效(每位用户最多允许上传并保存3次),
+						服务器仅允许上传格式jpg、jpeg、png并自动裁剪像素:60*60
+                    </div>
+                </td>
+            </tr>
+			<tr>
+				<th>当前密码：</th>
+				<td>
+					<input type="password" name="password" class="form-control" />
+					<span class="text-error">{{.errmsg.password}}</span>
+				</td>
+			</tr>
+			<tr>
+				<th>新密码：</th>
+				<td>
+					<input type="password" name="newpassword" class="form-control" />
+					<span class="text-error">{{.errmsg.newpassword}}</span>
+				</td>
+			</tr>
+			<tr>
+				<th>确认密码：</th>
+				<td>
+					<input type="password" name="newpassword2" class="form-control" />
+					<span class="text-error">{{.errmsg.newpassword2}}</span>
+				</td>
+			</tr>
+		</tbody>
+		<tfoot>
+			<tr>
+				<td></td>
+				<td>
+				<button type="submit" class="btn btn-primary"><i class="icon-ok"></i> 保存</button>
+				<button type="button" class="btn btn-primary" onclick="javascript:history.back();">取消</button>
+				</td>
+			</tr>
+		</tfoot>
+	</table>
+	</form>
+</fieldset>

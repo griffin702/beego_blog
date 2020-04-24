@@ -1,0 +1,58 @@
+<script src="/static/lightgallery/js/picturefill.min.js"></script>
+<script src="/static/lightgallery/dist/js/lightgallery.js"></script>
+<script src="/static/lightgallery/js/lg-pager.js"></script>
+<script src="/static/lightgallery/js/lg-autoplay.js"></script>
+<script src="/static/lightgallery/js/lg-fullscreen.js"></script>
+<script src="/static/lightgallery/js/lg-zoom.js"></script>
+<link rel="stylesheet" type="text/css" href="/static/lightgallery/dist/css/lightgallery.min.css">
+<link href="{{.root}}css/photo.css" rel="stylesheet">
+<script src="/static/markdown/lib/marked.min.js"></script>
+<script src="/static/markdown/lib/prettify.min.js"></script>
+<script src="/static/markdown/lib/raphael.min.js"></script>
+<script src="/static/markdown/lib/underscore.min.js"></script>
+<script src="/static/markdown/lib/sequence-diagram.min.js"></script>
+<script src="/static/markdown/lib/flowchart.min.js"></script>
+<script src="/static/markdown/lib/jquery.flowchart.min.js"></script>
+<script src="/static/markdown/editormd.min.js"></script>
+
+<div class="moodlist">
+    <h1 class="t_nav">
+        <a href="/" class="n1">网站首页</a>
+        <a href="/mood.html" class="n2">碎言碎语</a>
+        <p><span class="glyphicon glyphicon-map-marker"></span> 删删写写，回回忆忆，虽无法行云流水，却也可碎言碎语。</p>
+    </h1>
+    <div class="article_all col-lg-12 col-md-12 col-sm-12 col-xs-12 column">
+    {{range $k, $v := .list}}
+        <div class="sy col-lg-8 col-md-8 col-sm-10 col-xs-10 column">
+            <div class="bg">
+            {{if $v.Cover }}
+                <ul id="lightgallery-{{$v.Id}}" class="list-unstyled">
+                    <li data-src="{{$v.Cover}}"
+                        data-sub-html="<div class='mooddesc'>{{$v.GetDesc}}<h4>{{date $v.Posttime "y-m-j H:i"}}</h4></div>">
+                        <a href="#"><img class="moodimg" src="{{$v.ChangetoSmall}}"></a>
+                    </li>
+                </ul>
+                <script>
+                    lightGallery(document.getElementById('lightgallery-{{$v.Id}}'));
+                </script>
+            {{end}}
+                <div id="moodmdinfos-{{$v.Id}}">
+                    <textarea placeholder="markdown语言">{{$v.Content}}</textarea>
+                </div>
+                <script>
+                    editormd.markdownToHTML("moodmdinfos-{{$v.Id}}", {
+                        htmlDecode      : "style,script,iframe",
+                        emoji           : true,
+                        taskList        : true,
+                        tex             : true,  // 默认不解析
+                        flowChart       : true,  // 默认不解析
+                        sequenceDiagram : true  // 默认不解析
+                    });
+                </script>
+            </div>
+        </div>
+        <span class="dateview col-lg-2 col-md-2 col-sm-2 col-xs-2 column">{{date $v.Posttime "y-m-j H:i"}}</span>
+    {{end}}
+    </div>
+    {{str2html .pagebar}}
+</div>

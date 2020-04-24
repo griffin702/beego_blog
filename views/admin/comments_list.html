@@ -1,0 +1,37 @@
+<fieldset>
+	<legend>评论列表</legend>
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>BlogID</th>
+                    <th>用户ID</th>
+                    <th class="col-lg-3 col-md-3 col-sm-3 col-xs-3 column">评论内容</th>
+                    <th>评论时间</th>
+                    <th>IP</th>
+                    <th>Is_removed</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+            {{range $k, $v := .list}}
+                <tr>
+                    <td>{{$v.Id}}</td>
+                    <td>{{$v.Obj_pk.Id}}</td>
+                    <td>{{$v.User.Id}}</td>
+                    <td>{{$v.Comment}}</td>
+                    <td>{{date $v.Submittime "y-m-d H:i:s"}}</td>
+                    <td>{{$v.Ipaddress}}</td>
+                    <td>{{$v.Is_removed}}</td>
+                    <td>
+                        <a href="/admin/comments/edit?id={{$v.Id}}">编辑</a>
+                        <a href="/admin/comments/delete?id={{$v.Id}}" onclick="return del_comment()">删除</a>
+                    </td>
+                </tr>
+            {{end}}
+            <td colspan="6">{{str2html .pagebar}}</td>
+            </tbody>
+        </table>
+	</div>
+</fieldset>

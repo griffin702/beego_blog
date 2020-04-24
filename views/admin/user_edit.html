@@ -1,0 +1,94 @@
+<fieldset>
+	<legend>编辑用户
+        <a class="btn btn-primary btn-xs" onclick="javascript:history.back();">
+            <span class="glyphicon glyphicon-share-alt"></span> 返回
+        </a>
+	</legend>
+	<form class="form-horizontal" method="post">
+	<input type="hidden" name="id" value="{{.user.Id}}" />
+		<table class="table table-form">
+			<tbody>
+			<tr>
+				<th>用户名：</th>
+				<td>
+					<input name="username" disabled value="{{.user.Username}}" class="form-control" type="text" />
+				</td>
+			</tr>
+			<tr>
+				<th>密码：</th>
+				<td>
+					<input name="password" value="" class="form-control" type="password" />
+					<span class="text-error">{{.errmsg.password}}</span>
+				</td>
+			</tr>
+			<tr>
+				<th>确认密码：</th>
+				<td>
+					<input name="password2" value="" class="form-control" type="password" />
+					<span class="text-error">{{.errmsg.password2}}</span>
+				</td>
+			</tr>
+			<tr>
+				<th>用户头像</th>
+				<td>
+                    <div class="input-group">
+                        <span class="input-group-addon">当前：</span>
+                        <input type="text" id="picture" name="avator" class="form-control" value="{{.user.Avator}}" />
+                    </div>
+                    <input type="file" id="newcover" name="newavator" />
+                    <img src="{{.user.Avator}}" id="autoview" class="img-rounded" width="60" height="60">
+                    <button type="button" id="uploadimg" class="btn btn-primary">上传</button>
+                    <div class="alert alert-warning">
+                        <strong>温馨提示：</strong>点击上传,保存后才能生效,服务器仅允许上传格式jpg、jpeg、png并自动裁剪像素:60*60
+                    </div>
+				</td>
+			</tr>
+            <tr>
+                <th>昵称：</th>
+                <td>
+                    <input name="nickname" value="{{.user.Nickname}}" class="form-control" type="text" />
+                    <span class="text-error">{{.errmsg.nickname}}</span>
+                </td>
+            </tr>
+			<tr>
+				<th>邮箱：</th>
+				<td>
+					<input name="email" value="{{.user.Email}}" class="form-control" type="text" />
+					<span class="text-error">{{.errmsg.email}}</span>
+				</td>
+			</tr>
+			{{if ne .user.Id 1}}<tr>
+				<th>权限分配：</th>
+				<td>
+					<label><input name="permission1" class="checkbox" value="1" type="checkbox" {{if haspermissionstr .user.Permission 1}}checked{{end}} />用户管理</label>
+					<label><input name="permission2" class="checkbox" value="2" type="checkbox" {{if haspermissionstr .user.Permission 2}}checked{{end}} />文章管理</label>
+					<label><input name="permission3" class="checkbox" value="3" type="checkbox" {{if haspermissionstr .user.Permission 3}}checked{{end}} />相册管理</label>
+					<label><input name="permission4" class="checkbox" value="4" type="checkbox" {{if haspermissionstr .user.Permission 4}}checked{{end}} />友链管理</label>
+					<label><input name="permission5" class="checkbox" value="5" type="checkbox" {{if haspermissionstr .user.Permission 5}}checked{{end}} />心情管理</label>
+					<label><input name="permission6" class="checkbox" value="6" type="checkbox" {{if haspermissionstr .user.Permission 6}}checked{{end}} />标签管理</label>
+					<label><input name="permission7" class="checkbox" value="7" type="checkbox" {{if haspermissionstr .user.Permission 7}}checked{{end}} />站点设置</label>
+					<label><input name="permission8" class="checkbox" value="8" type="checkbox" {{if haspermissionstr .user.Permission 8}}checked{{end}} />上传权限</label>
+				</td>
+			</tr>{{end}}
+			<tr>
+				<th>激活状态：</th>
+				<td>
+					<input type="radio" name="active" value="0" id="data_active_0" {{if eq .user.Active 0}}checked{{end}} />
+					<label for="data_active_0" class="checkbox-inline">未激活</label>
+					<input type="radio" name="active" value="1" id="data_active_1" {{if eq .user.Active 1}}checked{{end}} />
+					<label for="data_active_1" class="checkbox-inline">已激活</label>
+				</td>
+			</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+					<th></th>
+					<td>
+					<button type="submit" class="btn btn-primary"><i class="icon-ok"></i> 保存</button>
+					<button type="button" class="btn btn-primary" onclick="javascript:history.back();">取消</button>
+					</td>
+				</tr>
+			</tfoot>
+		</table>
+	</form>
+</fieldset>

@@ -1,0 +1,56 @@
+<fieldset>
+    <legend>添加友链
+        <a class="btn btn-primary btn-xs" onclick="javascript:history.back();">
+            <span class="glyphicon glyphicon-share-alt"></span> 返回
+        </a>
+    </legend>
+	<form class="form-horizontal" method="post" enctype="multipart/form-data">
+        <table class="table table-form">
+            <tbody>
+            <tr>
+                <th class="width:150px;">网站名称</th>
+                <td><input class="form-control" name="sitename" type="text" /></td>
+            </tr>
+            <tr>
+                <th>网站地址</th>
+                <td><input class="form-control" name="url" type="text" /></td>
+            </tr>
+            <tr>
+                <th>网站logo</th>
+                <td>
+                    <div class="input-group">
+                        <span class="input-group-addon">当前：</span>
+                        <input type="text" id="picture" name="cover" class="form-control" />
+                    </div>
+                    <input type="file" id="newcover" name="newcover" />
+                    <img src="/static/upload/default/yulan-100x100.png" id="autoview" class="img-rounded" width="60" height="60">
+                    <button type="button" id="uploadimg" class="btn btn-primary">上传</button>
+                    <div class="alert alert-warning">
+                        <strong>温馨提示：</strong>点击上传,保存后才能生效,服务器仅允许上传格式jpg、jpeg、png并自动裁剪像素:60*60
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th>网站描述</th>
+                <td>
+                    <textarea class="form-control" name="sitedesc" type="text"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <th>排序值</th>
+                <td><input class="form-control" name="rank" type="text" /></td>
+            </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th></th>
+                    <td>
+                    <button type="submit" class="btn btn-primary"><i class="icon-ok"></i> 保存</button>
+                    <button type="button" class="btn btn-primary" onclick="javascript:history.back();">取消</button>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+	</form>
+
+</fieldset>

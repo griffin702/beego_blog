@@ -1,0 +1,40 @@
+<fieldset>
+	<legend>系统信息</legend>
+	<table class="table table-hover table-bordered">
+		<tbody>
+			<tr>
+				<th colspan="2" class="active">系统环境</th>
+			</tr>
+			<tr>
+				<td class="col-lg-4 col-md-4 col-sm-4 col-xs-4 column">主机名称：</td>
+				<td>{{.hostname}}</td>
+			</tr>
+			<tr>
+				<td class="col-lg-4 col-md-4 col-sm-4 col-xs-4 column">Go语言版本：</td>
+				<td>{{.gover}}</td>
+			</tr>
+			<tr>
+				<td class="col-lg-4 col-md-4 col-sm-4 col-xs-4 column">编译环境：</td>
+                <td>操作系统：{{.os}} ({{.arch}})<br>CPU数量：{{.cpunum}}</td>
+			</tr>
+		</tbody>
+		<tbody>
+			<tr>
+				<th colspan="2" class="active">数据统计</th>
+			</tr>
+			<tr>
+				<td class="col-lg-4 col-md-4 col-sm-4 col-xs-4 column">文章数量：</td>
+				<td>{{.postnum}}</td>
+			</tr>
+			<tr>
+				<td class="col-lg-4 col-md-4 col-sm-4 col-xs-4 column">分类数量：</td>
+				<td>{{.tagnum}}</td>
+			</tr>
+			<tr>
+				<td class="col-lg-4 col-md-4 col-sm-4 col-xs-4 column">用户数量：</td>
+				<td>{{.usernum}}</td>
+			</tr>
+		</tbody>
+	</table>
+
+</fieldset>

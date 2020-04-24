@@ -1,0 +1,49 @@
+<fieldset>
+	<legend>创建相册
+        <a class="btn btn-primary btn-xs" onclick="javascript:history.back();">
+            <span class="glyphicon glyphicon-share-alt"></span> 返回
+        </a>
+	</legend>
+	<form class="form-horizontal" method="post" enctype="multipart/form-data">
+		<table class="table table-form">
+			<tbody>
+				<tr>
+					<th class="width:150px;">相册封面</th>
+					<td>
+                        <div class="input-group">
+                            <span class="input-group-addon">当前：</span>
+                            <input type="text" id="picture" name="cover" class="form-control" />
+                        </div>
+                        <input type="file" id="newcover" name="newcover" />
+                        <img src="/static/upload/default/yulan-190x135.png" id="autoview" class="img-rounded" width="190" height="135">
+                        <button type="button" id="uploadimg" class="btn btn-primary">上传</button>
+                        <div class="alert alert-warning">
+                            <strong>温馨提示：</strong>点击上传,保存后才能生效,服务器仅允许上传格式jpg、jpeg、png并自动裁剪像素:190*135
+                        </div>
+					</td>
+				</tr>
+				<tr>
+					<th>展示排序</th>
+					<td>
+						<input class="form-control" type="text" name="rank"/>
+						<br/><br/>
+						<label class="checkbox-inline">值越大越排前</label>
+					</td>
+				</tr>
+				<tr>
+					<th>相册名称</th>
+					<td>
+						<input class="form-control" type="text" name="albumname" />
+					</td>
+				</tr>
+			</tbody>
+			<tfoot>
+			<tr>
+				<td></td>
+				<td><button type="submit" class="btn btn-primary"><i class="icon-ok"></i> 提交</button>
+					<button type="button" class="btn btn-primary" onclick="javascript:history.back();">取消</button></td>
+			</tr>
+			</tfoot>
+		</table>
+	</form>
+</fieldset>

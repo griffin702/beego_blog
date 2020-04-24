@@ -1,0 +1,174 @@
+<fieldset>
+	<legend>系统设置</legend>
+	<form class="form-horizontal" method="post">
+		<table class="table table-form">
+			<tbody>
+				<tr>
+					<th class="col-lg-2 col-md-2 col-sm-2 col-xs-2 column">网站名称</th>
+					<td class="col-lg-10 col-md-10 col-sm-10 col-xs-10 column">
+						<input name="sitename" value="{{.options.sitename}}" class="form-control" title="网站名称" type="text" />
+					</td>
+				</tr>
+				<tr>
+					<th>副标题</th>
+					<td>
+						<input name="subtitle" value="{{.options.subtitle}}" class="form-control" title="副标题" type="text" />
+					</td>
+				</tr>
+				<tr>
+					<th>网名(昵称)</th>
+					<td>
+						<input name="nickname" value="{{.options.nickname}}" class="form-control" title="网名" type="text" />
+					</td>
+				</tr>
+				<tr>
+					<th>网站URL</th>
+					<td>
+						<input name="siteurl" value="{{.options.siteurl}}" class="form-control" title="网站URL" type="text" />
+					</td>
+				</tr>
+				<tr>
+					<th>生日</th>
+					<td>
+						<input name="mybirth" value="{{.options.mybirth}}" class="form-control" title="生日" type="text" />
+					</td>
+				</tr>
+                <tr>
+                    <th>籍贯</th>
+                    <td>
+                        <input name="myoldcity" value="{{.options.myoldcity}}" class="form-control" title="籍贯" type="text" />
+                    </td>
+                </tr>
+                <tr>
+                    <th>现居</th>
+                    <td>
+                        <input name="mycity" value="{{.options.mycity}}" class="form-control" title="现居" type="text" />
+                    </td>
+                </tr>
+                <tr>
+                    <th>职业</th>
+                    <td>
+                        <input name="myprifessional" value="{{.options.myprifessional}}" class="form-control" title="职业" type="text" />
+                    </td>
+                </tr>
+                <tr>
+                    <th>主要职责</th>
+                    <td>
+                        <textarea name="myworkdesc" rows="8" class="form-control" style="min-height: 100px;"
+                                  title="主要职责" >{{.options.myworkdesc}}</textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <th>擅长语言</th>
+                    <td>
+                        <input name="mylang" value="{{.options.mylang}}" class="form-control" title="职业" type="text" />
+                    </td>
+                </tr>
+                <tr>
+                    <th>爱好</th>
+                    <td>
+                        <input name="mylike" value="{{.options.mylike}}" class="form-control" title="职业" type="text" />
+                    </td>
+                </tr>
+				<tr>
+					<th>新浪微博</th>
+					<td>
+						<input name="weibo" value="{{.options.weibo}}" class="form-control" title="新浪微博" type="text" />
+					</td>
+				</tr>
+				<tr>
+					<th>GitHub</th>
+					<td>
+						<input name="github" value="{{.options.github}}" class="form-control" title="GitHub" type="text" />
+					</td>
+				</tr>
+				<tr>
+					<th>列表每页数量</th>
+					<td>
+						<input name="pagesize" value="{{.options.pagesize}}" class="form-control" title="内容列表每页数量" type="text" />
+					</td>
+				</tr>
+				<tr>
+					<th>每页相册数量</th>
+					<td>
+						<input name="albumsize" value="{{.options.albumsize}}" class="form-control" title="内容列表每页数量" type="text" />
+					</td>
+				</tr>
+				<tr>
+					<th>网站关键字</th>
+					<td>
+						<input name="keywords" value="{{.options.keywords}}" class="form-control" title="网站关键字" type="text" />
+					</td>
+				</tr>
+					<tr>
+					<th>网站描述</th>
+					<td>
+						<textarea name="description" rows="4" class="form-control" style="min-height: 100px;"
+								  title="网站描述" >{{.options.description}}</textarea>
+					</td>
+				</tr>
+				<tr>
+					<th>统计代码</th>
+					<td>
+						<textarea name="stat" rows="2" class="form-control" style="min-height: 160px;"
+								  title="统计代码" >{{.options.stat}}</textarea>
+					</td>
+				</tr>
+				<tr>
+					<th>主题模板</th>
+					<td>
+						<input name="theme" value="{{.options.theme}}" class="form-control" title="主题模板" type="text" />
+					</td>
+				</tr>
+				<tr>
+					<th>时区设置</th>
+					<td>
+						<select class="form-control" name="timezone">
+							<option value="-12" {{if eq .options.timezone "-12"}}selected{{end}}>(标准时-12:00) 日界线西</option>
+							<option value="-11" {{if eq .options.timezone "-11"}}selected{{end}}>(标准时-11:00) 中途岛、萨摩亚群岛</option>
+							<option value="-10" {{if eq .options.timezone "-10"}}selected{{end}}>(标准时-10:00) 夏威夷</option>
+							<option value="-9" {{if eq .options.timezone "-9"}}selected{{end}}>(标准时-9:00) 阿拉斯加</option>
+							<option value="-8" {{if eq .options.timezone "-8"}}selected{{end}}>(标准时-8:00) 太平洋时间(美国和加拿大)</option>
+							<option value="-7" {{if eq .options.timezone "-7"}}selected{{end}}>(标准时-7:00) 山地时间(美国和加拿大)</option>
+							<option value="-6" {{if eq .options.timezone "-6"}}selected{{end}}>(标准时-6:00) 中部时间(美国和加拿大)、墨西哥城</option>
+							<option value="-5" {{if eq .options.timezone "-5"}}selected{{end}}>(标准时-5:00) 东部时间(美国和加拿大)、波哥大</option>
+							<option value="-4" {{if eq .options.timezone "-4"}}selected{{end}}>(标准时-4:00) 大西洋时间(加拿大)、加拉加斯</option>
+							<option value="-3.5" {{if eq .options.timezone "-3.5"}}selected{{end}}>(标准时-3:30) 纽芬兰</option>
+							<option value="-3" {{if eq .options.timezone "-3"}}selected{{end}}>(标准时-3:00) 巴西、布宜诺斯艾利斯、乔治敦</option>
+							<option value="-2" {{if eq .options.timezone "-2"}}selected{{end}}>(标准时-2:00) 中大西洋</option>
+							<option value="-1" {{if eq .options.timezone "-1"}}selected{{end}}>(标准时-1:00) 亚速尔群岛、佛得角群岛</option>
+							<option value="0" {{if eq .options.timezone "0"}}selected{{end}}>(格林尼治标准时) 西欧时间、伦敦、卡萨布兰卡</option>
+							<option value="1" {{if eq .options.timezone "1"}}selected{{end}}>(标准时+1:00) 中欧时间、安哥拉、利比亚</option>
+							<option value="2" {{if eq .options.timezone "2"}}selected{{end}}>(标准时+2:00) 东欧时间、开罗，雅典</option>
+							<option value="3" {{if eq .options.timezone "3"}}selected{{end}}>(标准时+3:00) 巴格达、科威特、莫斯科</option>
+							<option value="3.5" {{if eq .options.timezone "3.5"}}selected{{end}}>(标准时+3:30) 德黑兰</option>
+							<option value="4" {{if eq .options.timezone "4"}}selected{{end}}>(标准时+4:00) 阿布扎比、马斯喀特、巴库</option>
+							<option value="4.5" {{if eq .options.timezone "4.5"}}selected{{end}}>(标准时+4:30) 喀布尔</option>
+							<option value="5" {{if eq .options.timezone "5"}}selected{{end}}>(标准时+5:00) 叶卡捷琳堡、伊斯兰堡、卡拉奇</option>
+							<option value="5.5" {{if eq .options.timezone "5.5"}}selected{{end}}>(标准时+5:30) 孟买、加尔各答、新德里</option>
+							<option value="6" {{if eq .options.timezone "6"}}selected{{end}}>(标准时+6:00) 阿拉木图、 达卡、新亚伯利亚</option>
+							<option value="7" {{if eq .options.timezone "7"}}selected{{end}}>(标准时+7:00) 曼谷、河内、雅加达</option>
+							<option value="8" {{if eq .options.timezone "8"}}selected{{end}}>(北京时间) 北京、重庆、香港、新加坡</option>
+							<option value="9" {{if eq .options.timezone "9"}}selected{{end}}>(标准时+9:00) 东京、汉城、大阪、雅库茨克</option>
+							<option value="9.5" {{if eq .options.timezone "9.5"}}selected{{end}}>(标准时+9:30) 阿德莱德、达尔文</option>
+							<option value="10" {{if eq .options.timezone "10"}}selected{{end}}>(标准时+10:00) 悉尼、关岛</option>
+							<option value="11" {{if eq .options.timezone "11"}}selected{{end}}>(标准时+11:00) 马加丹、索罗门群岛</option>
+							<option value="12" {{if eq .options.timezone "12"}}selected{{end}}>(标准时+12:00) 奥克兰、惠灵顿、堪察加半岛</option>
+						</select>
+						<br /><br />
+						<span>当前UTC时间：{{date .now "Y-m-d H:i:s"}}</span>
+					</td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td></td>
+					<td>
+					<button type="submit" class="btn btn-primary"><i class="icon-ok"></i> 保存</button>
+					<button type="button" class="btn btn-primary" onclick="javascript:history.back();">取消</button>
+					</td>
+				</tr>
+			</tfoot>
+		</table>
+	</form>
+</fieldset>

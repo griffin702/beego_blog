@@ -1,0 +1,13 @@
+swagger: "2.0"
+info: {}
+basePath: /v1
+paths:
+  /front/test/{id}:
+    get:
+      tags:
+      - front
+      description: get test1
+      operationId: FrontController.GetTest
+      responses:
+        "200":
+          description: string

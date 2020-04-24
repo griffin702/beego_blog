@@ -1,0 +1,27 @@
+<h2 class="title_tj col-lg-12 col-md-12 col-sm-12 col-xs-12 column">
+    <p>文章<span>推荐</span></p>
+</h2>
+<div class="bloglist col-lg-9 col-md-9 col-sm-12 col-xs-12 column">
+    {{range $k, $v := .list}}
+    <div class="blog col-lg-12 col-md-12 col-sm-12 col-xs-12 column">
+        <a href="{{$v.Link}}" class="articleimg col-lg-3 col-md-5 hidden-sm hidden-xs column">
+            <img src="{{$v.Cover}}" class="img-thumbnail col-lg-12 col-md-12 hidden-sm hidden-xs column">
+        </a>
+        <h3 class="col-lg-9 col-md-7 col-sm-12 col-xs-12 column">
+            <a href="{{$v.Link}}">{{str2html $v.ColorTitle}}</a>
+            <p class="lifedateview">
+                <span><span class="glyphicon glyphicon-time"></span>{{date $v.Posttime "y-m-j H:i"}}</span>
+                <span><span class="glyphicon glyphicon-user"></span>{{$v.User.Nickname}}</span>
+                <span><span class="glyphicon glyphicon-tags"></span> [{{str2html $v.TagsLink}}]</span>
+            </p>
+        </h3>
+        <div class="blogcontent col-lg-9 col-md-7 col-sm-12 col-xs-12 column">
+            {{str2html $v.Excerpt}}
+        </div>
+        <a title="阅读全文" href="{{$v.Link}}" target="_blank" class="readmore">阅读全文
+            <span class="glyphicon glyphicon-forward"></span>
+        </a>
+    </div>
+    {{end}}
+    {{str2html .pagebar}}
+</div>

@@ -1,0 +1,46 @@
+<fieldset>
+	<legend>相册列表
+        <a class="btn btn-primary btn-xs" href="/admin/album/add">
+            <span class="glyphicon glyphicon-plus"></span> 创建相册
+        </a>
+	</legend>
+    <div class="table-responsive">
+		<table class="table table-hover">
+			<thead>
+			<tr>
+				<th>ID</th>
+				<th>相册名</th>
+				<th>创建时间</th>
+				<th>排序值</th>
+				<th>封面</th>
+				<th>操作</th>
+			</tr>
+			</thead>
+			<tbody>
+			{{range $k, $v := .list}}
+				<tr>
+					<td>{{$v.Id}}</td>
+					<td>{{$v.Name}}</td>
+					<td>{{date $v.Posttime "y-m-d H:i:s"}}</td>
+					<td>{{$v.Rank}}</td>
+					<td>
+						<a href="/admin/photo/list?albumid={{$v.Id}}">
+							<img src="{{$v.Cover}}" width = "170" height="80" />
+						</a>
+					</td>
+					<td>
+						<a href="/admin/photo/list?albumid={{$v.Id}}">进入</a>|
+						<a href="/admin/album/edit?albumid={{$v.Id}}" >修改</a>|
+					{{if $v.Ishide}}
+                        <a href="/admin/album/delete?albumid={{$v.Id}}&ishide=0" >显示</a>
+					{{else}}
+                        <a href="/admin/album/delete?albumid={{$v.Id}}&ishide=1" >隐藏</a>
+					{{end}}
+					</td>
+				</tr>
+			{{end}}
+            <td colspan="6">{{str2html .pagebar}}</td>
+			</tbody>
+		</table>
+	</div>
+</fieldset>

@@ -1,0 +1,33 @@
+<script src="/static/lightgallery/js/picturefill.min.js"></script>
+<script src="/static/lightgallery/dist/js/lightgallery.js"></script>
+<script src="/static/lightgallery/js/lg-pager.js"></script>
+<script src="/static/lightgallery/js/lg-autoplay.js"></script>
+<script src="/static/lightgallery/js/lg-fullscreen.js"></script>
+<script src="/static/lightgallery/js/lg-zoom.js"></script>
+<link rel="stylesheet" type="text/css" href="/static/lightgallery/dist/css/lightgallery.min.css">
+<link href="{{.root}}css/photo.css" rel="stylesheet">
+
+<h1 class="t_nav">
+    <a href="/" class="n1">网站首页</a>
+    <a href="/album.html" class="n2">返回列表</a>
+    <p><span class="glyphicon glyphicon-map-marker"></span> 每一个瞬间的摄影，都是无法复摹独一无二的</p>
+</h1>
+<div class="photolist col-lg-12 col-md-12 col-sm-12 col-xs-12 column">
+    <ul id="lightgallery" class="gallery list-unstyled col-lg-12 col-md-12 col-sm-12 col-xs-12 column">
+        {{range $k, $v := .list}}
+            <li data-sub-html="IMG_{{$v.Id}}" data-src="{{$v.Url}}" class="col-lg-2 col-md-2 col-sm-6 col-xs-6 column">
+                <a href="#" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 column">
+                    <img src="{{$v.ChangetoSmall}}" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 column" />
+                    <span class="col-lg-12 col-md-12 col-sm-12 col-xs-12 column" title="IMG_{{$v.Id}}">IMG_{{$v.Id}}</span>
+                </a>
+            </li>
+        {{end}}
+    </ul>
+    <script>
+        lightGallery(document.getElementById('lightgallery'));
+    </script>
+{{str2html .pagebar}}
+</div>
+{{/*<div class="comments">*/}}
+    {{/*<div class="ds-thread"></div>*/}}
+{{/*</div>*/}}

@@ -1,0 +1,117 @@
+<fieldset>
+	<legend>发布文章
+        <a class="btn btn-primary btn-xs" onclick="javascript:history.back();">
+            <span class="glyphicon glyphicon-share-alt"></span> 返回
+        </a>
+	</legend>
+	<form class="form-horizontal" method="post" enctype="multipart/form-data" name="p" action="/admin/article/save">
+		<table class="table table-form">
+			<tbody>
+				<tr>
+					<th class="width:150px;">标题:</th>
+					<td>
+						<input type="text" name="title" class="form-control" />
+						<input name="color" value="" type="hidden" />
+						<img src="/static/themes/admin/img/colorpicker.png" id="colorpicker" style="cursor:pointer;" />
+						<label class="checkbox-inline"><input type="checkbox" value="1" name="istop" /> 置顶文章</label>
+					</td>
+				</tr>
+				<tr>
+					<th>标题图片:</th>
+					<td>
+                        <div class="input-group">
+                            <span class="input-group-addon">当前：</span>
+                            <input type="text" id="picture" name="cover" class="form-control" />
+                        </div>
+                        <input type="file" id="newcover" name="newcover" />
+                        <img src="/static/upload/default/yulan-190x135.png" id="autoview" class="img-rounded" width="190" height="135">
+                        <button type="button" id="uploadimg" class="btn btn-primary">上传</button>
+                        <div class="alert alert-warning">
+                            <strong>温馨提示：</strong>点击上传,保存后才能生效,服务器仅允许上传格式jpg、jpeg、png并自动裁剪像素:190*135
+                        </div>
+					</td>
+				</tr>
+				<tr>
+					<th>分类标签:</th>
+					<td>
+						<input type="text" name="tags" class="form-control" />
+						<label class="checkbox-inline">多个用英文逗号","分隔</label>
+					</td>
+				</tr>
+				<tr>
+					<th>URL名称:</th>
+					<td>
+						<input type="text" name="urlname" class="form-control" />
+						<label class="checkbox-inline">
+							<input type="checkbox" name="urltype" value="1" />
+							作为独立页面不显示在列表(使用 http://domain/urlname 访问)
+						</label>
+					</td>
+				</tr>
+				<tr>
+					<th>发布时间:</th>
+					<td>
+						<div class="input-append date" id="datetimepicker" data-date="{{.posttime}}" data-date-format="yyyy-mm-dd HH:ii:ss">
+							<input class="form-control" name="posttime" size="16" type="text" value="{{.posttime}}">
+							<span class="add-on"><i class="icon-remove"></i></span>
+							<span class="add-on"><i class="icon-th"></i></span>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<th>保存到:</th>
+					<td>
+						<select class="form-control" name="status">
+							<option value="0">已发布</option>
+							<option value="1">草稿箱</option>
+							<option value="2">回收站</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<th>内容:</th>
+					<td>
+                        <div id="content"></div>
+					</td>
+				</tr>
+			</tbody>
+			<tfoot>
+			<tr>
+				<td></td>
+				<td><button type="submit" class="btn btn-primary"><i class="icon-ok"></i> 提交</button>
+					<button type="button" class="btn btn-primary" onclick="javascript:history.back();">取消</button></td>
+			</tr>
+			</tfoot>
+		</table>
+	</form>
+</fieldset>
+
+<link href="/static/themes/admin/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen" type="text/css" />
+<script src="/static/themes/admin/js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
+<script src="/static/themes/admin/js/bootstrap-datetimepicker.zh-CN.js" type="text/javascript"></script>
+<script src="/static/themes/admin/js/jquery.colorpicker.js" type="text/javascript"></script>
+<script type="text/javascript">
+	$(function() {
+		$("#colorpicker").colorpicker({
+			fillcolor:true,
+			success:function(o,color){
+				$("input[name='title']").css("color",color);
+				$("input[name='color']").val(color);
+			},
+			reset:function(o) {
+				$("input[name='title']").css("color","");
+				$("input[name='color']").val("");
+			}
+		});
+		$('#datetimepicker').datetimepicker({
+			language:  'zh-CN',
+	        weekStart: 1,
+	        todayBtn:  1,
+			autoclose: 1,
+			todayHighlight: 1,
+			startView: 2,
+			forceParse: 1,
+	        showMeridian: 1
+	    });
+	});
+</script>
