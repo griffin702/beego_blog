@@ -5,10 +5,80 @@
     },
     "basePath": "/v1",
     "paths": {
+        "/front/captcha": {
+            "get": {
+                "tags": [
+                    "login"
+                ],
+                "description": "获取登录验证码图片",
+                "operationId": "FrontController.GetCaptcha",
+                "responses": {
+                    "200": {
+                        "description": "image/png"
+                    }
+                }
+            }
+        },
+        "/front/captcha/check": {
+            "post": {
+                "tags": [
+                    "login"
+                ],
+                "description": "验证码Check",
+                "operationId": "FrontController.PostCaptchaCheck",
+                "responses": {
+                    "200": {
+                        "description": "status bool, data interface{}, msg string"
+                    }
+                }
+            }
+        },
         "/front/test/{id}": {
             "get": {
                 "tags": [
-                    "front"
+                    "login"
+                ],
+                "description": "get test1",
+                "operationId": "FrontController.GetTest",
+                "responses": {
+                    "200": {
+                        "description": "string"
+                    }
+                }
+            }
+        },
+        "/login/captcha": {
+            "get": {
+                "tags": [
+                    "login"
+                ],
+                "description": "获取登录验证码图片",
+                "operationId": "FrontController.GetCaptcha",
+                "responses": {
+                    "200": {
+                        "description": "image/png"
+                    }
+                }
+            }
+        },
+        "/login/captcha/check": {
+            "post": {
+                "tags": [
+                    "login"
+                ],
+                "description": "验证码Check",
+                "operationId": "FrontController.PostCaptchaCheck",
+                "responses": {
+                    "200": {
+                        "description": "status bool, data interface{}, msg string"
+                    }
+                }
+            }
+        },
+        "/login/test/{id}": {
+            "get": {
+                "tags": [
+                    "login"
                 ],
                 "description": "get test1",
                 "operationId": "FrontController.GetTest",
