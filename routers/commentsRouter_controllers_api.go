@@ -13,6 +13,7 @@ func init() {
 			Router:           `/captcha`,
 			AllowHTTPMethods: []string{"get"},
 			MethodParams:     param.Make(),
+			Filters:          nil,
 			Params:           nil})
 
 	beego.GlobalControllerRouter["beego_blog/controllers/api:FrontController"] = append(beego.GlobalControllerRouter["beego_blog/controllers/api:FrontController"],
@@ -21,6 +22,7 @@ func init() {
 			Router:           `/captcha/check`,
 			AllowHTTPMethods: []string{"post"},
 			MethodParams:     param.Make(),
+			Filters:          nil,
 			Params:           nil})
 
 	beego.GlobalControllerRouter["beego_blog/controllers/api:FrontController"] = append(beego.GlobalControllerRouter["beego_blog/controllers/api:FrontController"],
@@ -29,6 +31,7 @@ func init() {
 			Router:           `/test/:id`,
 			AllowHTTPMethods: []string{"get"},
 			MethodParams:     param.Make(),
+			Filters:          nil,
 			Params:           nil})
 
 }
